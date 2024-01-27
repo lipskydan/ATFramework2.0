@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATFramework2.0", "ATFramework2.0\ATFramework2.0.csproj", "{7AA4DD9A-40E0-45FC-9E83-9BEC36441513}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{4215F7B5-1C5B-4D2D-A6FE-35C56E405F56}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7AA4DD9A-40E0-45FC-9E83-9BEC36441513}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AA4DD9A-40E0-45FC-9E83-9BEC36441513}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AA4DD9A-40E0-45FC-9E83-9BEC36441513}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AA4DD9A-40E0-45FC-9E83-9BEC36441513}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4215F7B5-1C5B-4D2D-A6FE-35C56E405F56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4215F7B5-1C5B-4D2D-A6FE-35C56E405F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4215F7B5-1C5B-4D2D-A6FE-35C56E405F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4215F7B5-1C5B-4D2D-A6FE-35C56E405F56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

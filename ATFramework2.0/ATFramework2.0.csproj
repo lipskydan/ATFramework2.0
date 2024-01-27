@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>ATFramework2._0</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Selenium.Support" Version="4.17.0" />
+      <PackageReference Include="Selenium.WebDriver" Version="4.17.0" />
+      <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="121.0.6167.8500" />
+      <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" />
+      <PackageReference Include="WebDriverManager" Version="2.17.1" />
+    </ItemGroup>
+
+</Project>
