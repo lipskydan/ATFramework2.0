@@ -92,6 +92,6 @@ public class UserRegistrationSteps
     [Then(@"Success message ""(.*)"" is displayed")]
     public void ThenSuccessMessageIsDisplayed(string p0)
     {
-        //Assert.AreEqual("User Registered Successfully !!!", _successRegistrationPage.get_SuccessMsg());
+        Assert.AreEqual("User Registered Successfully !!!", _successRegistrationPage.get_SuccessMsg());
     }
 }
