@@ -24,7 +24,7 @@ public class DriverFixture : IDriverFixture, IDisposable
         Driver = GetWebDriver(); //_testSettings.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();
         //Driver.Navigate().GoToUrl(_testSettings.ApplicationUrl);
         
-        Driver.Navigate().GoToUrl(ConfigurationManager.AppSettings["URL"]);
+        Driver.Navigate().GoToUrl("https://anupdamoda.github.io/AceOnlineShoePortal/");
     }
 
 

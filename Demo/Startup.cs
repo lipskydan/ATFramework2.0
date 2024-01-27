@@ -17,7 +17,10 @@ public class Startup
             // .AddSingleton(ConfigReader.ReadConfig())
             .AddScoped<IDriverFixture, DriverFixture>()
             .AddScoped<IDriverWait, DriverWait>()
-            .AddScoped<IHomePage, HomePage>();
+            .AddScoped<IHomePage, HomePage>()
+            .AddScoped<IRegistrationPage, RegistrationPage>()
+            .AddScoped<ISignInPage, SignInPage>()
+            .AddScoped<ISuccessRegistrationPage, SuccessRegistrationPage>();
 
         return services;
     }
