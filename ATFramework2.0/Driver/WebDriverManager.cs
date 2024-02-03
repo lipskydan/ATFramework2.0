@@ -1,17 +1,19 @@
 ﻿namespace ATFramework2._0.Driver;
 
-public class WebWebDriverManager : IWebDriverManager, IDisposable
+public class WebDriverManager : IWebDriverManager, IDisposable
 {
     private readonly TestSettings _testSettings;
     private readonly Lazy<WebDriverWait> _webDriverWait;
     
     public IWebDriver Driver { get; }
+    public WebElementFinder ElementFinder { get; }
     
-    public WebWebDriverManager(TestSettings testSettings)
+    public WebDriverManager(TestSettings testSettings)
     {
         _testSettings = testSettings;
         Driver = _testSettings.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();
         _webDriverWait = new Lazy<WebDriverWait>(GetWaitDriver);
+        ElementFinder = new WebElementFinder(this);
     }
     private IWebDriver GetWebDriver()
     {

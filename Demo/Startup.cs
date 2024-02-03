@@ -9,7 +9,7 @@ public class Startup
 
         services
             .AddSingleton(ConfigReader.ReadConfig())
-            .AddScoped<IWebDriverManager, WebWebDriverManager>()
+            .AddScoped<IWebDriverManager, ATFramework2._0.Driver.WebDriverManager>()
             .AddScoped<IHomePage, HomePage>()
             .AddScoped<IRegistrationPage, RegistrationPage>()
             .AddScoped<ISignInPage, SignInPage>()

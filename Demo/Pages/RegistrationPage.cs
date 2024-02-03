@@ -18,10 +18,10 @@ public class RegistrationPage: IRegistrationPage
     public RegistrationPage(IWebDriverManager webDriver)
     {
         _webDriver = webDriver;
-    } 
-    
-    public  IWebElement btnSubmit => _webDriver.FindElement(By.XPath("//input[@value='Submit']")); 
-    public  IWebElement txtFirstName => _webDriver.FindElement(By.Id("firstname"));
+    }
+
+    public IWebElement btnSubmit => _webDriver.ElementFinder.XPath("//input[@value='Submit']"); // _webDriver.FindElement(By.XPath("//input[@value='Submit']")); 
+    public  IWebElement txtFirstName => _webDriver.FindElement(By.Id("firstname")); //[id='firstname']
     public  IWebElement txtLastName => _webDriver.FindElement(By.Id("lastname")); 
     public  IWebElement txtEmailid => _webDriver.FindElement(By.Id("emailId"));
     public  IWebElement txtUsername => _webDriver.FindElement(By.Id("usr"));
