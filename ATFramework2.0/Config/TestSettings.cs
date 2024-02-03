@@ -1,6 +1,4 @@
-﻿using ATFramework2._0.Driver;
-
-namespace ATFramework2._0.Config;
+﻿namespace ATFramework2._0.Config;
 
 public class TestSettings
 {

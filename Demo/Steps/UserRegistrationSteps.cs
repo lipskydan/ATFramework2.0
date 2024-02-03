@@ -1,7 +1,3 @@
-using Demo.Pages;
-using NUnit.Framework;
-using TechTalk.SpecFlow;
-
 namespace Demo.Steps;
 
 [Binding]
@@ -22,7 +18,7 @@ public class UserRegistrationSteps
         _successRegistrationPage = successRegistrationPage;
     }
     
-    [Given(@"Navigate to the app")]
+    [Given(@"Navigate to the start page of the app")]
     public void GivenNavigateToTheApp()
     {
         Console.WriteLine("Navigate to the app");
@@ -45,37 +41,37 @@ public class UserRegistrationSteps
     [Given(@"select Salutation")]
     public void GivenSelectSalutation()
     {
-        _registrationPage.select_Salutation("Mr.");
+        _registrationPage.SelectSalutation("Mr.");
     }
 
     [Given(@"enter FirstName")]
     public void GivenEnterFirstName()
     {
-        _registrationPage.enter_FirstName("Clark");
+        _registrationPage.inputFirstName("Clark");
     }
 
     [Given(@"enter LastName")]
     public void GivenEnterLastName()
     {
-        _registrationPage.enter_LastName("Smith");
+        _registrationPage.inputLastName("Smith");
     }
 
     [Given(@"enter ValidEmail")]
     public void GivenEnterValidEmail()
     {
-        _registrationPage.enter_ValidEmail("PeterSmith@gmail.com");
+        _registrationPage.inputEmail("PeterSmith@gmail.com");
     }
 
     [Given(@"enter UserName")]
     public void GivenEnterUserName()
     {
-        _registrationPage.enter_UsrName("Peter");
+        _registrationPage.inputUserName("Peter");
     }
 
     [Given(@"enter Password")]
     public void GivenEnterPassword()
     {
-        _registrationPage.enter_Password("Password");
+        _registrationPage.inputPassword("Password");
     }
 
     [When(@"click on the button ""(.*)""")]
@@ -84,7 +80,7 @@ public class UserRegistrationSteps
         switch (submit)
         {
             case "Submit":
-                _registrationPage.click_Submit();
+                _registrationPage.clickSubmitBtn();
                 break;
         }
     }
@@ -92,6 +88,6 @@ public class UserRegistrationSteps
     [Then(@"Success message ""(.*)"" is displayed")]
     public void ThenSuccessMessageIsDisplayed(string p0)
     {
-        Assert.AreEqual("User Registered Successfully !!!", _successRegistrationPage.get_SuccessMsg());
+        Assert.AreEqual("User Registered Successfully !!!", _successRegistrationPage.getSuccessMsg());
     }
 }

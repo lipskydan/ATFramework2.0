@@ -1,7 +1,4 @@
-﻿using ATFramework2._0.Driver;
-using OpenQA.Selenium;
-
-namespace Demo.Pages;
+﻿namespace Demo.Pages;
 
 public interface IHomePage
 {
@@ -15,14 +12,15 @@ class HomePage : IHomePage
     public HomePage(IWebDriverManager webDriver)
     {
         _webDriver = webDriver;
+        _webDriver.OpenApplicationStartPage();
     }
     
-    public IWebElement menu_input => _webDriver.FindElement(By.CssSelector("#menuToggle > input[type=checkbox]"));
+    public IWebElement menuBtn => _webDriver.FindElement(By.CssSelector("#menuToggle > input[type=checkbox]"));
     public IWebElement lnkSignInPortal => _webDriver.FindElement(By.LinkText("Sign In Portal"));
     
     public void click_SignInPortal()
     {
-        menu_input.Click();
+        menuBtn.Click();
         lnkSignInPortal.Click();
     }
 }

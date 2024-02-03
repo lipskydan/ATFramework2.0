@@ -1,7 +1,4 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-
-namespace ATFramework2._0.Extensions;
+﻿namespace ATFramework2._0.Extensions;
 
 public static class WebElementExtension
 {

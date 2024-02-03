@@ -1,7 +1,3 @@
-using ATFramework2._0.Driver;
-using OpenQA.Selenium;
-using System.Configuration;    
-
 namespace Demo.Pages;
 
 public interface ISignInPage

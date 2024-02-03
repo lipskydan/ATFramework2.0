@@ -1,6 +1,3 @@
-using ATFramework2._0.Driver;
-using TechTalk.SpecFlow;
-
 namespace Demo.Hooks;
 
 [Binding]

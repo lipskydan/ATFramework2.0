@@ -1,10 +1,4 @@
-﻿using ATFramework2._0.Config;
-using Demo.Pages;
-using ATFramework2._0.Driver;
-using Microsoft.Extensions.DependencyInjection;
-using SolidToken.SpecFlow.DependencyInjection;
-
-namespace Demo;
+﻿namespace Demo;
 
 public class Startup
 {

@@ -1,20 +1,14 @@
-using ATFramework2._0.Driver;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System.Configuration;
-
 namespace Demo.Pages;
 
 public interface IRegistrationPage
 {
-    void select_Salutation(string text);
-    void click_Submit();
-    void enter_FirstName(string text);
-    void enter_LastName(string text);
-    void enter_InvalidEmail(string text);
-    void enter_ValidEmail(string text);
-    void enter_UsrName(string text);
-    void enter_Password(string text);
+    void SelectSalutation(string text);
+    void clickSubmitBtn();
+    void inputFirstName(string text);
+    void inputLastName(string text);
+    void inputEmail(string text);
+    void inputUserName(string text);
+    void inputPassword(string text);
 }
 
 public class RegistrationPage: IRegistrationPage
@@ -35,37 +29,33 @@ public class RegistrationPage: IRegistrationPage
     public  string txtErrorMsg => _webDriver.FindElement(By.XPath("//*[@id=\"first_form\"]/div/span")).Text;
     public  string txtErrorMsg2 => _webDriver.FindElement(By.XPath("//*[@id=\"first_form\"]/div/span")).Text;
 
-    public void select_Salutation(string text)
+    public void SelectSalutation(string text)
     { 
         SelectElement drpSalutation = new SelectElement(_webDriver.FindElement(By.Id("Salutation")));
         drpSalutation.SelectByText(text);
     }
     
-    public void click_Submit()
+    public void clickSubmitBtn()
     {
         btnSubmit.Click();
     }
-    public void enter_FirstName(string text)
+    public void inputFirstName(string text)
     {
         txtFirstName.SendKeys(text);
     }
-    public void enter_LastName(string text)
+    public void inputLastName(string text)
     {
         txtLastName.SendKeys(text);
     }
-    public void enter_InvalidEmail(string text)
+    public void inputEmail(string text)
     {
         txtEmailid.SendKeys(text);
     }
-    public void enter_ValidEmail(string text)
-    {
-        txtEmailid.SendKeys(text);
-    }
-    public void enter_UsrName(string text)
+    public void inputUserName(string text)
     {
         txtUsername.SendKeys(text);
     }
-    public void enter_Password(string text)
+    public void inputPassword(string text)
     {
         txtPassword.SendKeys(text);
     }

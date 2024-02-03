@@ -1,11 +1,8 @@
-using ATFramework2._0.Driver;
-using OpenQA.Selenium;
-
 namespace Demo.Pages;
 
 public interface ISuccessRegistrationPage
 {
-    string get_SuccessMsg();
+    string getSuccessMsg();
 }
 
 public class SuccessRegistrationPage : ISuccessRegistrationPage
@@ -16,5 +13,5 @@ public class SuccessRegistrationPage : ISuccessRegistrationPage
     {
         _webDriver = webDriver;
     } 
-    public string get_SuccessMsg() => _webDriver.FindElement(By.XPath("/html/body/center[1]/h1")).Text;
+    public string getSuccessMsg() => _webDriver.FindElement(By.XPath("/html/body/center[1]/h1")).Text;
 }
