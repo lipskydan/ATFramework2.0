@@ -19,25 +19,25 @@ public interface IRegistrationPage
 
 public class RegistrationPage: IRegistrationPage
 {
-    private readonly IDriverWait _driver;
+    private readonly IWebDriverManager _webDriver;
 
-    public RegistrationPage(IDriverWait driver)
+    public RegistrationPage(IWebDriverManager webDriver)
     {
-        _driver = driver;
+        _webDriver = webDriver;
     } 
     
-    public  IWebElement btnSubmit => _driver.FindElement(By.XPath("//input[@value='Submit']")); 
-    public  IWebElement txtFirstName => _driver.FindElement(By.Id("firstname"));
-    public  IWebElement txtLastName => _driver.FindElement(By.Id("lastname")); 
-    public  IWebElement txtEmailid => _driver.FindElement(By.Id("emailId"));
-    public  IWebElement txtUsername => _driver.FindElement(By.Id("usr"));
-    public  IWebElement txtPassword => _driver.FindElement(By.Id("pwd"));
-    public  string txtErrorMsg => _driver.FindElement(By.XPath("//*[@id=\"first_form\"]/div/span")).Text;
-    public  string txtErrorMsg2 => _driver.FindElement(By.XPath("//*[@id=\"first_form\"]/div/span")).Text;
+    public  IWebElement btnSubmit => _webDriver.FindElement(By.XPath("//input[@value='Submit']")); 
+    public  IWebElement txtFirstName => _webDriver.FindElement(By.Id("firstname"));
+    public  IWebElement txtLastName => _webDriver.FindElement(By.Id("lastname")); 
+    public  IWebElement txtEmailid => _webDriver.FindElement(By.Id("emailId"));
+    public  IWebElement txtUsername => _webDriver.FindElement(By.Id("usr"));
+    public  IWebElement txtPassword => _webDriver.FindElement(By.Id("pwd"));
+    public  string txtErrorMsg => _webDriver.FindElement(By.XPath("//*[@id=\"first_form\"]/div/span")).Text;
+    public  string txtErrorMsg2 => _webDriver.FindElement(By.XPath("//*[@id=\"first_form\"]/div/span")).Text;
 
     public void select_Salutation(string text)
     { 
-        SelectElement drpSalutation = new SelectElement(_driver.FindElement(By.Id("Salutation")));
+        SelectElement drpSalutation = new SelectElement(_webDriver.FindElement(By.Id("Salutation")));
         drpSalutation.SelectByText(text);
     }
     

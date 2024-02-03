@@ -10,11 +10,11 @@ public interface ISuccessRegistrationPage
 
 public class SuccessRegistrationPage : ISuccessRegistrationPage
 {
-    private readonly IDriverWait _driver;
+    private readonly IWebDriverManager _webDriver;
 
-    public SuccessRegistrationPage(IDriverWait driver)
+    public SuccessRegistrationPage(IWebDriverManager webDriver)
     {
-        _driver = driver;
+        _webDriver = webDriver;
     } 
-    public string get_SuccessMsg() => _driver.FindElement(By.XPath("/html/body/center[1]/h1")).Text;
+    public string get_SuccessMsg() => _webDriver.FindElement(By.XPath("/html/body/center[1]/h1")).Text;
 }

@@ -15,8 +15,7 @@ public class Startup
 
         services
             .AddSingleton(ConfigReader.ReadConfig())
-            .AddScoped<IDriverFixture, DriverFixture>()
-            .AddScoped<IDriverWait, DriverWait>()
+            .AddScoped<IWebDriverManager, WebWebDriverManager>()
             .AddScoped<IHomePage, HomePage>()
             .AddScoped<IRegistrationPage, RegistrationPage>()
             .AddScoped<ISignInPage, SignInPage>()

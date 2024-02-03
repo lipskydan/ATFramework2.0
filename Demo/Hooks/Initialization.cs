@@ -8,13 +8,13 @@ public class Initialization
 {
     private readonly ScenarioContext _scenarioContext;
     private readonly FeatureContext _featureContext;
-    private readonly IDriverFixture _driverFixture;
+    private readonly IWebDriverManager _webDriverManager;
     
-    public Initialization(ScenarioContext scenarioContext, FeatureContext featureContext, IDriverFixture driverFixture)
+    public Initialization(ScenarioContext scenarioContext, FeatureContext featureContext, IWebDriverManager webDriverManager)
     {
         _scenarioContext = scenarioContext;
         _featureContext = featureContext;
-        _driverFixture = driverFixture;
+        _webDriverManager = webDriverManager;
     }
     
     [BeforeScenario]

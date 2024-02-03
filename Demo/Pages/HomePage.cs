@@ -10,15 +10,15 @@ public interface IHomePage
 
 class HomePage : IHomePage
 {
-    private readonly IDriverWait _driver;
+    private readonly IWebDriverManager _webDriver;
 
-    public HomePage(IDriverWait driver)
+    public HomePage(IWebDriverManager webDriver)
     {
-        _driver = driver;
+        _webDriver = webDriver;
     }
     
-    public IWebElement menu_input => _driver.FindElement(By.CssSelector("#menuToggle > input[type=checkbox]"));
-    public IWebElement lnkSignInPortal => _driver.FindElement(By.LinkText("Sign In Portal"));
+    public IWebElement menu_input => _webDriver.FindElement(By.CssSelector("#menuToggle > input[type=checkbox]"));
+    public IWebElement lnkSignInPortal => _webDriver.FindElement(By.LinkText("Sign In Portal"));
     
     public void click_SignInPortal()
     {

@@ -14,23 +14,23 @@ public interface ISignInPage
 
 public class SignInPage : ISignInPage
 {
-    private readonly IDriverWait _driver;
+    private readonly IWebDriverManager _webDriver;
 
-    public SignInPage(IDriverWait driver)
+    public SignInPage(IWebDriverManager webDriver)
     {
-        _driver = driver;
+        _webDriver = webDriver;
     }
     
-    public int txtuserlength => _driver.FindElements(By.Id("usr")).Count();
-    public int txtpwdlength => _driver.FindElements(By.Id("pwd")).Count();
-    public int btnLogin => _driver.FindElements(By.XPath("//input[@value='Login']")).Count();
-    public int btnRegistration => _driver.FindElements(By.Id("NewRegistration")).Count();
+    public int txtuserlength => _webDriver.FindElements(By.Id("usr")).Count();
+    public int txtpwdlength => _webDriver.FindElements(By.Id("pwd")).Count();
+    public int btnLogin => _webDriver.FindElements(By.XPath("//input[@value='Login']")).Count();
+    public int btnRegistration => _webDriver.FindElements(By.Id("NewRegistration")).Count();
 
-    public IWebElement btnNewRegistration => _driver.FindElement(By.Id("NewRegistration"));
-    public IWebElement btnLgn => _driver.FindElement(By.XPath("//*[@id=\"second_form\"]/input"));
-    public IWebElement txtUserName => _driver.FindElement(By.XPath("//*[@id=\"usr\"]"));
-    public IWebElement txtPassword => _driver.FindElement(By.XPath("//*[@id=\"pwd\"]"));
-    public string txtUsrPwdErrorMsg => _driver.FindElement(By.XPath("//*[@id=\"second_form\"]/div[2]/span")).Text;
+    public IWebElement btnNewRegistration => _webDriver.FindElement(By.Id("NewRegistration"));
+    public IWebElement btnLgn => _webDriver.FindElement(By.XPath("//*[@id=\"second_form\"]/input"));
+    public IWebElement txtUserName => _webDriver.FindElement(By.XPath("//*[@id=\"usr\"]"));
+    public IWebElement txtPassword => _webDriver.FindElement(By.XPath("//*[@id=\"pwd\"]"));
+    public string txtUsrPwdErrorMsg => _webDriver.FindElement(By.XPath("//*[@id=\"second_form\"]/div[2]/span")).Text;
 
     public void clickNewRegistration()
     {
