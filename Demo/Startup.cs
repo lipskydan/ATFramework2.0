@@ -1,5 +1,5 @@
-﻿using Demo.Pages;
-//using ATFramework2._0.Config;
+﻿using ATFramework2._0.Config;
+using Demo.Pages;
 using ATFramework2._0.Driver;
 using Microsoft.Extensions.DependencyInjection;
 using SolidToken.SpecFlow.DependencyInjection;
@@ -14,7 +14,7 @@ public class Startup
         var services = new ServiceCollection();
 
         services
-            // .AddSingleton(ConfigReader.ReadConfig())
+            .AddSingleton(ConfigReader.ReadConfig())
             .AddScoped<IDriverFixture, DriverFixture>()
             .AddScoped<IDriverWait, DriverWait>()
             .AddScoped<IHomePage, HomePage>()

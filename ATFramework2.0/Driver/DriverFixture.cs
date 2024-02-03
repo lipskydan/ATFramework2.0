@@ -14,34 +14,33 @@ namespace ATFramework2._0.Driver;
 
 public class DriverFixture : IDriverFixture, IDisposable
 {
-    //private readonly TestSettings _testSettings;
+    private readonly TestSettings _testSettings;
 
     public IWebDriver Driver { get; }
     
-    public DriverFixture(/**TestSettings testSettings*/)
+    public DriverFixture(TestSettings testSettings)
     {
-        //_testSettings = testSettings;
-        Driver = GetWebDriver(); //_testSettings.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();
-        //Driver.Navigate().GoToUrl(_testSettings.ApplicationUrl);
-        
-        Driver.Navigate().GoToUrl("https://anupdamoda.github.io/AceOnlineShoePortal/");
+        _testSettings = testSettings;
+        Driver = _testSettings.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();
+        Driver.Navigate().GoToUrl(_testSettings.ApplicationUrl);
+        // Driver.Navigate().GoToUrl("https://anupdamoda.github.io/AceOnlineShoePortal/");
     }
 
 
     private IWebDriver GetWebDriver()
     {
         new DriverManager().SetUpDriver(new ChromeConfig());
-        return new ChromeDriver();
-        /*return _testSettings.BrowserType switch
+        // return new ChromeDriver();
+        return _testSettings.BrowserType switch
         {
             BrowserType.Chrome => new ChromeDriver(),
             BrowserType.Firefox => new FirefoxDriver(),
             BrowserType.Safari => new SafariDriver(),
             _ => new ChromeDriver()
-        };*/
+        };
     }
     
-    /*private IWebDriver GetRemoteWebDriver()
+    private IWebDriver GetRemoteWebDriver()
     {
         return _testSettings.BrowserType switch
         {
@@ -50,7 +49,7 @@ public class DriverFixture : IDriverFixture, IDisposable
             BrowserType.Safari =>  new RemoteWebDriver(_testSettings.GridUri, new SafariOptions()),
             _ =>  new RemoteWebDriver(_testSettings.GridUri, new ChromeOptions())
         };
-    }*/
+    }
     
     public string TakeScreenshotAsPath(string fileName)
     {

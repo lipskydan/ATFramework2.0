@@ -7,13 +7,13 @@ namespace ATFramework2._0.Driver;
 public class DriverWait : IDriverWait
 {
     private readonly IDriverFixture _driverFixture;
-    //private readonly TestSettings _testSettings;
+    private readonly TestSettings _testSettings;
     private readonly Lazy<WebDriverWait> _webDriverWait;
 
-    public DriverWait(IDriverFixture driverFixture /**, TestSettings testSettings*/)
+    public DriverWait(IDriverFixture driverFixture, TestSettings testSettings)
     {
         _driverFixture = driverFixture;
-        //_testSettings = testSettings;
+        _testSettings = testSettings;
         _webDriverWait = new Lazy<WebDriverWait>(GetWaitDriver);
     }
 
@@ -29,9 +29,9 @@ public class DriverWait : IDriverWait
 
     private WebDriverWait GetWaitDriver()
     {
-        return new(_driverFixture.Driver, timeout: TimeSpan.FromSeconds(/**_testSettings.TimeoutInterval ??*/ 30))
+        return new(_driverFixture.Driver, timeout: TimeSpan.FromSeconds(_testSettings.TimeoutInterval ?? 30))
         {
-            PollingInterval = TimeSpan.FromSeconds(/**_testSettings.TimeoutInterval ??*/ 1)
+            PollingInterval = TimeSpan.FromSeconds(_testSettings.TimeoutInterval ?? 1)
         };
     }
 }

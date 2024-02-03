@@ -7,9 +7,9 @@ namespace Demo.Pages;
 public interface ISignInPage
 {
     void clickNewRegistration();
-    void clickLogin();
-    void enterUserName();
-    void enterPassword();
+    // void clickLogin();
+    // void enterUserName();
+    // void enterPassword();
 }
 
 public class SignInPage : ISignInPage
@@ -37,17 +37,17 @@ public class SignInPage : ISignInPage
         btnNewRegistration.Click();
     }
 
-    public void clickLogin()
-    {
-        btnLgn.Click();
-    }
-
-    public void enterUserName()
-    {
-        txtUserName.SendKeys(ConfigurationManager.AppSettings["Username"]);
-    }
-    public void enterPassword()
-    {
-        txtPassword.SendKeys(ConfigurationManager.AppSettings["Password"]);
-    }
+    // public void clickLogin()
+    // {
+    //     btnLgn.Click();
+    // }
+    //
+    // public void enterUserName()
+    // {
+    //     txtUserName.SendKeys(ConfigurationManager.AppSettings["Username"]);
+    // }
+    // public void enterPassword()
+    // {
+    //     txtPassword.SendKeys(ConfigurationManager.AppSettings["Password"]);
+    // }
 }
