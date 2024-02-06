@@ -1,6 +1,4 @@
-﻿
-
-namespace ATFramework2._0.Driver;
+﻿namespace ATFramework2._0.Driver;
 
 public interface IWebDriverManager
 {

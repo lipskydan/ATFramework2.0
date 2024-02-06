@@ -4,12 +4,11 @@ public class WebDriverManager : IWebDriverManager, IDisposable
 {
     private readonly TestSettings _testSettings;
     private readonly Lazy<WebDriverWait> _webDriverWait;
-    
+
     public IWebDriver Driver { get; }
     public WebElementFinder ElementFinder { get; }
-    
     public WebElementsFinder ElementsFinder { get; }
-    
+
     public WebDriverManager(TestSettings testSettings)
     {
         _testSettings = testSettings;
@@ -17,6 +16,7 @@ public class WebDriverManager : IWebDriverManager, IDisposable
         _webDriverWait = new Lazy<WebDriverWait>(GetWaitDriver);
         ElementFinder = new WebElementFinder(this);
     }
+
     private IWebDriver GetWebDriver()
     {
         new DriverManager().SetUpDriver(new ChromeConfig());
@@ -29,17 +29,18 @@ public class WebDriverManager : IWebDriverManager, IDisposable
             _ => new ChromeDriver()
         };
     }
+
     private IWebDriver GetRemoteWebDriver()
     {
         return _testSettings.BrowserType switch
         {
             BrowserType.Chrome => new RemoteWebDriver(_testSettings.GridUri, new ChromeOptions()),
-            BrowserType.Firefox =>  new RemoteWebDriver(_testSettings.GridUri, new FirefoxOptions()),
-            BrowserType.Safari =>  new RemoteWebDriver(_testSettings.GridUri, new SafariOptions()),
-            _ =>  new RemoteWebDriver(_testSettings.GridUri, new ChromeOptions())
+            BrowserType.Firefox => new RemoteWebDriver(_testSettings.GridUri, new FirefoxOptions()),
+            BrowserType.Safari => new RemoteWebDriver(_testSettings.GridUri, new SafariOptions()),
+            _ => new RemoteWebDriver(_testSettings.GridUri, new ChromeOptions())
         };
     }
-    
+
     private WebDriverWait GetWaitDriver()
     {
         return new(Driver, timeout: TimeSpan.FromSeconds(_testSettings.TimeoutInterval ?? 30))
@@ -55,9 +56,9 @@ public class WebDriverManager : IWebDriverManager, IDisposable
 
     public void Dispose()
     {
-       Driver.Quit();
+        Driver.Quit();
     }
-    
+
     public IWebElement FindElement(By elementLocator)
     {
         return _webDriverWait.Value.Until(_ => Driver.FindElement(elementLocator));
@@ -67,9 +68,7 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     {
         return _webDriverWait.Value.Until(_ => Driver.FindElements(elementLocator));
     }
-    
 }
-
 
 public enum BrowserType
 {
