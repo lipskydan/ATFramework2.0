@@ -8,13 +8,9 @@ public class WebElementFinder
     {
         _driverManager = driverManager;
     }
-    
-    public IWebElement Css(string cssSelector)
-    {
-        return _driverManager.FindElement(By.CssSelector(cssSelector));
-    }
-    public IWebElement XPath(string xpath)
-    {
-        return _driverManager.FindElement(By.XPath(xpath));
-    }
+
+    public IWebElement Css(string cssSelector) => _driverManager.FindElement(By.CssSelector(cssSelector));
+    public IWebElement XPath(string xpath) => _driverManager.FindElement(By.XPath(xpath));
+    public IWebElement Id(string id) => _driverManager.FindElement(By.Id(id));
+    public IWebElement LinkText(string text) => _driverManager.FindElement(By.LinkText(text));
 }

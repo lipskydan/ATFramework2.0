@@ -15,8 +15,8 @@ class HomePage : IHomePage
         _webDriver.OpenApplicationStartPage();
     }
     
-    public IWebElement menuBtn => _webDriver.FindElement(By.CssSelector("#menuToggle > input[type=checkbox]"));
-    public IWebElement lnkSignInPortal => _webDriver.FindElement(By.LinkText("Sign In Portal"));
+    public IWebElement menuBtn => _webDriver.ElementFinder.Css("#menuToggle > input[type=checkbox]");
+    public IWebElement lnkSignInPortal => _webDriver.ElementFinder.LinkText("Sign In Portal");
     
     public void click_SignInPortal()
     {

@@ -13,5 +13,5 @@ public class SuccessRegistrationPage : ISuccessRegistrationPage
     {
         _webDriver = webDriver;
     } 
-    public string getSuccessMsg() => _webDriver.FindElement(By.XPath("/html/body/center[1]/h1")).Text;
+    public string getSuccessMsg() => _webDriver.ElementFinder.XPath("/html/body/center[1]/h1").Text;
 }

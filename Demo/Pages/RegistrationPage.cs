@@ -20,18 +20,18 @@ public class RegistrationPage: IRegistrationPage
         _webDriver = webDriver;
     }
 
-    public IWebElement btnSubmit => _webDriver.ElementFinder.XPath("//input[@value='Submit']"); // _webDriver.FindElement(By.XPath("//input[@value='Submit']")); 
-    public  IWebElement txtFirstName => _webDriver.FindElement(By.Id("firstname")); //[id='firstname']
-    public  IWebElement txtLastName => _webDriver.FindElement(By.Id("lastname")); 
-    public  IWebElement txtEmailid => _webDriver.FindElement(By.Id("emailId"));
-    public  IWebElement txtUsername => _webDriver.FindElement(By.Id("usr"));
-    public  IWebElement txtPassword => _webDriver.FindElement(By.Id("pwd"));
-    public  string txtErrorMsg => _webDriver.FindElement(By.XPath("//*[@id=\"first_form\"]/div/span")).Text;
-    public  string txtErrorMsg2 => _webDriver.FindElement(By.XPath("//*[@id=\"first_form\"]/div/span")).Text;
+    public IWebElement btnSubmit => _webDriver.ElementFinder.XPath("//input[@value='Submit']"); 
+    public IWebElement txtFirstName => _webDriver.ElementFinder.Id("firstname");
+    public  IWebElement txtLastName => _webDriver.ElementFinder.Id("lastname"); 
+    public  IWebElement txtEmailid => _webDriver.ElementFinder.Id("emailId");
+    public  IWebElement txtUsername => _webDriver.ElementFinder.Id("usr");
+    public  IWebElement txtPassword => _webDriver.ElementFinder.Id("pwd");
+    public  string txtErrorMsg => _webDriver.ElementFinder.XPath("//*[@id=\"first_form\"]/div/span").Text;
+    public  string txtErrorMsg2 => _webDriver.ElementFinder.XPath("//*[@id=\"first_form\"]/div/span").Text;
 
     public void SelectSalutation(string text)
     { 
-        SelectElement drpSalutation = new SelectElement(_webDriver.FindElement(By.Id("Salutation")));
+        SelectElement drpSalutation = new SelectElement(_webDriver.ElementFinder.Id("Salutation"));
         drpSalutation.SelectByText(text);
     }
     

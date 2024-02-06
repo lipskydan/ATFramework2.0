@@ -8,6 +8,8 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     public IWebDriver Driver { get; }
     public WebElementFinder ElementFinder { get; }
     
+    public WebElementsFinder ElementsFinder { get; }
+    
     public WebDriverManager(TestSettings testSettings)
     {
         _testSettings = testSettings;
