@@ -1,27 +1,10 @@
 namespace Demo.Hooks;
 
 [Binding]
-public class Initialization
+public class Initialization: HooksWrap
 {
-    private readonly ScenarioContext _scenarioContext;
-    private readonly FeatureContext _featureContext;
-    private readonly IWebDriverManager _webDriverManager;
-    
-    public Initialization(ScenarioContext scenarioContext, FeatureContext featureContext, IWebDriverManager webDriverManager)
-    {
-        _scenarioContext = scenarioContext;
-        _featureContext = featureContext;
-        _webDriverManager = webDriverManager;
-    }
-    
-    [BeforeScenario]
-    public void BeforeScenario()
-    {
-        
-    }
-
-    [AfterScenario]
-    public void AfterScenario()
+    public Initialization(ScenarioContext scenarioContext, FeatureContext featureContext, IWebDriverManager webDriverManager) 
+        : base(scenarioContext, featureContext, webDriverManager)
     {
         
     }
