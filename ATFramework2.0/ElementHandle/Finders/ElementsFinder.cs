@@ -1,10 +1,10 @@
-namespace ATFramework2._0.Driver.Finders;
+namespace ATFramework2._0.ElementHandle.Finders;
 
-public class WebElementsFinder
+public class ElementsFinder
 {
     private readonly IWebDriverManager _driverManager;
 
-    public WebElementsFinder(IWebDriverManager driverManager)
+    public ElementsFinder(IWebDriverManager driverManager)
     {
         _driverManager = driverManager;
     }

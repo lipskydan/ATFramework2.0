@@ -1,4 +1,6 @@
-﻿namespace Demo.Pages;
+﻿using ATFramework2._0.ElementHandle;
+
+namespace Demo.Pages;
 
 public interface IHomePage
 {
@@ -15,8 +17,8 @@ class HomePage : IHomePage
         _webDriver.OpenApplicationStartPage();
     }
     
-    public IWebElement menuBtn => _webDriver.ElementFinder.Css("#menuToggle > input[type=checkbox]");
-    public IWebElement lnkSignInPortal => _webDriver.ElementFinder.LinkText("Sign In Portal");
+    public Element menuBtn => _webDriver.ElementFinder.Css("#menuToggle > input[type=checkbox]");
+    public Element lnkSignInPortal => _webDriver.ElementFinder.LinkText("Sign In Portal");
     
     public void click_SignInPortal()
     {

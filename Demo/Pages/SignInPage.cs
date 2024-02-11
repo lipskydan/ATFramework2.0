@@ -1,3 +1,5 @@
+using ATFramework2._0.ElementHandle;
+
 namespace Demo.Pages;
 
 public interface ISignInPage
@@ -21,10 +23,10 @@ public class SignInPage : ISignInPage
     public int btnLogin => _webDriver.ElementsFinder.XPath("//input[@value='Login']").Count();
     public int btnRegistration => _webDriver.ElementsFinder.Id("NewRegistration").Count();
 
-    public IWebElement btnNewRegistration => _webDriver.ElementFinder.Id("NewRegistration");
-    public IWebElement btnLgn => _webDriver.ElementFinder.XPath("//*[@id=\"second_form\"]/input");
-    public IWebElement txtUserName => _webDriver.ElementFinder.XPath("//*[@id=\"usr\"]");
-    public IWebElement txtPassword => _webDriver.ElementFinder.XPath("//*[@id=\"pwd\"]");
+    public Element btnNewRegistration => _webDriver.ElementFinder.Id("NewRegistration");
+    public Element btnLgn => _webDriver.ElementFinder.XPath("//*[@id=\"second_form\"]/input");
+    public Element txtUserName => _webDriver.ElementFinder.XPath("//*[@id=\"usr\"]");
+    public Element txtPassword => _webDriver.ElementFinder.XPath("//*[@id=\"pwd\"]");
     public string txtUsrPwdErrorMsg => _webDriver.ElementFinder.XPath("//*[@id=\"second_form\"]/div[2]/span").Text;
 
     public void clickNewRegistration()

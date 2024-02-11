@@ -1,4 +1,6 @@
-﻿namespace ATFramework2._0.Driver;
+﻿using ATFramework2._0.ElementHandle.Finders;
+
+namespace ATFramework2._0.Driver;
 
 public class WebDriverManager : IWebDriverManager, IDisposable
 {
@@ -6,15 +8,15 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     private readonly Lazy<WebDriverWait> _webDriverWait;
 
     public IWebDriver Driver { get; }
-    public WebElementFinder ElementFinder { get; }
-    public WebElementsFinder ElementsFinder { get; }
+    public ElementFinder ElementFinder { get; }
+    public ElementsFinder ElementsFinder { get; }
 
     public WebDriverManager(TestSettings testSettings)
     {
         _testSettings = testSettings;
         Driver = _testSettings.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();
         _webDriverWait = new Lazy<WebDriverWait>(GetWaitDriver);
-        ElementFinder = new WebElementFinder(this);
+        ElementFinder = new ElementFinder(this);
     }
 
     private IWebDriver GetWebDriver()

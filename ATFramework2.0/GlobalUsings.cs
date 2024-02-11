@@ -10,4 +10,4 @@ global using WebDriverManager.DriverConfigs.Impl;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
 global using ATFramework2._0.Driver;
-global using ATFramework2._0.Driver.Finders;
+global using ATFramework2._0.ElementHandle.Finders;

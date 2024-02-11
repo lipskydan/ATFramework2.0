@@ -1,3 +1,5 @@
+using ATFramework2._0.ElementHandle;
+
 namespace Demo.Pages;
 
 public interface IRegistrationPage
@@ -20,18 +22,18 @@ public class RegistrationPage: IRegistrationPage
         _webDriver = webDriver;
     }
 
-    public IWebElement btnSubmit => _webDriver.ElementFinder.XPath("//input[@value='Submit']"); 
-    public IWebElement txtFirstName => _webDriver.ElementFinder.Id("firstname");
-    public  IWebElement txtLastName => _webDriver.ElementFinder.Id("lastname"); 
-    public  IWebElement txtEmailid => _webDriver.ElementFinder.Id("emailId");
-    public  IWebElement txtUsername => _webDriver.ElementFinder.Id("usr");
-    public  IWebElement txtPassword => _webDriver.ElementFinder.Id("pwd");
+    public Element btnSubmit => _webDriver.ElementFinder.XPath("//input[@value='Submit']"); 
+    public Element txtFirstName => _webDriver.ElementFinder.Id("firstname");
+    public  Element txtLastName => _webDriver.ElementFinder.Id("lastname"); 
+    public  Element txtEmailid => _webDriver.ElementFinder.Id("emailId");
+    public  Element txtUsername => _webDriver.ElementFinder.Id("usr");
+    public  Element txtPassword => _webDriver.ElementFinder.Id("pwd");
     public  string txtErrorMsg => _webDriver.ElementFinder.XPath("//*[@id=\"first_form\"]/div/span").Text;
     public  string txtErrorMsg2 => _webDriver.ElementFinder.XPath("//*[@id=\"first_form\"]/div/span").Text;
 
     public void SelectSalutation(string text)
     { 
-        SelectElement drpSalutation = new SelectElement(_webDriver.ElementFinder.Id("Salutation"));
+        SelectElement drpSalutation = new SelectElement(_webDriver.ElementFinder._Id("Salutation"));
         drpSalutation.SelectByText(text);
     }
     

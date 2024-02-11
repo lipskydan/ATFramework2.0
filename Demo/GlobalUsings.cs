@@ -8,3 +8,4 @@ global using OpenQA.Selenium;
 global using OpenQA.Selenium.Support.UI;
 global using TechTalk.SpecFlow;
 global using NUnit.Framework;
+global using static ATFramework2._0.ElementHandle.Element;
