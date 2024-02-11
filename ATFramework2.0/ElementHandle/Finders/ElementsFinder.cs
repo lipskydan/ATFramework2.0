@@ -9,7 +9,7 @@ public class ElementsFinder
         _driverManager = driverManager;
     }
     
-    public IEnumerable<IWebElement> Css(string cssSelector) => _driverManager.FindElements(By.CssSelector(cssSelector));
-    public IEnumerable<IWebElement> XPath(string xpath) => _driverManager.FindElements(By.XPath(xpath));
-    public IEnumerable<IWebElement> Id(string id) => _driverManager.FindElements(By.Id(id));
+    public Elements Css(string cssSelector) => new(_driverManager.FindElements(By.CssSelector(cssSelector)));
+    public Elements XPath(string xpath) => new(_driverManager.FindElements(By.XPath(xpath)));
+    public Elements Id(string id) => new(_driverManager.FindElements(By.Id(id)));
 }
