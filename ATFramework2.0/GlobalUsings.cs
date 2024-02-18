@@ -12,3 +12,4 @@ global using System.Text.Json.Serialization;
 global using ATFramework2._0.Driver;
 global using ATFramework2._0.ElementHandle.Finders;
 global using TechTalk.SpecFlow;
+global using Microsoft.Extensions.DependencyInjection;

@@ -1,4 +1,3 @@
-global using ATFramework2._0.Config;
 global using Demo.Pages;
 global using ATFramework2._0.Driver;
 global using Microsoft.Extensions.DependencyInjection;
@@ -8,3 +7,4 @@ global using OpenQA.Selenium.Support.UI;
 global using TechTalk.SpecFlow;
 global using NUnit.Framework;
 global using ATFramework2._0.HooksHelper;
+global using ATFramework2._0;
