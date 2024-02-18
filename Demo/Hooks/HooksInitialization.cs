@@ -1,5 +1,7 @@
 namespace Demo.Hooks;
 
+
+
 [Binding]
 public class HooksInitialization: HooksWrap
 {
@@ -8,4 +10,6 @@ public class HooksInitialization: HooksWrap
     {
         
     }
+    
+    
 }
