@@ -5,7 +5,7 @@ public class HooksWrap
 {
     protected readonly IWebDriverManager _webDriverManager;
     
-    private ExtentTest _scenario;
+    private ExtentTest? _scenario;
     private readonly ScenarioContext _scenarioContext;
     private readonly FeatureContext _featureContext;
     private static ExtentReports _extentReports;
@@ -36,8 +36,8 @@ public class HooksWrap
             InitializeExtentReports();
         }
         
-        var feature = _extentReports.CreateTest<Feature>(_featureContext.FeatureInfo.Title);
-        _scenario = feature.CreateNode<Scenario>(_scenarioContext.ScenarioInfo.Title);
+        var feature = _extentReports?.CreateTest<Feature>(_featureContext.FeatureInfo.Title);
+        _scenario = feature?.CreateNode<Scenario>(_scenarioContext.ScenarioInfo.Title);
     }
     
     [AfterStep]
@@ -51,13 +51,13 @@ public class HooksWrap
             switch (_scenarioContext.StepContext.StepInfo.StepDefinitionType)
             {
                 case StepDefinitionType.Given:
-                    _scenario.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text);
+                    _scenario?.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text);
                     break;
                 case StepDefinitionType.When:
-                    _scenario.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text);
+                    _scenario?.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text);
                     break;
                 case StepDefinitionType.Then:
-                    _scenario.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text);
+                    _scenario?.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -66,8 +66,7 @@ public class HooksWrap
             switch (_scenarioContext.StepContext.StepInfo.StepDefinitionType)
             {
                 case StepDefinitionType.Given:
-                    _scenario
-                        .CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text);
+                    _scenario?.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text);
                         // .Fail(_scenarioContext.TestError.Message, new ScreenCapture()
                         // {
                         //     //Path = _driverFixture.TakeScreenshotAsPath(fileName),
@@ -76,8 +75,7 @@ public class HooksWrap
                         
                     break;
                 case StepDefinitionType.When:
-                    _scenario
-                        .CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text);
+                    _scenario?.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text);
                         // .Fail(_scenarioContext.TestError.Message, new ScreenCapture()
                         // {
                         //     //Path = _driverFixture.TakeScreenshotAsPath(fileName),
@@ -85,8 +83,7 @@ public class HooksWrap
                         // });
                     break;
                 case StepDefinitionType.Then:
-                    _scenario
-                        .CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text);
+                    _scenario?.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text);
                         // .Fail(_scenarioContext.TestError.Message, new ScreenCapture()
                         // {
                         //     //Path = _driverFixture.TakeScreenshotAsPath(fileName),
