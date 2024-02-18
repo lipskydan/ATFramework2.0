@@ -1,45 +1,41 @@
-using System.Reflection;
-using System.Text.RegularExpressions;
-using AventStack.ExtentReports;
-using AventStack.ExtentReports.Gherkin.Model;
-using AventStack.ExtentReports.Model;
-using AventStack.ExtentReports.Reporter;
-using TechTalk.SpecFlow.Bindings;
-
-
 namespace ATFramework2._0.HooksHelper;
-
 
 [Binding]
 public class HooksWrap
 {
-    protected readonly ScenarioContext _scenarioContext;
-    protected readonly FeatureContext _featureContext;
     protected readonly IWebDriverManager _webDriverManager;
     
-    protected static ExtentReports _extentReports;
-    protected ExtentTest _scenario;
+    private ExtentTest _scenario;
+    private readonly ScenarioContext _scenarioContext;
+    private readonly FeatureContext _featureContext;
+    private static ExtentReports _extentReports;
+    private static string _pathToSaveReport;
     
-    public HooksWrap(ScenarioContext scenarioContext, FeatureContext featureContext, IWebDriverManager webDriverManager)
+    public HooksWrap(ScenarioContext scenarioContext, FeatureContext featureContext, IWebDriverManager webDriverManager, TestSettings testSettings)
     {
         _scenarioContext = scenarioContext;
         _featureContext = featureContext;
         _webDriverManager = webDriverManager;
+        _pathToSaveReport = testSettings.PathToSaveReport;
     }
     
     [BeforeTestRun]
     public static void InitializeExtentReports()
     {
-        var extentReport =
-            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/extentreport.html";
+        var reportPath = Path.Combine(_pathToSaveReport, $"AT_report_1.html");
         _extentReports = new ExtentReports();
-        var spark = new ExtentSparkReporter(extentReport);
+        var spark = new ExtentSparkReporter(reportPath);
         _extentReports.AttachReporter(spark);
     }
 
     [BeforeScenario]
     public void BeforeScenario()
     {
+        if (_extentReports == null)
+        {
+            InitializeExtentReports();
+        }
+        
         var feature = _extentReports.CreateTest<Feature>(_featureContext.FeatureInfo.Title);
         _scenario = feature.CreateNode<Scenario>(_scenarioContext.ScenarioInfo.Title);
     }
@@ -71,31 +67,31 @@ public class HooksWrap
             {
                 case StepDefinitionType.Given:
                     _scenario
-                        .CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text)
-                        .Fail(_scenarioContext.TestError.Message, new ScreenCapture()
-                        {
-                            //Path = _driverFixture.TakeScreenshotAsPath(fileName),
-                            Title = "Error screenshot"
-                        });
+                        .CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text);
+                        // .Fail(_scenarioContext.TestError.Message, new ScreenCapture()
+                        // {
+                        //     //Path = _driverFixture.TakeScreenshotAsPath(fileName),
+                        //     Title = "Error screenshot"
+                        // });
                         
                     break;
                 case StepDefinitionType.When:
                     _scenario
-                        .CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text)
-                        .Fail(_scenarioContext.TestError.Message, new ScreenCapture()
-                        {
-                            //Path = _driverFixture.TakeScreenshotAsPath(fileName),
-                            Title = "Error screenshot"
-                        });
+                        .CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text);
+                        // .Fail(_scenarioContext.TestError.Message, new ScreenCapture()
+                        // {
+                        //     //Path = _driverFixture.TakeScreenshotAsPath(fileName),
+                        //     Title = "Error screenshot"
+                        // });
                     break;
                 case StepDefinitionType.Then:
                     _scenario
-                        .CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text)
-                        .Fail(_scenarioContext.TestError.Message, new ScreenCapture()
-                        {
-                            //Path = _driverFixture.TakeScreenshotAsPath(fileName),
-                            Title = "Error screenshot"
-                        });
+                        .CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text);
+                        // .Fail(_scenarioContext.TestError.Message, new ScreenCapture()
+                        // {
+                        //     //Path = _driverFixture.TakeScreenshotAsPath(fileName),
+                        //     Title = "Error screenshot"
+                        // });
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -103,5 +99,5 @@ public class HooksWrap
     }
     
     [AfterTestRun]
-    public static void TearDownReport() => _extentReports.Flush();
+    public static void TearDownReport() => _extentReports?.Flush();
 }

@@ -8,3 +8,4 @@ global using TechTalk.SpecFlow;
 global using NUnit.Framework;
 global using ATFramework2._0.HooksHelper;
 global using ATFramework2._0;
+global using ATFramework2._0.Config;

@@ -1,6 +1,6 @@
 ﻿namespace Demo;
 
-public class DependencyInjectionSetup: DiSetupBase
+public class DiSetup: DiSetupBase
 {
     [ScenarioDependencies]
     public static IServiceCollection CreateServices()
