@@ -1,6 +1,4 @@
-﻿using ATFramework2._0.ElementHandle.Finders;
-
-namespace ATFramework2._0.Driver;
+﻿namespace ATFramework2._0.Driver;
 
 public class WebDriverManager : IWebDriverManager, IDisposable
 {
@@ -21,16 +19,43 @@ public class WebDriverManager : IWebDriverManager, IDisposable
 
     private IWebDriver GetWebDriver()
     {
-        new DriverManager().SetUpDriver(new ChromeConfig());
-        // return new ChromeDriver();
-        return _testSettings.BrowserType switch
+        switch (_testSettings.BrowserType)
         {
-            BrowserType.Chrome => new ChromeDriver(),
-            BrowserType.Firefox => new FirefoxDriver(),
-            BrowserType.Safari => new SafariDriver(),
-            _ => new ChromeDriver()
-        };
-    }
+            case BrowserType.Chrome:
+                var chromeOptions = new ChromeOptions
+                {
+                    BrowserVersion = _testSettings.BrowserVersion
+                };
+                return new ChromeDriver(chromeOptions);
+
+            case BrowserType.Firefox:
+                var firefoxOptions = new FirefoxOptions
+                {
+                    BrowserVersion = _testSettings.BrowserVersion
+                };
+                return new FirefoxDriver(firefoxOptions);
+
+            case BrowserType.Safari:
+                var safariOptions = new SafariOptions();
+                return new SafariDriver(safariOptions);
+
+            default:
+                throw new ArgumentException("Unsupported browser type: " + _testSettings.BrowserType);
+        }
+    }  
+
+    // private IWebDriver GetWebDriver()
+    // {
+    //     new DriverManager().SetUpDriver(new ChromeConfig());
+    //     // return new ChromeDriver();
+    //     return _testSettings.BrowserType switch
+    //     {
+    //         BrowserType.Chrome => new ChromeDriver(),
+    //         BrowserType.Firefox => new FirefoxDriver(),
+    //         BrowserType.Safari => new SafariDriver(),
+    //         _ => new ChromeDriver()
+    //     };
+    // }
 
     private IWebDriver GetRemoteWebDriver()
     {
@@ -47,7 +72,7 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     {
         return new(Driver, timeout: TimeSpan.FromSeconds(_testSettings.TimeoutInterval ?? 30))
         {
-            PollingInterval = TimeSpan.FromSeconds(_testSettings.TimeoutInterval ?? 1)
+            PollingInterval = TimeSpan.FromSeconds(_testSettings.TimeoutInterval ?? 5)
         };
     }
 

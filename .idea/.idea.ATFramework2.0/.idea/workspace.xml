@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4af27fd4-2967-4584-8502-d50abb688e07" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;lipskydan&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="d066c56e-a7ce-4779-8811-ff7b80c10260" />
+        <option name="url" value="https://github.com/lipskydan/ATFramework2.0.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Users/danial/ATFramework2.0/ATFramework2.0/ATFramework2.0/HooksHelper/HooksWrap.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Downloads/EaTestAutomation/EaSpecflowTests/Pages/HomePage.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/ILViewer/ea80732d083147458ee4ba94532ed8a741a200/8c/54e3beb0/0200003C.il" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0e721f564ffa49e6b1d97ad7b9fda1f25cfb0/a6/24355238/ConfigurationManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/74912bbc6916408e9208add8bea1963c8800/1c/4a63571e/ChromeConfig.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ea80732d083147458ee4ba94532ed8a741a200/02/27f80385/IWebElement.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ea80732d083147458ee4ba94532ed8a741a200/db/37c10970/WebDriver.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2bXi2iGwItWPIQANvLFTnJaVqS8" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/danial/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/danial/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache&quot;,
+      &quot;/Users/danial/.local/share/Symbols/src&quot;
+    ]
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4af27fd4-2967-4584-8502-d50abb688e07" name="Changes" comment="" />
+      <created>1706367620879</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1706367620879</updated>
+      <workItem from="1706367622543" duration="9170000" />
+      <workItem from="1706446851033" duration="305000" />
+      <workItem from="1706979725373" duration="1053000" />
+      <workItem from="1706981380447" duration="5074000" />
+      <workItem from="1707247312632" duration="2819000" />
+      <workItem from="1707643143374" duration="4504000" />
+      <workItem from="1708179792569" duration="2603000" />
+      <workItem from="1708246189095" duration="4303000" />
+    </task>
+    <task id="LOCAL-00001" summary="Start to implement core">
+      <option name="closed" value="true" />
+      <created>1706375182503</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1706375182503</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Fix DI logic">
+      <option name="closed" value="true" />
+      <created>1706377427621</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1706377427621</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add 1 Assert to verify that minimal core is fine">
+      <option name="closed" value="true" />
+      <created>1706377507946</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1706377507946</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add appsettings.json file">
+      <option name="closed" value="true" />
+      <created>1706981412287</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706981412287</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Optimize driver manager">
+      <option name="closed" value="true" />
+      <created>1706982583580</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1706982583580</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fix Core and Demo POMs">
+      <option name="closed" value="true" />
+      <created>1706989121717</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1706989121717</updated>
+    </task>
+    <task id="LOCAL-00007" summary="move Element finder logic to separate class">
+      <option name="closed" value="true" />
+      <created>1706990820362</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1706990820362</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add WebElementsFinder and support WebElementsFinder and WebElementFinder in demo">
+      <option name="closed" value="true" />
+      <created>1707249264592</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1707249264593</updated>
+    </task>
+    <task id="LOCAL-00009" summary="move WebElementFinder.cs and WebElementsFinder.cs to separate directory">
+      <option name="closed" value="true" />
+      <created>1707250183352</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1707250183352</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add Element Handle block">
+      <option name="closed" value="true" />
+      <created>1707645922552</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1707645922553</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Add Elements to Element Handle block">
+      <option name="closed" value="true" />
+      <created>1707647391568</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1707647391568</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add hooks wrapper to the core">
+      <option name="closed" value="true" />
+      <created>1707648156173</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1707648156173</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Move core DI to framework project">
+      <option name="closed" value="true" />
+      <created>1708246265402</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1708246265402</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Start to add report generator">
+      <option name="closed" value="true" />
+      <created>1708247513891</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1708247513891</updated>
+    </task>
+    <task id="LOCAL-00015" summary="add reports logic">
+      <option name="closed" value="true" />
+      <created>1708250428404</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1708250428404</updated>
+    </task>
+    <task id="LOCAL-00016" summary="minor fix in HooksWrap">
+      <option name="closed" value="true" />
+      <created>1708250645503</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1708250645503</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Start to implement core" />
+    <MESSAGE value="Fix DI logic" />
+    <MESSAGE value="add 1 Assert to verify that minimal core is fine" />
+    <MESSAGE value="add appsettings.json file" />
+    <MESSAGE value="Optimize driver manager" />
+    <MESSAGE value="fix Core and Demo POMs" />
+    <MESSAGE value="move Element finder logic to separate class" />
+    <MESSAGE value="add WebElementsFinder and support WebElementsFinder and WebElementFinder in demo" />
+    <MESSAGE value="move WebElementFinder.cs and WebElementsFinder.cs to separate directory" />
+    <MESSAGE value="Add Element Handle block" />
+    <MESSAGE value="Add Elements to Element Handle block" />
+    <MESSAGE value="Add hooks wrapper to the core" />
+    <MESSAGE value="Move core DI to framework project" />
+    <MESSAGE value="Start to add report generator" />
+    <MESSAGE value="add reports logic" />
+    <MESSAGE value="minor fix in HooksWrap" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor fix in HooksWrap" />
+  </component>
+</project>
