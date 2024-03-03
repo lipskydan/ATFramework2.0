@@ -1,3 +1,5 @@
+using ATFramework2._0.Extensions;
+
 namespace ATFramework2._0.ElementHandle;
 
 public class Element
@@ -13,9 +15,11 @@ public class Element
     public void Click()
     {
         _element.Click();
+       //_element.PerformActionWithHighlighting(() => _element.Click());
     }
     public void SendKeys(string text)
     {
         _element.SendKeys(text);
+       // _element.PerformActionWithHighlighting(() => _element.SendKeys(text));
     }
 }

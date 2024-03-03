@@ -1,4 +1,6 @@
-﻿namespace ATFramework2._0.Driver;
+﻿using System.Drawing;
+
+namespace ATFramework2._0.Driver;
 
 public class WebDriverManager : IWebDriverManager, IDisposable
 {
@@ -43,20 +45,7 @@ public class WebDriverManager : IWebDriverManager, IDisposable
                 throw new ArgumentException("Unsupported browser type: " + _testSettings.BrowserType);
         }
     }  
-
-    // private IWebDriver GetWebDriver()
-    // {
-    //     new DriverManager().SetUpDriver(new ChromeConfig());
-    //     // return new ChromeDriver();
-    //     return _testSettings.BrowserType switch
-    //     {
-    //         BrowserType.Chrome => new ChromeDriver(),
-    //         BrowserType.Firefox => new FirefoxDriver(),
-    //         BrowserType.Safari => new SafariDriver(),
-    //         _ => new ChromeDriver()
-    //     };
-    // }
-
+    
     private IWebDriver GetRemoteWebDriver()
     {
         return _testSettings.BrowserType switch

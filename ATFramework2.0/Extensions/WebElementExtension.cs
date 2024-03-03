@@ -1,28 +1,59 @@
-﻿namespace ATFramework2._0.Extensions;
+﻿using System.Reflection;
+
+namespace ATFramework2._0.Extensions;
 
 public static class WebElementExtension
 {
-    public static void SelectDropDownByText(this IWebElement element, string text)
+    private static IWebDriver GetDriverFromElement(IWebElement element)
     {
-        var select = new SelectElement(element);
-        select.SelectByText(text);
+        IWebDriver? driver = null;
+        var wrappedElement = element as IWrapsDriver;
+
+        if (wrappedElement == null)
+        {
+            PropertyInfo pi = element.GetType()
+                .GetProperty("WrappedDriver", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            if (pi != null)
+            {
+                driver = pi.GetValue(element, null) as IWebDriver;
+            }
+        }
+        else
+        {
+            driver = wrappedElement.WrappedDriver;
+        }
+
+        return driver;
+    }
+    private static string BackupElementStyle(this IWebElement element) => element.GetAttribute("style");
+    private static void ResetElementStyle(this IWebElement element, string originalStyle)
+    {
+        IWebDriver driver = GetDriverFromElement(element)
+            ?? throw new InvalidOperationException("Unable to retrieve driver from element");
+        
+        IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
+        string script = "arguments[0].setAttribute('style', arguments[1]);";
+        jsExecutor.ExecuteScript(script, element, originalStyle);
+    }
+    private static void Highlight(this IWebElement element, int highlightDuration = 5000)
+    {
+        IWebDriver driver = GetDriverFromElement(element) 
+            ?? throw new InvalidOperationException("Unable to retrieve driver from element");
+        
+        string script = "arguments[0].setAttribute('style', arguments[1]);";
+        IJavaScriptExecutor? jsExecutor = driver as IJavaScriptExecutor;
+        jsExecutor?.ExecuteScript(script, element, "border: 4px solid red;");
+        
+        Thread.Sleep(highlightDuration);
     }
 
-    public static void SelectDropDownByValue(this IWebElement element, string value)
+    public static void PerformActionWithHighlighting(this IWebElement element, Action action)
     {
-        var select = new SelectElement(element);
-        select.SelectByValue(value);
-    }
+        var originalStyle = element.BackupElementStyle();
+        element.Highlight();
 
-    public static void SelectDropDownByIndex(this IWebElement element, int index)
-    {
-        var select = new SelectElement(element);
-        select.SelectByIndex(index);
-    }
-    
-    public static void ClearAndEnterText(this IWebElement element, string value)
-    {
-        element.Clear();
-        element.SendKeys(value);
+        action();
+
+        element.ResetElementStyle(originalStyle);
     }
 }
