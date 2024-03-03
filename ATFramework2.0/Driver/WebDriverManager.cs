@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace ATFramework2._0.Driver;
+﻿namespace ATFramework2._0.Driver;
 
 public class WebDriverManager : IWebDriverManager, IDisposable
 {
@@ -45,7 +43,7 @@ public class WebDriverManager : IWebDriverManager, IDisposable
                 throw new ArgumentException("Unsupported browser type: " + _testSettings.BrowserType);
         }
     }  
-    
+
     private IWebDriver GetRemoteWebDriver()
     {
         return _testSettings.BrowserType switch

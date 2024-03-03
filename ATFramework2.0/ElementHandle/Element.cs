@@ -14,12 +14,12 @@ public class Element
 
     public void Click()
     {
-        _element.Click();
-       //_element.PerformActionWithHighlighting(() => _element.Click());
+        _element.ScrollToElement();
+       _element.PerformActionWithHighlighting(() => _element.Click());
     }
     public void SendKeys(string text)
     {
-        _element.SendKeys(text);
-       // _element.PerformActionWithHighlighting(() => _element.SendKeys(text));
+        _element.ScrollToElement();
+       _element.PerformActionWithHighlighting(() => _element.SendKeys(text));
     }
 }

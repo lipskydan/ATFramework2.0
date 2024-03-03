@@ -35,7 +35,7 @@ public static class WebElementExtension
         string script = "arguments[0].setAttribute('style', arguments[1]);";
         jsExecutor.ExecuteScript(script, element, originalStyle);
     }
-    private static void Highlight(this IWebElement element, int highlightDuration = 5000)
+    private static void Highlight(this IWebElement element, int highlightDuration = 2000)
     {
         IWebDriver driver = GetDriverFromElement(element) 
             ?? throw new InvalidOperationException("Unable to retrieve driver from element");
@@ -51,9 +51,17 @@ public static class WebElementExtension
     {
         var originalStyle = element.BackupElementStyle();
         element.Highlight();
-
-        action();
-
         element.ResetElementStyle(originalStyle);
+        action();
+    }
+    public static void ScrollToElement(this IWebElement element)
+    {
+        IWebDriver driver = GetDriverFromElement(element) 
+            ?? throw new InvalidOperationException("Unable to retrieve driver from element");
+        
+        var jsExecutor = (IJavaScriptExecutor)driver;
+        jsExecutor.ExecuteScript("arguments[0].scrollIntoView(true);", element);
+        jsExecutor.ExecuteScript("if (document.body.scrollHeight - arguments[0].getBoundingClientRect().bottom > 150) window.scrollBy(0, 150);", element);
+       
     }
 }
