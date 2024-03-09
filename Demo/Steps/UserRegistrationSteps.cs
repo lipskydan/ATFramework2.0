@@ -46,40 +46,40 @@ public class UserRegistrationSteps
         }
     }
 
-    [Given(@"Select Salutation")]
-    public void GivenSelectSalutation()
+    [Given(@"Select Salutation ""(.*)""")]
+    public void GivenSelectSalutation(string salutationName)
     {
-        _registrationPage.SelectSalutation("Mr.");
+        _registrationPage.SelectSalutation(salutationName);
     }
 
-    [Given(@"Enter FirstName")]
-    public void GivenEnterFirstName()
+    [Given(@"Enter FirstName ""(.*)""")]
+    public void GivenEnterFirstName(string firstName)
     {
-        _registrationPage.InputFirstName("Clark");
+        _registrationPage.InputFirstName(firstName);
     }
 
-    [Given(@"Enter LastName")]
-    public void GivenEnterLastName()
+    [Given(@"Enter LastName ""(.*)""")]
+    public void GivenEnterLastName(string lastName)
     {
-        _registrationPage.InputLastName("Smith");
+        _registrationPage.InputLastName(lastName);
     }
 
-    [Given(@"Enter ValidEmail")]
-    public void GivenEnterValidEmail()
+    [Given(@"Enter Email ""(.*)""")]
+    public void GivenEnterEmail(string email)
     {
-        _registrationPage.InputEmail("PeterSmith@gmail.com");
+        _registrationPage.InputEmail(email);
     }
 
-    [Given(@"Enter UserName")]
-    public void GivenEnterUserName()
+    [Given(@"Enter UserName ""(.*)""")]
+    public void GivenEnterUserName(string userName)
     {
-        _registrationPage.InputUserName("Peter");
+        _registrationPage.InputUserName(userName);
     }
 
-    [Given(@"Enter Password")]
-    public void GivenEnterPassword()
+    [Given(@"Enter Password ""(.*)""")]
+    public void GivenEnterPassword(string password)
     {
-        _registrationPage.InputPassword("Password");
+        _registrationPage.InputPassword(password);
     }
 
     [When(@"Click on the button ""(.*)""")]

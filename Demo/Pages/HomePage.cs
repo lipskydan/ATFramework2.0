@@ -18,7 +18,7 @@ class HomePage : IHomePage
     }
     
     public Element menuBtn => _webDriver.ElementFinder.Css("#menuToggle > input[type=checkbox]");
-    public Element lnkSignInPortal => _webDriver.ElementFinder.LinkText("Sign In Portal");
+    public Element lnkSignInPortal => _webDriver.ElementFinder.Css("[href*='SignIn']");
     
     public void OpenSignInPortalPage()
     {
