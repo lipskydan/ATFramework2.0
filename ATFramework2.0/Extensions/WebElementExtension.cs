@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace ATFramework2._0.Extensions;
+﻿namespace ATFramework2._0.Extensions;
 
 public static class WebElementExtension
 {
@@ -62,6 +60,5 @@ public static class WebElementExtension
         var jsExecutor = (IJavaScriptExecutor)driver;
         jsExecutor.ExecuteScript("arguments[0].scrollIntoView(true);", element);
         jsExecutor.ExecuteScript("if (document.body.scrollHeight - arguments[0].getBoundingClientRect().bottom > 150) window.scrollBy(0, 150);", element);
-       
     }
 }
