@@ -94,31 +94,31 @@ this.ScenarioInitialize(scenarioInfo);
  await testRunner.GivenAsync("Navigate to the start page of the app", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 5
- await testRunner.AndAsync("click on the button \"Sign In Portal\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ await testRunner.AndAsync("Open \"Sign In\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 6
- await testRunner.AndAsync("click on the button \"New Registration\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ await testRunner.AndAsync("Click on the button \"New Registration\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 7
- await testRunner.AndAsync("select Salutation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ await testRunner.AndAsync("Select Salutation", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 8
- await testRunner.AndAsync("enter FirstName", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ await testRunner.AndAsync("Enter FirstName", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 9
- await testRunner.AndAsync("enter LastName", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ await testRunner.AndAsync("Enter LastName", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 10
- await testRunner.AndAsync("enter ValidEmail", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ await testRunner.AndAsync("Enter ValidEmail", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 11
- await testRunner.AndAsync("enter UserName", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ await testRunner.AndAsync("Enter UserName", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 12
- await testRunner.AndAsync("enter Password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ await testRunner.AndAsync("Enter Password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 13
- await testRunner.WhenAsync("click on the button \"Submit\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ await testRunner.WhenAsync("Click on the button \"Submit\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 14
  await testRunner.ThenAsync("Success message \"User Registered Successfully !!!\" is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
