@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace ATFramework2._0.Extensions;
+﻿namespace ATFramework2._0.Extensions;
 
 public static class WebElementExtension
 {
