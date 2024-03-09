@@ -24,63 +24,71 @@ public class UserRegistrationSteps
         Console.WriteLine("Navigate to the app");
     }
 
-    [Given(@"click on the button ""(.*)""")]
-    public void GivenClickOnTheButton(string btnName)
+    [Given(@"Open ""(.*)"" page")]
+    public void OpenPage(string pageName)
     {
-        switch (btnName)
+        switch (pageName)
         {
-            case "Sign In Portal":
-                _homePage.click_SignInPortal();
-                break;
-            case "New Registration":
-                _signInPage.clickNewRegistration();
+            case "Sign In":
+                _homePage.OpenSignInPortalPage();
                 break;
         }
     }
 
-    [Given(@"select Salutation")]
+    [Given(@"Click on the button ""(.*)""")]
+    public void GivenClickOnTheButton(string btnName)
+    {
+        switch (btnName)
+        {
+            case "New Registration":
+                _signInPage.ClickNewRegistrationBtn();
+                break;
+        }
+    }
+
+    [Given(@"Select Salutation")]
     public void GivenSelectSalutation()
     {
         _registrationPage.SelectSalutation("Mr.");
     }
 
-    [Given(@"enter FirstName")]
+    [Given(@"Enter FirstName")]
     public void GivenEnterFirstName()
     {
-        _registrationPage.inputFirstName("Clark");
+        _registrationPage.InputFirstName("Clark");
     }
 
-    [Given(@"enter LastName")]
+    [Given(@"Enter LastName")]
     public void GivenEnterLastName()
     {
-        _registrationPage.inputLastName("Smith");
+        _registrationPage.InputLastName("Smith");
     }
 
-    [Given(@"enter ValidEmail")]
+    [Given(@"Enter ValidEmail")]
     public void GivenEnterValidEmail()
     {
-        _registrationPage.inputEmail("PeterSmith@gmail.com");
+        _registrationPage.InputEmail("PeterSmith@gmail.com");
     }
 
-    [Given(@"enter UserName")]
+    [Given(@"Enter UserName")]
     public void GivenEnterUserName()
     {
-        _registrationPage.inputUserName("Peter");
+        _registrationPage.InputUserName("Peter");
     }
 
-    [Given(@"enter Password")]
+    [Given(@"Enter Password")]
     public void GivenEnterPassword()
     {
-        _registrationPage.inputPassword("Password");
+        _registrationPage.InputPassword("Password");
     }
 
-    [When(@"click on the button ""(.*)""")]
+    [When(@"Click on the button ""(.*)""")]
     public void WhenClickOnTheButton(string submit)
     {
         switch (submit)
         {
             case "Submit":
-                _registrationPage.clickSubmitBtn();
+                _registrationPage.ClickSubmitBtn();
                 break;
         }
     }

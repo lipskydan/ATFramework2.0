@@ -65,6 +65,7 @@ public class WebDriverManager : IWebDriverManager, IDisposable
 
     public void OpenApplicationStartPage()
     {
+        Driver.Manage().Window.Maximize();
         Driver.Navigate().GoToUrl(_testSettings.ApplicationUrl);
     }
 

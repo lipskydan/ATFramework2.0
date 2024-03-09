@@ -4,7 +4,7 @@ namespace Demo.Pages;
 
 public interface IHomePage
 {
-    void click_SignInPortal();
+    void OpenSignInPortalPage();
 }
 
 class HomePage : IHomePage
@@ -20,7 +20,7 @@ class HomePage : IHomePage
     public Element menuBtn => _webDriver.ElementFinder.Css("#menuToggle > input[type=checkbox]");
     public Element lnkSignInPortal => _webDriver.ElementFinder.LinkText("Sign In Portal");
     
-    public void click_SignInPortal()
+    public void OpenSignInPortalPage()
     {
         menuBtn.Click();
         lnkSignInPortal.Click();

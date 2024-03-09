@@ -5,12 +5,12 @@ namespace Demo.Pages;
 public interface IRegistrationPage
 {
     void SelectSalutation(string text);
-    void clickSubmitBtn();
-    void inputFirstName(string text);
-    void inputLastName(string text);
-    void inputEmail(string text);
-    void inputUserName(string text);
-    void inputPassword(string text);
+    void ClickSubmitBtn();
+    void InputFirstName(string text);
+    void InputLastName(string text);
+    void InputEmail(string text);
+    void InputUserName(string text);
+    void InputPassword(string text);
 }
 
 public class RegistrationPage: IRegistrationPage
@@ -37,27 +37,27 @@ public class RegistrationPage: IRegistrationPage
         drpSalutation.SelectByText(text);
     }
     
-    public void clickSubmitBtn()
+    public void ClickSubmitBtn()
     {
         btnSubmit.Click();
     }
-    public void inputFirstName(string text)
+    public void InputFirstName(string text)
     {
         txtFirstName.SendKeys(text);
     }
-    public void inputLastName(string text)
+    public void InputLastName(string text)
     {
         txtLastName.SendKeys(text);
     }
-    public void inputEmail(string text)
+    public void InputEmail(string text)
     {
         txtEmailid.SendKeys(text);
     }
-    public void inputUserName(string text)
+    public void InputUserName(string text)
     {
         txtUsername.SendKeys(text);
     }
-    public void inputPassword(string text)
+    public void InputPassword(string text)
     {
         txtPassword.SendKeys(text);
     }

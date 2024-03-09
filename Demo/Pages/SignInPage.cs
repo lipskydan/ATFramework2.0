@@ -4,7 +4,7 @@ namespace Demo.Pages;
 
 public interface ISignInPage
 {
-    void clickNewRegistration();
+    void ClickNewRegistrationBtn();
     // void clickLogin();
     // void enterUserName();
     // void enterPassword();
@@ -29,7 +29,7 @@ public class SignInPage : ISignInPage
     public Element txtPassword => _webDriver.ElementFinder.XPath("//*[@id=\"pwd\"]");
     public string txtUsrPwdErrorMsg => _webDriver.ElementFinder.XPath("//*[@id=\"second_form\"]/div[2]/span").Text;
 
-    public void clickNewRegistration()
+    public void ClickNewRegistrationBtn()
     {
         btnNewRegistration.Click();
     }
