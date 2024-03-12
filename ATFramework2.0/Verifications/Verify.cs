@@ -1,4 +1,4 @@
-﻿namespace ATFramework2._0;
+﻿namespace ATFramework2._0.Verifications;
 
 public class Verify
 {

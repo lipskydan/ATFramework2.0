@@ -1,3 +1,5 @@
+using ATFramework2._0.HooksWrap;
+
 namespace Demo.Hooks;
 
 [Binding]
