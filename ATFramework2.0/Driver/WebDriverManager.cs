@@ -3,9 +3,9 @@
 public class WebDriverManager : IWebDriverManager, IDisposable
 {
     private readonly TestSettings _testSettings;
-    private readonly Lazy<WebDriverWait> _webDriverWait;
-
+    
     public IWebDriver Driver { get; }
+    public Lazy<WebDriverWait> WebDriverWait { get; }
     public ElementFinder ElementFinder { get; }
     public ElementsFinder ElementsFinder { get; }
 
@@ -13,7 +13,7 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     {
         _testSettings = testSettings;
         Driver = _testSettings.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();
-        _webDriverWait = new Lazy<WebDriverWait>(GetWaitDriver);
+        WebDriverWait = new Lazy<WebDriverWait>(GetWaitDriver);
         ElementFinder = new ElementFinder(this);
     }
 
@@ -72,16 +72,6 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     public void Dispose()
     {
         Driver.Quit();
-    }
-
-    public IWebElement FindElement(By elementLocator)
-    {
-        return _webDriverWait.Value.Until(_ => Driver.FindElement(elementLocator));
-    }
-
-    public IEnumerable<IWebElement> FindElements(By elementLocator)
-    {
-        return _webDriverWait.Value.Until(_ => Driver.FindElements(elementLocator));
     }
 }
 

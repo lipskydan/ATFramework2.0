@@ -3,9 +3,8 @@
 public interface IWebDriverManager
 {
     IWebDriver Driver { get; }
+    Lazy<WebDriverWait> WebDriverWait {get; }
     ElementFinder ElementFinder { get; }
     ElementsFinder ElementsFinder { get; }
     void OpenApplicationStartPage();
-    IWebElement FindElement(By elementLocator);
-    IEnumerable<IWebElement> FindElements(By elementLocator);
 }
