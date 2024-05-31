@@ -1,4 +1,4 @@
-﻿namespace Demo;
+﻿namespace DemoUI;
 
 public class DiSetup: DiSetupBase
 {

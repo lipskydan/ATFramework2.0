@@ -1,4 +1,4 @@
-namespace Demo.Pages;
+namespace DemoUI.Pages;
 
 public interface ISuccessRegistrationPage
 {

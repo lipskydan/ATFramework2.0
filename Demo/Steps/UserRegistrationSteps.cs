@@ -1,4 +1,4 @@
-namespace Demo.Steps;
+namespace DemoUI.Steps;
 
 [Binding]
 public class UserRegistrationSteps
