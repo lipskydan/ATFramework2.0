@@ -1,6 +1,6 @@
 using ATFramework2._0.ElementHandle;
 
-namespace Demo.Pages;
+namespace DemoUI.Pages;
 
 public interface IRegistrationPage
 {

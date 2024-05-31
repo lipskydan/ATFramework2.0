@@ -1,4 +1,4 @@
-global using Demo.Pages;
+global using DemoUI.Pages;
 global using ATFramework2._0.Driver;
 global using Microsoft.Extensions.DependencyInjection;
 global using SolidToken.SpecFlow.DependencyInjection;

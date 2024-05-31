@@ -1,6 +1,6 @@
 using ATFramework2._0.HooksWrap;
 
-namespace Demo.Hooks;
+namespace DemoUI.Hooks;
 
 [Binding]
 public class HooksInitialization: HooksWrapReportGenerator

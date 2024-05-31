@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Demo.Features
+namespace DemoUI.Features
 {
     using TechTalk.SpecFlow;
     using System;
