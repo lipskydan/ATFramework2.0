@@ -96,4 +96,14 @@ public class LocalStorageVerifications
 
         CollectionAssert.AreEqual(expDict, actDict, "The dictionaries are not equal.");
     }
+
+    [Test]
+    public void VerifyCleanLocalStorage()
+    {
+        localStorage.ClearLocalStorage();
+        var actDict = localStorage.GetLocalStorage();
+        var expDict = new Dictionary<string, string> {};
+
+        CollectionAssert.AreEqual(expDict, actDict, "The dictionaries are not equal.");
+    }
 }
