@@ -20,7 +20,6 @@ public class LocalStorageWorker
             return items;
         ");
 
-        // Convert Dictionary<string, object> to Dictionary<string, string>
         var result = new Dictionary<string, string>();
         foreach (var kvp in localStorage)
         {
