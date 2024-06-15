@@ -27,8 +27,8 @@ public class ApiWorkerVerifications
     [Test]
     public async Task GetAsync_ReturnsResponseContent()
     {
-        // Arrange
         var expectedResponse = "{\"userId\": 1, \"id\": 1, \"title\": \"title\", \"body\": \"body\"}";
+
         _httpMessageHandlerMock.Protected()
             .Setup<Task<HttpResponseMessage>>(
                 "SendAsync",
@@ -41,19 +41,17 @@ public class ApiWorkerVerifications
                 Content = new StringContent(expectedResponse, Encoding.UTF8, "application/json")
             });
 
-        // Act
-        var result = await _apiWorker.GetAsync("posts/1");
+        var actualResponse = await _apiWorker.GetAsync("posts/1");
 
-        // Assert
-        Assert.AreEqual(expectedResponse, result);
+        Assert.That(actualResponse, Is.EqualTo(expectedResponse));
     }
 
     [Test]
     public async Task PostAsync_ReturnsResponseContent()
     {
-        // Arrange
         var expectedResponse = "{\"id\": 101}";
         var postData = "{\"title\":\"foo\",\"body\":\"bar\",\"userId\":1}";
+
         _httpMessageHandlerMock.Protected()
             .Setup<Task<HttpResponseMessage>>(
                 "SendAsync",
@@ -66,19 +64,17 @@ public class ApiWorkerVerifications
                 Content = new StringContent(expectedResponse, Encoding.UTF8, "application/json")
             });
 
-        // Act
-        var result = await _apiWorker.PostAsync("posts", postData);
+        var actualResponse = await _apiWorker.PostAsync("posts", postData);
 
-        // Assert
-        Assert.AreEqual(expectedResponse, result);
+        Assert.That(actualResponse, Is.EqualTo(expectedResponse));
     }
 
     [Test]
     public async Task PutAsync_ReturnsResponseContent()
     {
-        // Arrange
         var expectedResponse = "{\"id\": 1, \"title\": \"foo\", \"body\": \"bar\", \"userId\": 1}";
         var putData = "{\"id\":1,\"title\":\"foo\",\"body\":\"bar\",\"userId\":1}";
+
         _httpMessageHandlerMock.Protected()
             .Setup<Task<HttpResponseMessage>>(
                 "SendAsync",
@@ -91,18 +87,16 @@ public class ApiWorkerVerifications
                 Content = new StringContent(expectedResponse, Encoding.UTF8, "application/json")
             });
 
-        // Act
-        var result = await _apiWorker.PutAsync("posts/1", putData);
+        var actualResponse = await _apiWorker.PutAsync("posts/1", putData);
 
-        // Assert
-        Assert.AreEqual(expectedResponse, result);
+        Assert.That(actualResponse, Is.EqualTo(expectedResponse));
     }
 
     [Test]
     public async Task DeleteAsync_ReturnsResponseContent()
     {
-        // Arrange
         var expectedResponse = "{}";
+
         _httpMessageHandlerMock.Protected()
             .Setup<Task<HttpResponseMessage>>(
                 "SendAsync",
@@ -115,11 +109,9 @@ public class ApiWorkerVerifications
                 Content = new StringContent(expectedResponse, Encoding.UTF8, "application/json")
             });
 
-        // Act
-        var result = await _apiWorker.DeleteAsync("posts/1");
+        var actualResponse = await _apiWorker.DeleteAsync("posts/1");
 
-        // Assert
-        Assert.AreEqual(expectedResponse, result);
+        Assert.That(actualResponse, Is.EqualTo(expectedResponse));
     }
 }
 
