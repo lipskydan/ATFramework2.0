@@ -2,64 +2,260 @@
 
 public class VerifyWorker
 {
-    public static void Equals<T>(T exp, T act, bool ignoreCase = false)
+    public static void Equals<T>(T exp, Func<T> act, bool ignoreCase = false, string? customMessage = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
     {
-        if (ignoreCase && typeof(T) == typeof(string))
+        TimeSpan maxTime = maxInterval ?? TimeSpan.Zero;
+        TimeSpan interval = checkInterval ?? TimeSpan.Zero;
+        T actualValue = default;
+        
+        if (maxTime != TimeSpan.Zero && interval != TimeSpan.Zero)
         {
-            Assert.That(act as string, Is.EqualTo(exp as string).IgnoreCase, $"Expected value: {exp}, Actual value: {act}");
+            DateTime endTime = DateTime.Now.Add(maxTime);
+            while (DateTime.Now < endTime)
+            {
+                actualValue = act();
+                if (ignoreCase && typeof(T) == typeof(string) && string.Equals(exp as string, actualValue as string, StringComparison.OrdinalIgnoreCase) || !ignoreCase && EqualityComparer<T>.Default.Equals(exp, actualValue))
+                {
+                    break;
+                }
+                Thread.Sleep(interval);
+            }
         }
         else
         {
-            Assert.That(act, Is.EqualTo(exp), $"Expected value: {exp}, Actual value: {act}");
+            actualValue = act();
         }
-    }
 
-    public static void NotEquals<T>(T exp, T act, bool ignoreCase = false)
-    {
+        string message = customMessage ?? $"Expected value: {exp}, Actual value: {actualValue}";
         if (ignoreCase && typeof(T) == typeof(string))
         {
-            Assert.That(act as string, Is.Not.EqualTo(exp as string).IgnoreCase, $"Actual value should not be equal to expected value: {exp}");
+            Assert.That(actualValue as string, Is.EqualTo(exp as string).IgnoreCase, message);
         }
         else
         {
-            Assert.That(act, Is.Not.EqualTo(exp), $"Actual value should not be equal to expected value: {exp}");
+            Assert.That(actualValue, Is.EqualTo(exp), message);
         }
     }
 
-    public static void Contains(string substring, string act, bool ignoreCase = false)
+    public static void NotEquals<T>(T exp, Func<T> act, bool ignoreCase = false, string? customMessage = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
     {
+        TimeSpan maxTime = maxInterval ?? TimeSpan.Zero;
+        TimeSpan interval = checkInterval ?? TimeSpan.Zero;
+        T actualValue = default;
+
+        if (maxTime != TimeSpan.Zero && interval != TimeSpan.Zero)
+        {
+            DateTime endTime = DateTime.Now.Add(maxTime);
+            while (DateTime.Now < endTime)
+            {
+                actualValue = act();
+                if (ignoreCase && typeof(T) == typeof(string) && !string.Equals(exp as string, actualValue as string, StringComparison.OrdinalIgnoreCase) || !ignoreCase && !EqualityComparer<T>.Default.Equals(exp, actualValue))
+                {
+                    break;
+                }
+                Thread.Sleep(interval);
+            }
+        }
+        else
+        {
+            actualValue = act();
+        }
+
+        string message = customMessage ?? $"Actual value should not be equal to expected value: {exp}";
+        if (ignoreCase && typeof(T) == typeof(string))
+        {
+            Assert.That(actualValue as string, Is.Not.EqualTo(exp as string).IgnoreCase, message);
+        }
+        else
+        {
+            Assert.That(actualValue, Is.Not.EqualTo(exp), message);
+        }
+    }
+
+    public static void Contains(string substring, Func<string> act, bool ignoreCase = false, string? customMessage = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
+    {
+        TimeSpan maxTime = maxInterval ?? TimeSpan.Zero;
+        TimeSpan interval = checkInterval ?? TimeSpan.Zero;
+        string actualValue = string.Empty;
+
+        if (maxTime != TimeSpan.Zero && interval != TimeSpan.Zero)
+        {
+            DateTime endTime = DateTime.Now.Add(maxTime);
+            while (DateTime.Now < endTime)
+            {
+                actualValue = act();
+                if (ignoreCase && actualValue.IndexOf(substring, StringComparison.OrdinalIgnoreCase) >= 0 || !ignoreCase && actualValue.Contains(substring))
+                {
+                    break;
+                }
+                Thread.Sleep(interval);
+            }
+        }
+        else
+        {
+            actualValue = act();
+        }
+
+        string message = customMessage ?? $"Actual value: {actualValue} should contain substring: {substring}";
         if (ignoreCase)
         {
-            Assert.That(act, Does.Contain(substring).IgnoreCase, $"Actual value: {act} should contain substring: {substring}");
+            Assert.That(actualValue, Does.Contain(substring).IgnoreCase, message);
         }
         else
         {
-            Assert.That(act, Does.Contain(substring), $"Actual value: {act} should contain substring: {substring}");
+            Assert.That(actualValue, Does.Contain(substring), message);
         }
     }
 
-    public static void Matches(string pattern, string act)
+    public static void Matches(string pattern, Func<string> act, string? customMessage = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
     {
-        Assert.That(act, Does.Match(pattern), $"Actual value: {act} should match pattern: {pattern}");
+        TimeSpan maxTime = maxInterval ?? TimeSpan.Zero;
+        TimeSpan interval = checkInterval ?? TimeSpan.Zero;
+        string actualValue = string.Empty;
+
+        if (maxTime != TimeSpan.Zero && interval != TimeSpan.Zero)
+        {
+            DateTime endTime = DateTime.Now.Add(maxTime);
+            while (DateTime.Now < endTime)
+            {
+                actualValue = act();
+                if (System.Text.RegularExpressions.Regex.IsMatch(actualValue, pattern))
+                {
+                    break;
+                }
+                Thread.Sleep(interval);
+            }
+        }
+        else
+        {
+            actualValue = act();
+        }
+
+        string message = customMessage ?? $"Actual value: {actualValue} should match pattern: {pattern}";
+        Assert.That(actualValue, Does.Match(pattern), message);
     }
 
-    public static void DateTimeEquals(DateTime exp, DateTime act, TimeSpan tolerance)
+    public static void DateTimeEquals(DateTime exp, Func<DateTime> act, TimeSpan tolerance, string? customMessage = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
     {
-        Assert.That(act, Is.EqualTo(exp).Within(tolerance), $"Expected value: {exp} within tolerance: {tolerance}, Actual value: {act}");
+        TimeSpan maxTime = maxInterval ?? TimeSpan.Zero;
+        TimeSpan interval = checkInterval ?? TimeSpan.Zero;
+        DateTime actualValue = DateTime.MinValue;
+
+        if (maxTime != TimeSpan.Zero && interval != TimeSpan.Zero)
+        {
+            DateTime endTime = DateTime.Now.Add(maxTime);
+            while (DateTime.Now < endTime)
+            {
+                actualValue = act();
+                if (Math.Abs((exp - actualValue).Ticks) <= tolerance.Ticks)
+                {
+                    break;
+                }
+                Thread.Sleep(interval);
+            }
+        }
+        else
+        {
+            actualValue = act();
+        }
+
+        string message = customMessage ?? $"Expected value: {exp} within tolerance: {tolerance}, Actual value: {actualValue}";
+        Assert.That(actualValue, Is.EqualTo(exp).Within(tolerance), message);
     }
 
-    public static void DateTimeNotEquals(DateTime exp, DateTime act, TimeSpan tolerance)
+    public static void DateTimeNotEquals(DateTime exp, Func<DateTime> act, TimeSpan tolerance, string? customMessage = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
     {
-        Assert.That(act, Is.Not.EqualTo(exp).Within(tolerance), $"Actual value should not be equal to expected value: {exp} within tolerance: {tolerance}");
+        TimeSpan maxTime = maxInterval ?? TimeSpan.Zero;
+        TimeSpan interval = checkInterval ?? TimeSpan.Zero;
+        DateTime actualValue = DateTime.MinValue;
+
+        if (maxTime != TimeSpan.Zero && interval != TimeSpan.Zero)
+        {
+            DateTime endTime = DateTime.Now.Add(maxTime);
+            while (DateTime.Now < endTime)
+            {
+                actualValue = act();
+                if (Math.Abs((exp - actualValue).Ticks) > tolerance.Ticks)
+                {
+                    break;
+                }
+                Thread.Sleep(interval);
+            }
+        }
+        else
+        {
+            actualValue = act();
+        }
+
+        string message = customMessage ?? $"Actual value should not be equal to expected value: {exp} within tolerance: {tolerance}";
+        Assert.That(actualValue, Is.Not.EqualTo(exp).Within(tolerance), message);
     }
 
-    public static void ListEquals<T>(IEnumerable<T> exp, IEnumerable<T> act)
+    public static void ListEquals<T>(IEnumerable<T> exp, Func<IEnumerable<T>> act, string? customMessage = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
     {
-        Assert.That(act, Is.EqualTo(exp), $"Expected list: {string.Join(", ", exp)}, Actual list: {string.Join(", ", act)}");
+        TimeSpan maxTime = maxInterval ?? TimeSpan.Zero;
+        TimeSpan interval = checkInterval ?? TimeSpan.Zero;
+        IEnumerable<T> actualValue = new List<T>();
+
+        if (maxTime != TimeSpan.Zero && interval != TimeSpan.Zero)
+        {
+            DateTime endTime = DateTime.Now.Add(maxTime);
+            while (DateTime.Now < endTime)
+            {
+                actualValue = act();
+                if (EqualityComparer<IEnumerable<T>>.Default.Equals(exp, actualValue))
+                {
+                    break;
+                }
+                Thread.Sleep(interval);
+            }
+        }
+        else
+        {
+            actualValue = act();
+        }
+
+        string message = customMessage ?? $"Expected list: {string.Join(", ", exp)}, Actual list: {string.Join(", ", actualValue)}";
+        Assert.That(actualValue, Is.EqualTo(exp), message);
     }
 
-    public static void ListEqualsIgnoringOrder<T>(IEnumerable<T> exp, IEnumerable<T> act)
+    public static void ListEqualsIgnoringOrder<T>(IEnumerable<T> exp, Func<IEnumerable<T>> act, string? customMessage = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
     {
-        Assert.That(act, Is.EquivalentTo(exp), $"Expected list (ignoring order): {string.Join(", ", exp)}, Actual list: {string.Join(", ", act)}");
+        TimeSpan maxTime = maxInterval ?? TimeSpan.Zero;
+        TimeSpan interval = checkInterval ?? TimeSpan.Zero;
+        IEnumerable<T> actualValue = new List<T>();
+
+        if (maxTime != TimeSpan.Zero && interval != TimeSpan.Zero)
+        {
+            DateTime endTime = DateTime.Now.Add(maxTime);
+            while (DateTime.Now < endTime)
+            {
+                actualValue = act();
+                var expList = new List<T>(exp);
+                var actList = new List<T>(actualValue);
+                expList.Sort();
+                actList.Sort();
+                if (EqualityComparer<IEnumerable<T>>.Default.Equals(expList, actList))
+                {
+                    break;
+                }
+                Thread.Sleep(interval);
+            }
+        }
+        else
+        {
+            actualValue = act();
+        }
+
+        string message = customMessage ?? $"Expected list (ignoring order): {string.Join(", ", exp)}, Actual list: {string.Join(", ", actualValue)}";
+        Assert.That(actualValue, Is.EquivalentTo(exp), message);
+    }
+
+    public static void Multiple(params Action[] verifications)
+    {
+        foreach (var verification in verifications)
+        {
+            verification();
+        }
     }
 }
