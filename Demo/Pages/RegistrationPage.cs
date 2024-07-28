@@ -11,6 +11,7 @@ public interface IRegistrationPage
     void InputEmail(string text);
     void InputUserName(string text);
     void InputPassword(string text);
+    string GetTxtErrorMsgField(string field);
 }
 
 public class RegistrationPage: IRegistrationPage
@@ -22,15 +23,25 @@ public class RegistrationPage: IRegistrationPage
         _webDriver = webDriver;
     }
 
-    public Element btnSubmit => _webDriver.ElementFinder.XPath("//input[@value='Submit']"); 
-    public Element txtFirstName => _webDriver.ElementFinder.Id("firstname");
-    public  Element txtLastName => _webDriver.ElementFinder.Id("lastname"); 
-    public  Element txtEmailid => _webDriver.ElementFinder.Id("emailId");
-    public  Element txtUsername => _webDriver.ElementFinder.Id("usr");
-    public  Element txtPassword => _webDriver.ElementFinder.Id("pwd");
-    public  string txtErrorMsg => _webDriver.ElementFinder.XPath("//*[@id=\"first_form\"]/div/span").Text;
-    public  string txtErrorMsg2 => _webDriver.ElementFinder.XPath("//*[@id=\"first_form\"]/div/span").Text;
+    public Element BtnSubmit => _webDriver.ElementFinder.XPath("//input[@value='Submit']"); 
+    public Element TxtFirstName => _webDriver.ElementFinder.Id("firstname");
+    public  Element TxtLastName => _webDriver.ElementFinder.Id("lastname"); 
+    public  Element TxtEmailid => _webDriver.ElementFinder.Id("emailId");
+    public  Element TxtUsername => _webDriver.ElementFinder.Id("usr");
+    public  Element TxtPassword => _webDriver.ElementFinder.Id("pwd");
+    public  string TxtErrorMsg => _webDriver.ElementFinder.XPath("//*[@id=\"first_form\"]/div/span").Text;
+    public  string TxtErrorMsg2 => _webDriver.ElementFinder.XPath("//*[@id=\"first_form\"]/div/span").Text;
 
+    #region ErrorMsgField
+    private readonly Dictionary<string, string> _fieldIds = new Dictionary<string, string>
+    {
+        { "FirstName", "firstname" },
+        { "LastName", "lastname" },
+    };
+    public string TxtErrorMsgField(string field) => _webDriver.ElementFinder.XPath($"//*[@id='{_fieldIds[field]}']/following-sibling::span[@class='error']").Text;
+   public string GetTxtErrorMsgField(string field) => TxtErrorMsgField(field);
+    #endregion
+    
     public void SelectSalutation(string text)
     { 
         SelectElement drpSalutation = new SelectElement(_webDriver.ElementFinder._Id("Salutation"));
@@ -39,26 +50,26 @@ public class RegistrationPage: IRegistrationPage
     
     public void ClickSubmitBtn()
     {
-        btnSubmit.Click();
+        BtnSubmit.Click();
     }
     public void InputFirstName(string text)
     {
-        txtFirstName.SendKeys(text);
+        TxtFirstName.SendKeys(text);
     }
     public void InputLastName(string text)
     {
-        txtLastName.SendKeys(text);
+        TxtLastName.SendKeys(text);
     }
     public void InputEmail(string text)
     {
-        txtEmailid.SendKeys(text);
+        TxtEmailid.SendKeys(text);
     }
     public void InputUserName(string text)
     {
-        txtUsername.SendKeys(text);
+        TxtUsername.SendKeys(text);
     }
     public void InputPassword(string text)
     {
-        txtPassword.SendKeys(text);
+        TxtPassword.SendKeys(text);
     }
 }

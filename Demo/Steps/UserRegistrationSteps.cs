@@ -94,8 +94,15 @@ public class UserRegistrationSteps
     }
 
     [Then(@"Success message ""(.*)"" is displayed")]
-    public void ThenSuccessMessageIsDisplayed(string actText)
+    public void ThenSuccessMessageIsDisplayed(string expText)
     {
-        Verify.StringEquals(exp: _successRegistrationPage.getSuccessMsg(), act: actText);
+        VerifyWorker.Equals(exp: expText, act: () => _successRegistrationPage.getSuccessMsg(), 
+        message: $"Current message should be '{expText}'");
+    }
+
+    [Then(@"Fail message ""(.*)"" under the field ""(.*)"" is displayed")]
+    public void ThenFailMessageIsDisplayed(string expText, string fieldName)
+    {
+        VerifyWorker.Equals(exp: expText, act: () => _registrationPage.GetTxtErrorMsgField(fieldName));
     }
 }

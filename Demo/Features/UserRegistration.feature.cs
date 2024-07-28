@@ -126,6 +126,45 @@ this.ScenarioInitialize(scenarioInfo);
             }
             await this.ScenarioCleanupAsync();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Fail Validation - Forget First Name")]
+        public async System.Threading.Tasks.Task FailValidation_ForgetFirstName()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Fail Validation - Forget First Name", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 16
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 17
+ await testRunner.GivenAsync("Navigate to the start page of the app", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 18
+ await testRunner.AndAsync("Open \"Sign In\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 19
+ await testRunner.AndAsync("Click on the button \"New Registration\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 20
+ await testRunner.AndAsync("Select Salutation \"Mr.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 21
+ await testRunner.WhenAsync("Click on the button \"Submit\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 22
+ await testRunner.ThenAsync("Fail message \"This field is required\" under the field \"FirstName\" is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
     }
 }
 #pragma warning restore
