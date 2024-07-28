@@ -103,19 +103,19 @@ this.ScenarioInitialize(scenarioInfo);
  await testRunner.AndAsync("Select Salutation \"Mr.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 8
- await testRunner.AndAsync("Enter FirstName \"Clark\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ await testRunner.AndAsync("Enter text \"Clark\" to the field \"FirstName\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 9
- await testRunner.AndAsync("Enter LastName \"Smith\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ await testRunner.AndAsync("Enter text \"Smith\" to the field \"LastName\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 10
- await testRunner.AndAsync("Enter Email \"PeterSmith@gmail.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ await testRunner.AndAsync("Enter text \"PeterSmith@gmail.com\" to the field \"Email\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 11
- await testRunner.AndAsync("Enter UserName \"Peter\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ await testRunner.AndAsync("Enter text \"Peter\" to the field \"UserName\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 12
- await testRunner.AndAsync("Enter Password \"Password\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ await testRunner.AndAsync("Enter text \"Password\" to the field \"Password\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 13
  await testRunner.WhenAsync("Click on the button \"Submit\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
