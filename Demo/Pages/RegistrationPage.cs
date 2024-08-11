@@ -41,15 +41,19 @@ public class RegistrationPage: IRegistrationPage
     public string GetTxtErrorMsgField(string fieldName) => txtErrorMsgField(fieldName);
     #endregion
 
+    #region DropDownSalutation
+    public Element dropDownSalutationButton => _webDriver.ElementFinder.Css("[id='Salutation']");
+    public Element optionSalutation(string optionName) => _webDriver.ElementFinder.Css($"option[value='{optionName}']");
+     public void SelectSalutation(string text)
+    { 
+        dropDownSalutationButton.Click();
+        optionSalutation(text).Click();
+    }
+    #endregion
+
     public Element btnSubmit => _webDriver.ElementFinder.XPath("//input[@value='Submit']"); 
     public void ClickSubmitBtn()
     {
         btnSubmit.Click();
-    }
-    
-    public void SelectSalutation(string text)
-    { 
-        SelectElement drpSalutation = new SelectElement(_webDriver.ElementFinder._Id("Salutation"));
-        drpSalutation.SelectByText(text);
     }
 }
