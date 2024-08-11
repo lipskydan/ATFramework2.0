@@ -37,14 +37,14 @@ public class RegistrationPage: IRegistrationPage
     #endregion
 
     #region ErrorMsgField
-    public string TxtErrorMsgField(string fieldName) => _webDriver.ElementFinder.XPath($"//*[@id='{_fieldIds[fieldName]}']/following-sibling::span[@class='error']").Text;
-    public string GetTxtErrorMsgField(string fieldName) => TxtErrorMsgField(fieldName);
+    public string txtErrorMsgField(string fieldName) => _webDriver.ElementFinder.XPath($"//*[@id='{_fieldIds[fieldName]}']/following-sibling::span[@class='error']").Text;
+    public string GetTxtErrorMsgField(string fieldName) => txtErrorMsgField(fieldName);
     #endregion
 
-    public Element BtnSubmit => _webDriver.ElementFinder.XPath("//input[@value='Submit']"); 
+    public Element btnSubmit => _webDriver.ElementFinder.XPath("//input[@value='Submit']"); 
     public void ClickSubmitBtn()
     {
-        BtnSubmit.Click();
+        btnSubmit.Click();
     }
     
     public void SelectSalutation(string text)
