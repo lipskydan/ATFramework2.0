@@ -2,7 +2,7 @@ namespace DemoUI.Pages;
 
 public interface ISuccessRegistrationPage
 {
-    string getSuccessMsg();
+    string GetSuccessMsg();
 }
 
 public class SuccessRegistrationPage : ISuccessRegistrationPage
@@ -13,5 +13,5 @@ public class SuccessRegistrationPage : ISuccessRegistrationPage
     {
         _webDriver = webDriver;
     } 
-    public string getSuccessMsg() => _webDriver.ElementFinder.XPath("/html/body/center[1]/h1").Text;
+    public string GetSuccessMsg() => _webDriver.ElementFinder.XPath("/html/body/center[1]/h1").Text;
 }

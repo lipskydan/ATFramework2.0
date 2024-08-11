@@ -6,11 +6,8 @@ public interface IRegistrationPage
 {
     void SelectSalutation(string text);
     void ClickSubmitBtn();
-    void InputFirstName(string text);
-    void InputLastName(string text);
-    void InputEmail(string text);
-    void InputUserName(string text);
-    void InputPassword(string text);
+    void InputTxtField(string fieldName, string text);
+    string GetTxtErrorMsgField(string field);
 }
 
 public class RegistrationPage: IRegistrationPage
@@ -22,43 +19,37 @@ public class RegistrationPage: IRegistrationPage
         _webDriver = webDriver;
     }
 
-    public Element btnSubmit => _webDriver.ElementFinder.XPath("//input[@value='Submit']"); 
-    public Element txtFirstName => _webDriver.ElementFinder.Id("firstname");
-    public  Element txtLastName => _webDriver.ElementFinder.Id("lastname"); 
-    public  Element txtEmailid => _webDriver.ElementFinder.Id("emailId");
-    public  Element txtUsername => _webDriver.ElementFinder.Id("usr");
-    public  Element txtPassword => _webDriver.ElementFinder.Id("pwd");
-    public  string txtErrorMsg => _webDriver.ElementFinder.XPath("//*[@id=\"first_form\"]/div/span").Text;
-    public  string txtErrorMsg2 => _webDriver.ElementFinder.XPath("//*[@id=\"first_form\"]/div/span").Text;
+    private readonly Dictionary<string, string> _fieldIds = new Dictionary<string, string>
+    {
+        { "FirstName", "firstname" },
+        { "LastName",  "lastname"  },
+        { "Email",     "emailId"   },
+        { "UserName",  "usr"       },
+        { "Password",  "pwd"       },
+    };
 
+    #region TxtField
+    public Element TxtField(string fieldName) => _webDriver.ElementFinder.Id(_fieldIds[fieldName]);
+    void IRegistrationPage.InputTxtField(string fieldName, string text)
+    {
+        TxtField(fieldName).SendKeys(text);
+    }
+    #endregion
+
+    #region ErrorMsgField
+    public string TxtErrorMsgField(string fieldName) => _webDriver.ElementFinder.XPath($"//*[@id='{_fieldIds[fieldName]}']/following-sibling::span[@class='error']").Text;
+    public string GetTxtErrorMsgField(string fieldName) => TxtErrorMsgField(fieldName);
+    #endregion
+
+    public Element BtnSubmit => _webDriver.ElementFinder.XPath("//input[@value='Submit']"); 
+    public void ClickSubmitBtn()
+    {
+        BtnSubmit.Click();
+    }
+    
     public void SelectSalutation(string text)
     { 
         SelectElement drpSalutation = new SelectElement(_webDriver.ElementFinder._Id("Salutation"));
         drpSalutation.SelectByText(text);
-    }
-    
-    public void ClickSubmitBtn()
-    {
-        btnSubmit.Click();
-    }
-    public void InputFirstName(string text)
-    {
-        txtFirstName.SendKeys(text);
-    }
-    public void InputLastName(string text)
-    {
-        txtLastName.SendKeys(text);
-    }
-    public void InputEmail(string text)
-    {
-        txtEmailid.SendKeys(text);
-    }
-    public void InputUserName(string text)
-    {
-        txtUsername.SendKeys(text);
-    }
-    public void InputPassword(string text)
-    {
-        txtPassword.SendKeys(text);
     }
 }

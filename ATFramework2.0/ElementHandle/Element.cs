@@ -15,6 +15,13 @@ public class Element
         _element.ScrollToElement();
        _element.PerformActionWithHighlighting(() => _element.Click());
     }
+
+    public void Clear()
+    {
+        _element.ScrollToElement();
+        _element.PerformActionWithHighlighting(() => _element.Clear());
+    }
+
     public void SendKeys(string text)
     {
         _element.ScrollToElement();

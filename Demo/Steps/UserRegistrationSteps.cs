@@ -52,36 +52,12 @@ public class UserRegistrationSteps
         _registrationPage.SelectSalutation(salutationName);
     }
 
-    [Given(@"Enter FirstName ""(.*)""")]
-    public void GivenEnterFirstName(string firstName)
+    [Given(@"Enter text ""(.*)"" to the field ""(.*)""")]
+    public void EnterTextToField(string text, string fieldName)
     {
-        _registrationPage.InputFirstName(firstName);
+        _registrationPage.InputTxtField(fieldName, text);
     }
-
-    [Given(@"Enter LastName ""(.*)""")]
-    public void GivenEnterLastName(string lastName)
-    {
-        _registrationPage.InputLastName(lastName);
-    }
-
-    [Given(@"Enter Email ""(.*)""")]
-    public void GivenEnterEmail(string email)
-    {
-        _registrationPage.InputEmail(email);
-    }
-
-    [Given(@"Enter UserName ""(.*)""")]
-    public void GivenEnterUserName(string userName)
-    {
-        _registrationPage.InputUserName(userName);
-    }
-
-    [Given(@"Enter Password ""(.*)""")]
-    public void GivenEnterPassword(string password)
-    {
-        _registrationPage.InputPassword(password);
-    }
-
+    
     [When(@"Click on the button ""(.*)""")]
     public void WhenClickOnTheButton(string submit)
     {
@@ -94,8 +70,15 @@ public class UserRegistrationSteps
     }
 
     [Then(@"Success message ""(.*)"" is displayed")]
-    public void ThenSuccessMessageIsDisplayed(string actText)
+    public void ThenSuccessMessageIsDisplayed(string expText)
     {
-        Verify.StringEquals(exp: _successRegistrationPage.getSuccessMsg(), act: actText);
+        VerifyWorker.Equals(exp: expText, act: () => _successRegistrationPage.GetSuccessMsg(), 
+        message: $"Current message should be '{expText}'");
+    }
+
+    [Then(@"Fail message ""(.*)"" under the field ""(.*)"" is displayed")]
+    public void ThenFailMessageIsDisplayed(string expText, string fieldName)
+    {
+        VerifyWorker.Equals(exp: expText, act: () => _registrationPage.GetTxtErrorMsgField(fieldName));
     }
 }
