@@ -72,7 +72,7 @@ public class UserRegistrationSteps
     [Then(@"Success message ""(.*)"" is displayed")]
     public void ThenSuccessMessageIsDisplayed(string expText)
     {
-        VerifyWorker.Equals(exp: expText, act: () => _successRegistrationPage.getSuccessMsg(), 
+        VerifyWorker.Equals(exp: expText, act: () => _successRegistrationPage.GetSuccessMsg(), 
         message: $"Current message should be '{expText}'");
     }
 

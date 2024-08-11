@@ -44,7 +44,6 @@ public static class WebElementExtension
         
         Thread.Sleep(highlightDuration);
     }
-
     public static void PerformActionWithHighlighting(this IWebElement element, Action action)
     {
         var originalStyle = element.BackupElementStyle();
@@ -54,11 +53,16 @@ public static class WebElementExtension
     }
     public static void ScrollToElement(this IWebElement element)
     {
-        IWebDriver driver = GetDriverFromElement(element) 
-            ?? throw new InvalidOperationException("Unable to retrieve driver from element");
+        IWebDriver driver = GetDriverFromElement(element)
+        ?? throw new InvalidOperationException("Unable to retrieve driver from element");
         
         var jsExecutor = (IJavaScriptExecutor)driver;
-        jsExecutor.ExecuteScript("arguments[0].scrollIntoView(true);", element);
-        jsExecutor.ExecuteScript("if (document.body.scrollHeight - arguments[0].getBoundingClientRect().bottom > 150) window.scrollBy(0, 150);", element);
+        jsExecutor.ExecuteScript(@"
+        var element = arguments[0];
+        var elementRect = element.getBoundingClientRect();
+        var absoluteElementTop = elementRect.top + window.pageYOffset;
+        var middle = absoluteElementTop - (window.innerHeight * 0.4); // Adjust 0.4 to position slightly above center
+        window.scrollTo(0, middle);
+        ", element);
     }
 }
