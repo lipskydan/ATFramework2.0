@@ -19,19 +19,19 @@ public class SignInPage : ISignInPage
         _webDriver = webDriver;
     }
     
-    public int txtpwdlength => _webDriver.ElementsFinder.Id("pwd").Count();
-    public int btnLogin => _webDriver.ElementsFinder.XPath("//input[@value='Login']").Count();
-    public int btnRegistration => _webDriver.ElementsFinder.Id("NewRegistration").Count();
+    public int Txtpwdlength => _webDriver.ElementsFinder.Id("pwd").Count();
+    public int BtnLogin => _webDriver.ElementsFinder.XPath("//input[@value='Login']").Count();
+    public int BtnRegistration => _webDriver.ElementsFinder.Id("NewRegistration").Count();
 
-    public Element btnNewRegistration => _webDriver.ElementFinder.Id("NewRegistration");
-    public Element btnLgn => _webDriver.ElementFinder.XPath("//*[@id=\"second_form\"]/input");
-    public Element txtUserName => _webDriver.ElementFinder.XPath("//*[@id=\"usr\"]");
-    public Element txtPassword => _webDriver.ElementFinder.XPath("//*[@id=\"pwd\"]");
-    public string txtUsrPwdErrorMsg => _webDriver.ElementFinder.XPath("//*[@id=\"second_form\"]/div[2]/span").Text;
+    public Element BtnNewRegistration => _webDriver.ElementFinder.Id("NewRegistration");
+    public Element BtnLgn => _webDriver.ElementFinder.XPath("//*[@id=\"second_form\"]/input");
+    public Element TxtUserName => _webDriver.ElementFinder.XPath("//*[@id=\"usr\"]");
+    public Element TxtPassword => _webDriver.ElementFinder.XPath("//*[@id=\"pwd\"]");
+    public string TxtUsrPwdErrorMsg => _webDriver.ElementFinder.XPath("//*[@id=\"second_form\"]/div[2]/span").Text;
 
     public void ClickNewRegistrationBtn()
     {
-        btnNewRegistration.Click();
+        BtnNewRegistration.Click();
     }
 
     // public void clickLogin()

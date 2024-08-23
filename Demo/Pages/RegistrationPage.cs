@@ -37,17 +37,17 @@ public class RegistrationPage: IRegistrationPage
     #endregion
 
     #region ErrorMsgField
-    public string txtErrorMsgField(string fieldName) => _webDriver.ElementFinder.XPath($"//*[@id='{_fieldIds[fieldName]}']/following-sibling::span[@class='error']").Text;
-    public string GetTxtErrorMsgField(string fieldName) => txtErrorMsgField(fieldName);
+    public string TxtErrorMsgField(string fieldName) => _webDriver.ElementFinder.XPath($"//*[@id='{_fieldIds[fieldName]}']/following-sibling::span[@class='error']").Text;
+    public string GetTxtErrorMsgField(string fieldName) => TxtErrorMsgField(fieldName);
     #endregion
 
     #region DropDownSalutation
-    public Element dropDownSalutationButton => _webDriver.ElementFinder.Css("[id='Salutation']");
-    public Element optionSalutation(string optionName) => _webDriver.ElementFinder.Css($"option[value='{optionName}']");
+    public Element DropDownSalutationButton => _webDriver.ElementFinder.Css("[id='Salutation']");
+    public Element OptionSalutation(string optionName) => _webDriver.ElementFinder.Css($"option[value='{optionName}']");
      public void SelectSalutation(string text)
     { 
-        dropDownSalutationButton.Click();
-        optionSalutation(text).Click();
+        DropDownSalutationButton.Click();
+        OptionSalutation(text).Click();
     }
     #endregion
 

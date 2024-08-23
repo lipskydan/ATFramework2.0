@@ -17,13 +17,13 @@ class HomePage : IHomePage
         _webDriver.OpenApplicationStartPage();
     }
     
-    public Element menuBtn => _webDriver.ElementFinder.Css("#menuToggle > input[type=checkbox]");
-    public Element lnkSignInPortal => _webDriver.ElementFinder.Css("[href*='SignIn']");
+    public Element MenuBtn => _webDriver.ElementFinder.Css("#menuToggle > input[type=checkbox]");
+    public Element LnkSignInPortal => _webDriver.ElementFinder.Css("[href*='SignIn']");
     
     public void OpenSignInPortalPage()
     {
-        menuBtn.Click();
-        lnkSignInPortal.Click();
+        MenuBtn.Click();
+        LnkSignInPortal.Click();
     }
 }
 
