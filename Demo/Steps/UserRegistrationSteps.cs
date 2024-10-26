@@ -3,15 +3,13 @@ namespace DemoUI.Steps;
 [Binding]
 public class UserRegistrationSteps
 {
-    private readonly ScenarioContext _scenarioContext;
     private readonly IHomePage _homePage;
     private readonly ISignInPage _signInPage;
     private readonly IRegistrationPage _registrationPage;
     private readonly ISuccessRegistrationPage _successRegistrationPage;
 
-    public UserRegistrationSteps(ScenarioContext scenarioContext, IHomePage homePage, ISignInPage signInPage, IRegistrationPage registrationPage, ISuccessRegistrationPage successRegistrationPage)
+    public UserRegistrationSteps(IHomePage homePage, ISignInPage signInPage, IRegistrationPage registrationPage, ISuccessRegistrationPage successRegistrationPage)
     {
-        _scenarioContext = scenarioContext;
         _homePage = homePage;
         _signInPage = signInPage;
         _registrationPage = registrationPage;

@@ -2,7 +2,7 @@ namespace ATFramework2._0;
 
 public class DiSetupBase
 {
-    protected static IServiceCollection CreateBaseServices(out IServiceCollection services)
+    public static IServiceCollection CreateBaseServices(out IServiceCollection services)
     {
         services = new ServiceCollection();
 
