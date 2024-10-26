@@ -31,7 +31,7 @@ public class RegistrationPage: IRegistrationPage
     #region TxtField
     public Element TxtField(string fieldName) => _webDriver.ElementFinder.Id(_fieldIds[fieldName]);
     void IRegistrationPage.InputTxtField(string fieldName, string text)
-    {
+    {        
         TxtField(fieldName).SendKeys(text);
     }
     #endregion

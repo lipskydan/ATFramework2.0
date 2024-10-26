@@ -12,10 +12,14 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     public WebDriverManager(TestSettings testSettings)
     {
         _testSettings = testSettings;
+
         LogWorker = new LogWorker();
+        
         Driver = _testSettings.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();
         WebDriverWait = new Lazy<WebDriverWait>(GetWaitDriver);
         ElementFinder = new ElementFinder(this);
+
+        
     }
 
     private IWebDriver GetWebDriver()

@@ -7,80 +7,182 @@ public class UserRegistrationSteps
     private readonly ISignInPage _signInPage;
     private readonly IRegistrationPage _registrationPage;
     private readonly ISuccessRegistrationPage _successRegistrationPage;
-
     private readonly IWebDriverManager _webDriver;
 
-    public UserRegistrationSteps(IWebDriverManager webDriver, IHomePage homePage, ISignInPage signInPage, IRegistrationPage registrationPage, ISuccessRegistrationPage successRegistrationPage)
+    public UserRegistrationSteps(
+        IWebDriverManager webDriver,
+        IHomePage homePage,
+        ISignInPage signInPage,
+        IRegistrationPage registrationPage,
+        ISuccessRegistrationPage successRegistrationPage)
     {
         _webDriver = webDriver;
-
         _homePage = homePage;
         _signInPage = signInPage;
         _registrationPage = registrationPage;
         _successRegistrationPage = successRegistrationPage;
     }
-    
+
+    private void Log(string message, LogLevel level = LogLevel.Info, string feature = "User Registration")
+    {
+        _webDriver.LogWorker.Log(message, level, feature, ScenarioContext.Current.ScenarioInfo.Title);
+    }
+
+    private void LogException(Exception ex, string action)
+    {
+        Log($"Exception during '{action}': {ex.Message}\n{ex.StackTrace}", LogLevel.Error);
+    }
+
     [Given(@"Navigate to the start page of the app")]
     public void GivenNavigateToTheApp()
     {
-        
+        try
+        {
+            Log("Navigating to the start page of the app.");
+        }
+        catch (Exception ex)
+        {
+            LogException(ex, "Navigating to the start page");
+            throw;
+        }
     }
 
     [Given(@"Open ""(.*)"" page")]
     public void OpenPage(string pageName)
     {
-        switch (pageName)
+        try
         {
-            case "Sign In":
-                _homePage.OpenSignInPortalPage();
-                break;
+            Log($"Opening the '{pageName}' page.");
+
+            switch (pageName)
+            {
+                case "Sign In":
+                    _homePage.OpenSignInPortalPage();
+                    break;
+                default:
+                    Log($"Page '{pageName}' not found.", LogLevel.Warning);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            LogException(ex, $"Opening page '{pageName}'");
+            throw;
         }
     }
 
     [Given(@"Click on the button ""(.*)""")]
     public void GivenClickOnTheButton(string btnName)
     {
-        switch (btnName)
+        try
         {
-            case "New Registration":
-                _signInPage.ClickNewRegistrationBtn();
-                break;
+            Log($"Clicking on the '{btnName}' button.");
+
+            switch (btnName)
+            {
+                case "New Registration":
+                    _signInPage.ClickNewRegistrationBtn();
+                    break;
+                default:
+                    Log($"Button '{btnName}' not recognized.", LogLevel.Warning);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            LogException(ex, $"Clicking button '{btnName}'");
+            throw;
         }
     }
 
     [Given(@"Select Salutation ""(.*)""")]
     public void GivenSelectSalutation(string salutationName)
     {
-        _registrationPage.SelectSalutation(salutationName);
+        try
+        {
+            Log($"Selecting salutation: {salutationName}.");
+            _registrationPage.SelectSalutation(salutationName);
+        }
+        catch (Exception ex)
+        {
+            LogException(ex, $"Selecting salutation '{salutationName}'");
+            throw;
+        }
     }
 
     [Given(@"Enter text ""(.*)"" to the field ""(.*)""")]
     public void EnterTextToField(string text, string fieldName)
     {
-        _registrationPage.InputTxtField(fieldName, text);
+        try
+        {
+            Log($"Entering '{text}' into the '{fieldName}' field.");
+            _registrationPage.InputTxtField(fieldName, text);
+        }
+        catch (Exception ex)
+        {
+            LogException(ex, $"Entering text into field '{fieldName}'");
+            throw;
+        }
     }
-    
+
     [When(@"Click on the button ""(.*)""")]
     public void WhenClickOnTheButton(string submit)
     {
-        switch (submit)
+        try
         {
-            case "Submit":
-                _registrationPage.ClickSubmitBtn();
-                break;
+            Log($"Clicking on the '{submit}' button.");
+
+            switch (submit)
+            {
+                case "Submit":
+                    _registrationPage.ClickSubmitBtn();
+                    break;
+                default:
+                    Log($"Button '{submit}' not recognized.", LogLevel.Warning);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            LogException(ex, $"Clicking button '{submit}'");
+            throw;
         }
     }
 
     [Then(@"Success message ""(.*)"" is displayed")]
     public void ThenSuccessMessageIsDisplayed(string expText)
     {
-        VerifyWorker.Equals(exp: expText, act: () => _successRegistrationPage.GetSuccessMsg(), 
-        message: $"Current message should be '{expText}'");
+        try
+        {
+            Log($"Verifying success message: '{expText}'.");
+            VerifyWorker.Equals(
+                exp: expText,
+                act: () => _successRegistrationPage.GetSuccessMsg(),
+                message: $"Current message should be '{expText}'"
+            );
+        }
+        catch (Exception ex)
+        {
+            LogException(ex, $"Verifying success message '{expText}'");
+            throw;
+        }
     }
 
     [Then(@"Fail message ""(.*)"" under the field ""(.*)"" is displayed")]
     public void ThenFailMessageIsDisplayed(string expText, string fieldName)
     {
-        VerifyWorker.Equals(exp: expText, act: () => _registrationPage.GetTxtErrorMsgField(fieldName));
+        try
+        {
+            Log($"Verifying fail message: '{expText}' under the '{fieldName}' field.", LogLevel.Warning);
+            VerifyWorker.Equals(
+                exp: expText,
+                act: () => _registrationPage.GetTxtErrorMsgField(fieldName)
+            );
+        }
+        catch (Exception ex)
+        {
+            LogException(ex, $"Verifying fail message '{expText}' under field '{fieldName}'");
+            throw;
+        }
     }
 }
