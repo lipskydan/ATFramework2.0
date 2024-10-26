@@ -6,5 +6,6 @@ public interface IWebDriverManager
     Lazy<WebDriverWait> WebDriverWait {get; }
     ElementFinder ElementFinder { get; }
     ElementsFinder ElementsFinder { get; }
+    LogWorker LogWorker { get; set;}
     void OpenApplicationStartPage();
 }

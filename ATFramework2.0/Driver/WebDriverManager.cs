@@ -3,15 +3,16 @@
 public class WebDriverManager : IWebDriverManager, IDisposable
 {
     private readonly TestSettings _testSettings;
-    
     public IWebDriver Driver { get; }
     public Lazy<WebDriverWait> WebDriverWait { get; }
     public ElementFinder ElementFinder { get; }
     public ElementsFinder ElementsFinder { get; }
+    public LogWorker LogWorker { get; set;  }
 
     public WebDriverManager(TestSettings testSettings)
     {
         _testSettings = testSettings;
+        LogWorker = new LogWorker();
         Driver = _testSettings.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();
         WebDriverWait = new Lazy<WebDriverWait>(GetWaitDriver);
         ElementFinder = new ElementFinder(this);
@@ -72,6 +73,7 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     public void Dispose()
     {
         Driver.Quit();
+        LogWorker.SaveLogsToFile(_testSettings.PathToSaveReport + $"logs_{DateTime.Now}.txt");
     }
 }
 

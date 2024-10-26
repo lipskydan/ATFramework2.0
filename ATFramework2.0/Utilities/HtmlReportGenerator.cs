@@ -5,13 +5,6 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 
-// File.WriteAllText(_testSettings.PathToSaveReport + $"Report_{DateTime.Now}.html", _reportContent.ToString());
-
-using System;
-using System.IO;
-using System.Text;
-using System.Collections.Generic;
-
 public class HtmlReportGenerator
 {
     private static HtmlReportGenerator _instance;

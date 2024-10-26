@@ -26,7 +26,3 @@ class HomePage : IHomePage
         LnkSignInPortal.Click();
     }
 }
-
-
-
-

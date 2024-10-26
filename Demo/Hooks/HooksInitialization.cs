@@ -9,7 +9,7 @@ public class HooksInitialization
 {
     private readonly HtmlReportGenerator _reportGenerator;
     private readonly TestSettings _testSettings;
-
+    
     public HooksInitialization()
     {
         var services = DiSetupBase.CreateBaseServices(out _);
@@ -40,6 +40,8 @@ public class HooksInitialization
         {
             _reportGenerator.AddStepResult(scenarioName, stepName, "Passed");
         }
+
+        Console.WriteLine($"[DL][Log] {scenarioName} - {stepName}");
     }
 
     [AfterScenario]

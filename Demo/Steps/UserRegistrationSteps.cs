@@ -8,8 +8,12 @@ public class UserRegistrationSteps
     private readonly IRegistrationPage _registrationPage;
     private readonly ISuccessRegistrationPage _successRegistrationPage;
 
-    public UserRegistrationSteps(IHomePage homePage, ISignInPage signInPage, IRegistrationPage registrationPage, ISuccessRegistrationPage successRegistrationPage)
+    private readonly IWebDriverManager _webDriver;
+
+    public UserRegistrationSteps(IWebDriverManager webDriver, IHomePage homePage, ISignInPage signInPage, IRegistrationPage registrationPage, ISuccessRegistrationPage successRegistrationPage)
     {
+        _webDriver = webDriver;
+
         _homePage = homePage;
         _signInPage = signInPage;
         _registrationPage = registrationPage;
@@ -19,7 +23,7 @@ public class UserRegistrationSteps
     [Given(@"Navigate to the start page of the app")]
     public void GivenNavigateToTheApp()
     {
-        Console.WriteLine("Navigate to the app");
+        
     }
 
     [Given(@"Open ""(.*)"" page")]
