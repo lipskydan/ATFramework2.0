@@ -125,7 +125,7 @@ public class HtmlReportGenerator
         _reportContent.AppendLine("</script>");
         _reportContent.AppendLine("</head>");
         _reportContent.AppendLine("<body>");
-        _reportContent.AppendLine("<h1>Automation Test Execution Report</h1>");
+        _reportContent.AppendLine("<h1>Automation test execution report [ATFramework2.0]</h1>");
     }
 
     public void StartScenario(string featureName, string scenarioName)
