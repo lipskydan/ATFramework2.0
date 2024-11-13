@@ -75,6 +75,8 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     public void Dispose()
     {
         Driver.Quit();
+
+        //Need to move this logic to Hooks -> [AfterTestRun]
         var formattedDate = DateTime.Now.ToString("MM_dd_yyyy_HH_mm_ss");
         LogWorker.SaveLogsToFile(_testSettings.PathToSaveReport + $"logs_{formattedDate}.txt"); //add if setting TRUE
     }
