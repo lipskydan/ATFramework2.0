@@ -18,8 +18,6 @@ public class WebDriverManager : IWebDriverManager, IDisposable
         Driver = _testSettings.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();
         WebDriverWait = new Lazy<WebDriverWait>(GetWaitDriver);
         ElementFinder = new ElementFinder(this);
-
-        
     }
 
     private IWebDriver GetWebDriver()
@@ -77,7 +75,8 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     public void Dispose()
     {
         Driver.Quit();
-        LogWorker.SaveLogsToFile(_testSettings.PathToSaveReport + $"logs_{DateTime.Now}.txt");
+        var formattedDate = DateTime.Now.ToString("MM_dd_yyyy_HH_mm_ss");
+        LogWorker.SaveLogsToFile(_testSettings.PathToSaveReport + $"logs_{formattedDate}.txt"); //add if setting TRUE
     }
 }
 

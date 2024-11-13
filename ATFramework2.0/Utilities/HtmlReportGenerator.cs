@@ -128,14 +128,14 @@ public class HtmlReportGenerator
         _reportContent.AppendLine("<h1>Automation Test Execution Report</h1>");
     }
 
-    public void StartScenario(string scenarioName)
+    public void StartScenario(string featureName, string scenarioName)
     {
         if (!_scenarioReports.ContainsKey(scenarioName))
         {
             var scenarioContent = new StringBuilder();
 
             string scenarioId = $"scenario{_scenarioCounter++}";
-            scenarioContent.AppendLine($"<button class='collapsible'>{scenarioName}</button>");
+            scenarioContent.AppendLine($"<button class='collapsible'>{featureName}: {scenarioName}</button>");
             scenarioContent.AppendLine($"<div class='content' id='{scenarioId}'>");
             scenarioContent.AppendLine("<table>");
             scenarioContent.AppendLine("<tr><th>Step</th><th>Status</th><th>Timestamp</th></tr>");
@@ -171,6 +171,7 @@ public class HtmlReportGenerator
         }
         _reportContent.AppendLine("</body></html>");
 
-        File.WriteAllText(_testSettings.PathToSaveReport + $"Report_{DateTime.Now}.html", _reportContent.ToString());
+        var formattedDate = DateTime.Now.ToString("MM_dd_yyyy_HH_mm_ss");
+        File.WriteAllText(_testSettings.PathToSaveReport + $"Report_{formattedDate}.html", _reportContent.ToString());
     }
 }

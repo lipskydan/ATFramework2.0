@@ -5,7 +5,7 @@ public class ConfigReader
     public static TestSettings ReadConfig()
     {
         //var configFile = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/appsettings.json");
-        var configFile = File.ReadAllText("/Users/danial/ATFramework2.0/ATFramework2.0/Demo/appsettings.json");
+        var configFile = File.ReadAllText("C:\\Users\\Danyil.Lipskyi\\Documents\\GitHub\\ATFramework2.0\\Demo\\appsettings.json");
         
         var jsonSerializeOptions = new JsonSerializerOptions()
         {

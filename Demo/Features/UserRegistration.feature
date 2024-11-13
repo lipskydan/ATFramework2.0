@@ -1,6 +1,6 @@
-Feature: UserRegistration
+Feature: User Registration
 
-Scenario: Successful Validation
+Scenario: Successful validation - Full registration flow
 	Given Navigate to the start page of the app
 	And Open "Sign In" page
 	And Click on the button "New Registration"
@@ -13,7 +13,7 @@ Scenario: Successful Validation
 	When Click on the button "Submit"
 	Then Success message "User Registered Successfully !!!" is displayed
 
-Scenario: Fail Validation - Forget First Name
+Scenario: Warning validation - Forget First Name
 	Given Navigate to the start page of the app
 	And Open "Sign In" page
 	And Click on the button "New Registration"
@@ -21,7 +21,7 @@ Scenario: Fail Validation - Forget First Name
 	When Click on the button "Submit"
 	Then Fail message "This field is required" under the field "FirstName" is displayed
 
-Scenario: Fail Validation - Forget Last Name
+Scenario: Warning validation - Forget Last Name
 	Given Navigate to the start page of the app
 	And Open "Sign In" page
 	And Click on the button "New Registration"
@@ -30,7 +30,7 @@ Scenario: Fail Validation - Forget Last Name
 	When Click on the button "Submit"
 	Then Fail message "This field is required" under the field "LastName" is displayed
 
-Scenario: Fail Validation - Forget Email
+Scenario: Warning validation - Forget Email
 	Given Navigate to the start page of the app
 	And Open "Sign In" page
 	And Click on the button "New Registration"
@@ -40,7 +40,7 @@ Scenario: Fail Validation - Forget Email
 	When Click on the button "Submit"
 	Then Fail message "This field is required" under the field "Email" is displayed
 
-Scenario: Fail Validation - Forget UserName
+Scenario: Warning validation - Forget UserName
 	Given Navigate to the start page of the app
 	And Open "Sign In" page
 	And Click on the button "New Registration"
@@ -51,7 +51,7 @@ Scenario: Fail Validation - Forget UserName
 	When Click on the button "Submit"
 	Then Fail message "This field is required" under the field "UserName" is displayed
 
-Scenario: Fail Validation - Forget Password
+Scenario: Warning validation - Forget Password
 	Given Navigate to the start page of the app
 	And Open "Sign In" page
 	And Click on the button "New Registration"
@@ -63,7 +63,7 @@ Scenario: Fail Validation - Forget Password
 	When Click on the button "Submit"
 	Then Fail message "This field is required" under the field "Password" is displayed
 
-Scenario: Fail Validation - Not valid Email
+Scenario: Warning validation - Not valid Email
 	Given Navigate to the start page of the app
 	And Open "Sign In" page
 	And Click on the button "New Registration"

@@ -20,7 +20,7 @@ namespace DemoUI.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "4.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("UserRegistration")]
+    [NUnit.Framework.DescriptionAttribute("User Registration")]
     public partial class UserRegistrationFeature
     {
         
@@ -35,7 +35,7 @@ namespace DemoUI.Features
         public virtual async System.Threading.Tasks.Task FeatureSetupAsync()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunnerForAssembly(null, NUnit.Framework.TestContext.CurrentContext.WorkerId);
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "UserRegistration", null, ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "User Registration", null, ProgrammingLanguage.CSharp, featureTags);
             await testRunner.OnFeatureStartAsync(featureInfo);
         }
         
@@ -74,12 +74,12 @@ namespace DemoUI.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Successful Validation")]
-        public async System.Threading.Tasks.Task SuccessfulValidation()
+        [NUnit.Framework.DescriptionAttribute("Successful validation - Full registration flow")]
+        public async System.Threading.Tasks.Task SuccessfulValidation_FullRegistrationFlow()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Successful Validation", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Successful validation - Full registration flow", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 3
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -128,12 +128,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Fail Validation - Forget First Name")]
-        public async System.Threading.Tasks.Task FailValidation_ForgetFirstName()
+        [NUnit.Framework.DescriptionAttribute("Warning validation - Forget First Name")]
+        public async System.Threading.Tasks.Task WarningValidation_ForgetFirstName()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Fail Validation - Forget First Name", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Warning validation - Forget First Name", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 16
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -167,12 +167,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Fail Validation - Forget Last Name")]
-        public async System.Threading.Tasks.Task FailValidation_ForgetLastName()
+        [NUnit.Framework.DescriptionAttribute("Warning validation - Forget Last Name")]
+        public async System.Threading.Tasks.Task WarningValidation_ForgetLastName()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Fail Validation - Forget Last Name", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Warning validation - Forget Last Name", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -209,12 +209,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Fail Validation - Forget Email")]
-        public async System.Threading.Tasks.Task FailValidation_ForgetEmail()
+        [NUnit.Framework.DescriptionAttribute("Warning validation - Forget Email")]
+        public async System.Threading.Tasks.Task WarningValidation_ForgetEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Fail Validation - Forget Email", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Warning validation - Forget Email", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 33
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -254,12 +254,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Fail Validation - Forget UserName")]
-        public async System.Threading.Tasks.Task FailValidation_ForgetUserName()
+        [NUnit.Framework.DescriptionAttribute("Warning validation - Forget UserName")]
+        public async System.Threading.Tasks.Task WarningValidation_ForgetUserName()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Fail Validation - Forget UserName", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Warning validation - Forget UserName", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 43
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -302,12 +302,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Fail Validation - Forget Password")]
-        public async System.Threading.Tasks.Task FailValidation_ForgetPassword()
+        [NUnit.Framework.DescriptionAttribute("Warning validation - Forget Password")]
+        public async System.Threading.Tasks.Task WarningValidation_ForgetPassword()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Fail Validation - Forget Password", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Warning validation - Forget Password", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 54
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -353,12 +353,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Fail Validation - Not valid Email")]
-        public async System.Threading.Tasks.Task FailValidation_NotValidEmail()
+        [NUnit.Framework.DescriptionAttribute("Warning validation - Not valid Email")]
+        public async System.Threading.Tasks.Task WarningValidation_NotValidEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Fail Validation - Not valid Email", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Warning validation - Not valid Email", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 66
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
