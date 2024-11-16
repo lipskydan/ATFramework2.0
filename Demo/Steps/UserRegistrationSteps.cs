@@ -173,7 +173,7 @@ public class UserRegistrationSteps
     {
         try
         {
-            Log($"Verifying fail message: '{expText}' under the '{fieldName}' field.", LogLevel.Warning);
+            Log($"Verifying fail message: '{expText}' under the '{fieldName}' field.", LogLevel.Info);
             VerifyWorker.Equals(
                 exp: expText,
                 act: () => _registrationPage.GetTxtErrorMsgField(fieldName)

@@ -1,6 +1,4 @@
-﻿using RazorEngine.Compilation.ImpromptuInterface;
-
-namespace ATFramework2._0.Driver;
+﻿namespace ATFramework2._0.Driver;
 
 public class WebDriverManager : IWebDriverManager, IDisposable
 {
@@ -9,14 +7,24 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     public Lazy<WebDriverWait> WebDriverWait { get; }
     public ElementFinder ElementFinder { get; }
     public ElementsFinder ElementsFinder { get; }
-    public LogWorker LogWorker { get; set;  }
+    public LogWorker LogWorker { get; }
 
     public WebDriverManager(TestSettings testSettings)
     {
         _testSettings = testSettings;
 
-        LogWorker = new LogWorker();
+        // Initialize a single log file for all tests
+        //LogWorker.SaveLogsToFile(_testSettings.Logs.PathToSave + $"logs_{DateTime.Now:MM_dd_yyyy_HH_mm_ss}.txt"); 
+        // string logFilePath = Path.Combine(
+        //     _testSettings.Report.PathToSave,
+        //     "TestLogs.txt"
+        // );
         
+        string logFileName = $"GlobalTestLogs_{TestRunContext.TestRunTimestamp}.txt";
+        string logFilePath = Path.Combine(_testSettings.Report.PathToSave, logFileName);
+
+        LogWorker = new LogWorker(logFilePath);
+
         Driver = _testSettings.Utilities.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();
         WebDriverWait = new Lazy<WebDriverWait>(GetWaitDriver);
         ElementFinder = new ElementFinder(this);
@@ -47,7 +55,7 @@ public class WebDriverManager : IWebDriverManager, IDisposable
             default:
                 throw new ArgumentException("Unsupported browser type: " + _testSettings.Browser.Type);
         }
-    }  
+    }
 
     private IWebDriver GetRemoteWebDriver()
     {
@@ -77,13 +85,6 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     public void Dispose()
     {
         Driver.Quit();
-        LogWorker.SaveLogsToFile(_testSettings.Logs.PathToSave + $"logs_{DateTime.Now:MM_dd_yyyy_HH_mm_ss}.txt"); 
+        LogWorker.SaveLogsToFile();
     }
 }
-
-// public enum BrowserType
-// {
-//     Chrome,
-//     Firefox,
-//     Safari,
-// }

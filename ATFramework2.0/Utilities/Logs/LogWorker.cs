@@ -1,10 +1,5 @@
 ﻿namespace ATFramework2._0;
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
 public enum LogLevel
 {
     Info,
@@ -18,27 +13,33 @@ public class LogEntry
     public DateTime Timestamp { get; set; }
     public string Message { get; set; }
     public LogLevel Level { get; set; }
-    public string Feature { get; set; } = "N/A"; // Default if not provided
-    public string Context { get; set; } = "General"; // Indicates POM or scenario context
+    public string Feature { get; set; } = "N/A";
+    public string Context { get; set; } = "General";
 }
 
 public class LogWorker
 {
     private readonly List<LogEntry> _logEntries = new List<LogEntry>();
+    private readonly string _logFilePath;
 
-    public void Log(
-        string message, 
-        LogLevel level, 
-        string context = "POM", // Default to POM if not specified
-        string feature = null, 
-        string scenario = null)
+    public LogWorker(string logFilePath)
+    {
+        _logFilePath = logFilePath;
+
+        if (File.Exists(_logFilePath))
+        {
+            LoadLogsFromFile();
+        }
+    }
+
+    public void Log(string message, LogLevel level, string context = "POM", string feature = null)
     {
         var entry = new LogEntry
         {
             Timestamp = DateTime.Now,
             Message = message,
             Level = level,
-            Feature = feature ?? "N/A",  // Use default if feature is null
+            Feature = feature ?? "N/A",
             Context = context
         };
 
@@ -62,36 +63,57 @@ public class LogWorker
             .ToList();
     }
 
-    public void SaveLogsToFile(string filePath)
+    public void SaveLogsToFile()
     {
-        using (var writer = new StreamWriter(filePath))
+        using (var writer = new StreamWriter(_logFilePath, append: true))
         {
+            string lastFeature = string.Empty;
+            string lastScenario = string.Empty;
+
             foreach (var entry in _logEntries)
             {
+                // If the feature or scenario changes, write a separator
+                if (entry.Feature != lastFeature || entry.Context != lastScenario)
+                {
+                    if (!string.IsNullOrEmpty(lastFeature))
+                    {
+                        writer.WriteLine(""); // Separator for scenarios
+                    }
+
+                    lastFeature = entry.Feature;
+                    lastScenario = entry.Context;
+                }
+
+                // Write the log entry
                 writer.WriteLine($"{entry.Timestamp}|{entry.Level}|{entry.Context}|{entry.Feature}|{entry.Message}");
             }
+
+            // Ensure a final separator if needed
+            if (_logEntries.Any())
+            {
+                writer.WriteLine("");
+            }
         }
+
+        // Clear in-memory logs after saving
+        _logEntries.Clear();
     }
 
-    public void LoadLogsFromFile(string filePath)
+
+    private void LoadLogsFromFile()
     {
-        if (!File.Exists(filePath)) 
-            throw new FileNotFoundException($"File {filePath} not found.");
-
-        _logEntries.Clear();
-
-        var lines = File.ReadAllLines(filePath);
+        var lines = File.ReadAllLines(_logFilePath);
         foreach (var line in lines)
         {
             var parts = line.Split('|');
-            if (parts.Length != 6) continue;
+            if (parts.Length != 5) continue;
 
             var entry = new LogEntry
             {
                 Timestamp = DateTime.Parse(parts[0]),
                 Level = Enum.Parse<LogLevel>(parts[1]),
-                Feature = parts[2],
-                Context = parts[3],
+                Context = parts[2],
+                Feature = parts[3],
                 Message = parts[4]
             };
 

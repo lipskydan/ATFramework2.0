@@ -22,6 +22,13 @@ public class HooksInitialization
         _reportGenerator = HtmlReportGenerator.Instance(_testSettings); 
     }
 
+    [BeforeTestRun]
+    public static void BeforeTestRun()
+    {
+        // Set the test run timestamp
+        TestRunContext.Initialize();
+    }
+
     [BeforeScenario]
     public void BeforeScenario(ScenarioContext scenarioContext)
     {
