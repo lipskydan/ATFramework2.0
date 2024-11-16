@@ -19,7 +19,7 @@ public class HooksInitialization
         var services = DiSetupBase.CreateBaseServices(out _);
         var serviceProvider = services.BuildServiceProvider();
         _testSettings = serviceProvider.GetService<TestSettings>();
-        _reportGenerator = HtmlReportGenerator.Instance(_testSettings); //add if setting TRUE
+        _reportGenerator = HtmlReportGenerator.Instance(_testSettings); 
     }
 
     [BeforeScenario]
@@ -44,7 +44,6 @@ public class HooksInitialization
         {
             _reportGenerator.AddStepResult(scenarioName, stepName, "Passed");
         }
-        //Console.WriteLine($"[DL][Log] {scenarioName} - {stepName}");
     }
 
     [AfterScenario]
@@ -58,6 +57,6 @@ public class HooksInitialization
     public static void AfterTestRun()
     {
         var testSettings = ConfigReader.ReadConfig();
-        HtmlReportGenerator.Instance(testSettings).FinalizeReport(); //add if setting TRUE
+        HtmlReportGenerator.Instance(testSettings).FinalizeReport();
     }
 }

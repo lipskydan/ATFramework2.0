@@ -1,4 +1,6 @@
-﻿namespace ATFramework2._0.Driver;
+﻿using RazorEngine.Compilation.ImpromptuInterface;
+
+namespace ATFramework2._0.Driver;
 
 public class WebDriverManager : IWebDriverManager, IDisposable
 {
@@ -15,26 +17,26 @@ public class WebDriverManager : IWebDriverManager, IDisposable
 
         LogWorker = new LogWorker();
         
-        Driver = _testSettings.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();
+        Driver = _testSettings.Utilities.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();
         WebDriverWait = new Lazy<WebDriverWait>(GetWaitDriver);
         ElementFinder = new ElementFinder(this);
     }
 
     private IWebDriver GetWebDriver()
     {
-        switch (_testSettings.BrowserType)
+        switch (_testSettings.Browser.Type)
         {
             case BrowserType.Chrome:
                 var chromeOptions = new ChromeOptions
                 {
-                    BrowserVersion = _testSettings.BrowserVersion
+                    BrowserVersion = _testSettings.Browser.Version
                 };
                 return new ChromeDriver(chromeOptions);
 
             case BrowserType.Firefox:
                 var firefoxOptions = new FirefoxOptions
                 {
-                    BrowserVersion = _testSettings.BrowserVersion
+                    BrowserVersion = _testSettings.Browser.Version
                 };
                 return new FirefoxDriver(firefoxOptions);
 
@@ -43,26 +45,26 @@ public class WebDriverManager : IWebDriverManager, IDisposable
                 return new SafariDriver(safariOptions);
 
             default:
-                throw new ArgumentException("Unsupported browser type: " + _testSettings.BrowserType);
+                throw new ArgumentException("Unsupported browser type: " + _testSettings.Browser.Type);
         }
     }  
 
     private IWebDriver GetRemoteWebDriver()
     {
-        return _testSettings.BrowserType switch
+        return _testSettings.Browser.Type switch
         {
-            BrowserType.Chrome => new RemoteWebDriver(_testSettings.GridUri, new ChromeOptions()),
-            BrowserType.Firefox => new RemoteWebDriver(_testSettings.GridUri, new FirefoxOptions()),
-            BrowserType.Safari => new RemoteWebDriver(_testSettings.GridUri, new SafariOptions()),
-            _ => new RemoteWebDriver(_testSettings.GridUri, new ChromeOptions())
+            BrowserType.Chrome => new RemoteWebDriver(_testSettings.Utilities.GridUri, new ChromeOptions()),
+            BrowserType.Firefox => new RemoteWebDriver(_testSettings.Utilities.GridUri, new FirefoxOptions()),
+            BrowserType.Safari => new RemoteWebDriver(_testSettings.Utilities.GridUri, new SafariOptions()),
+            _ => new RemoteWebDriver(_testSettings.Utilities.GridUri, new ChromeOptions())
         };
     }
 
     private WebDriverWait GetWaitDriver()
     {
-        return new(Driver, timeout: TimeSpan.FromSeconds(_testSettings.TimeoutInterval ?? 30))
+        return new(Driver, timeout: TimeSpan.FromSeconds(_testSettings.Utilities.TimeoutInterval ?? 30))
         {
-            PollingInterval = TimeSpan.FromSeconds(_testSettings.TimeoutInterval ?? 5)
+            PollingInterval = TimeSpan.FromSeconds(_testSettings.Utilities.TimeoutInterval ?? 5)
         };
     }
 
@@ -75,16 +77,13 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     public void Dispose()
     {
         Driver.Quit();
-
-        //Need to move this logic to Hooks -> [AfterTestRun]
-        var formattedDate = DateTime.Now.ToString("MM_dd_yyyy_HH_mm_ss");
-        LogWorker.SaveLogsToFile(_testSettings.PathToSaveReport + $"logs_{formattedDate}.txt"); //add if setting TRUE
+        LogWorker.SaveLogsToFile(_testSettings.Logs.PathToSave + $"logs_{DateTime.Now:MM_dd_yyyy_HH_mm_ss}.txt"); 
     }
 }
 
-public enum BrowserType
-{
-    Chrome,
-    Firefox,
-    Safari,
-}
+// public enum BrowserType
+// {
+//     Chrome,
+//     Firefox,
+//     Safari,
+// }
