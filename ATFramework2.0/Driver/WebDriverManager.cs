@@ -12,17 +12,9 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     public WebDriverManager(TestSettings testSettings)
     {
         _testSettings = testSettings;
-
-        // Initialize a single log file for all tests
-        //LogWorker.SaveLogsToFile(_testSettings.Logs.PathToSave + $"logs_{DateTime.Now:MM_dd_yyyy_HH_mm_ss}.txt"); 
-        // string logFilePath = Path.Combine(
-        //     _testSettings.Report.PathToSave,
-        //     "TestLogs.txt"
-        // );
-        
-        string logFileName = $"GlobalTestLogs_{TestRunContext.TestRunTimestamp}.txt";
-        string logFilePath = Path.Combine(_testSettings.Report.PathToSave, logFileName);
-
+ 
+        var logFileName = $"GlobalTestLogs_{TestRunContext.TestRunTimestamp}.txt";
+        var logFilePath = Path.Combine(_testSettings.Report.PathToSave, logFileName);
         LogWorker = new LogWorker(logFilePath);
 
         Driver = _testSettings.Utilities.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();

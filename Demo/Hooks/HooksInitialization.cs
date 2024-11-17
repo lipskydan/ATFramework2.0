@@ -1,9 +1,5 @@
 namespace DemoUI.Hooks;
 
-using TechTalk.SpecFlow;
-using Microsoft.Extensions.DependencyInjection;
-
-
 [Binding]
 public class HooksInitialization
 {
@@ -15,7 +11,6 @@ public class HooksInitialization
     public HooksInitialization(FeatureContext featureContext)
     {
          _featureContext = featureContext;
-
         var services = DiSetupBase.CreateBaseServices(out _);
         var serviceProvider = services.BuildServiceProvider();
         _testSettings = serviceProvider.GetService<TestSettings>();
