@@ -1,38 +1,45 @@
-﻿// namespace ATFramework2._0;
+﻿using ATFramework2._0;
 
-// public class Program
-// {
-//     public static void Main(string[] args)
-//     {
-//         var logWorker = new LogWorker();
+class Program
+{
+    static void Main(string[] args)
+    {
+        string logFilePath = "C:\\Users\\Danyil.Lipskyi\\Documents\\GitHub\\ATFramework2.0\\DemoLogs\\log.txt";
 
-//         logWorker.Log("UI button not clickable", LogLevel.Error, "UI", "TestLogin");
-//         logWorker.Log("Test timeout after 30 seconds", LogLevel.Warning, "Performance", "TestCheckout");
-//         logWorker.Log("Unauthorized access attempt", LogLevel.Critical, "Security", "TestAuthentication");
-//         logWorker.Log("Page layout is broken on mobile view", LogLevel.Warning, "UI", "ResponsiveTest");
-//         logWorker.Log("Database connection timeout", LogLevel.Critical, "Backend", "TestDBConnection");
-//         logWorker.Log("Unexpected null value found", LogLevel.Error, "Backend", "TestDataProcessing");
-//         logWorker.Log("API returned status code 500", LogLevel.Critical, "API", "TestAPICall");
-//         logWorker.Log("Memory leak detected", LogLevel.Critical, "Performance", "StressTest");
-//         logWorker.Log("Deprecated method used in code", LogLevel.Warning, "CodeQuality", "CodeReviewTest");
-//         logWorker.Log("SSL certificate expired", LogLevel.Error, "Security", "TestSSLCertificate");
+        var logWorker = new LogWorker(logFilePath);
 
-//         var logs = logWorker.GetLogsByLevel(LogLevel.Error)
-//                             .Concat(logWorker.GetLogsByLevel(LogLevel.Warning))
-//                             .Concat(logWorker.GetLogsByLevel(LogLevel.Critical))
-//                             .ToList();
+        logWorker.Log("Application launched", LogLevel.Info, "HomePage", "Initialization");
+        logWorker.Log("User successfully logged in", LogLevel.Info, "LoginPage", "User Authentication");
+        logWorker.Log("Failed password entry", LogLevel.Warning, "LoginPage", "User Authentication");
+        logWorker.Log("Product list retrieved", LogLevel.Info, "ProductPage", "Data Retrieval");
+        logWorker.Log("Product update failed", LogLevel.Error, "ProductPage", "Data Modification");
+        logWorker.Log("Temperature sensor reading high", LogLevel.Critical, "DashboardPage", "System Monitoring");
+        logWorker.Log("User session ended by user", LogLevel.Info, "UserProfilePage", "Session Management");
+        logWorker.Log("Session timed out", LogLevel.Warning, "HomePage", "Session Timeout");
 
-//         var annotatedLogs = LogAnnotator.AnnotateLogs(logs);
-//         Console.WriteLine("Annotated Logs:");
-//         foreach (var log in annotatedLogs)
-//         {
-//             Console.WriteLine($"[{log.Timestamp}] {log.Level}: {log.Message}");
-//             Console.WriteLine($"Component: {log.Component}, Test Case: {log.TestCase}");
-//             Console.WriteLine($"Category: {log.Category}, Priority: {log.LogPriority}\n");
-//         }
+        //logWorker.SaveLogsToFile();
 
-//         logWorker.DisplayStatistics();
-//     }
-// }
+        var errorLogs = logWorker.GetLogsByLevel(LogLevel.Error);
+        Console.WriteLine("Error Logs:");
+        foreach (var log in errorLogs)
+        {
+            Console.WriteLine($"{log.Timestamp} - {log.Message} [{log.Context}]");
+        }
 
+        Console.WriteLine("\nLogs from 'LoginPage':");
+        var loginPageLogs = logWorker.GetLogsByContext("LoginPage");
+        foreach (var log in loginPageLogs)
+        {
+            Console.WriteLine($"{log.Timestamp} - {log.Message} [{log.Feature}]");
+        }
 
+        Console.WriteLine("\nLogs for 'Data Retrieval' feature:");
+        var dataRetrievalLogs = logWorker.SearchLogs("Data Retrieval");
+        foreach (var log in dataRetrievalLogs)
+        {
+            Console.WriteLine($"{log.Timestamp} - {log.Message} [{log.Context}]");
+        }
+
+        logWorker.DisplayStatistics();
+    }
+}
