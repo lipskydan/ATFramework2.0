@@ -72,30 +72,26 @@ public class LogWorker
 
             foreach (var entry in _logEntries)
             {
-                // If the feature or scenario changes, write a separator
                 if (entry.Feature != lastFeature || entry.Context != lastScenario)
                 {
                     if (!string.IsNullOrEmpty(lastFeature))
                     {
-                        writer.WriteLine(""); // Separator for scenarios
+                        writer.WriteLine("");
                     }
 
                     lastFeature = entry.Feature;
                     lastScenario = entry.Context;
                 }
 
-                // Write the log entry
                 writer.WriteLine($"{entry.Timestamp}|{entry.Level}|{entry.Context}|{entry.Feature}|{entry.Message}");
             }
 
-            // Ensure a final separator if needed
             if (_logEntries.Any())
             {
                 writer.WriteLine("");
             }
         }
 
-        // Clear in-memory logs after saving
         _logEntries.Clear();
     }
 
