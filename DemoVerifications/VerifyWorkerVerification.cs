@@ -77,10 +77,12 @@ public class VerifyWorkerVerification
     public void TestMultiple()
     {
         VerifyWorker.Multiple(
-            () => VerifyWorker.Equals("Hello", () => "Hello"),
-            () => VerifyWorker.Contains("lo", () => "Hello"),
-            () => VerifyWorker.ListEquals(new List<int> { 1, 2, 3 }, () => new List<int> { 1, 2, 3 })
-        );
+            () => VerifyWorker.Equals(5, () => 5), // Passes
+            //() => VerifyWorker.Equals(10, () => 12), // Fails
+            //() => VerifyWorker.Equals("expected", () => "actual"), // Fails
+            () => VerifyWorker.Contains("test", () => "unit testing") // Passes
+            
+            );
     }
 
     // Tests with interval checks

@@ -253,9 +253,24 @@ public class VerifyWorker
 
     public static void Multiple(params Action[] verifications)
     {
+        var failures = new List<string>();
+
         foreach (var verification in verifications)
         {
-            verification();
+            try
+            {
+                verification();
+            }
+            catch (AssertionException ex) 
+            {
+                failures.Add(ex.Message);
+            }
+        }
+
+        if (failures.Any())
+        {
+            var summary = string.Join(Environment.NewLine, failures.Select((msg, index) => $"{index + 1}. {msg}"));
+            throw new AssertionException($"Multiple assertions failed:{Environment.NewLine}{summary}");
         }
     }
 }
