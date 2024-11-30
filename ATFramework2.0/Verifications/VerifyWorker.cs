@@ -2,6 +2,7 @@
 
 public class VerifyWorker
 {
+    private static readonly LogWorker _logWorker = new LogWorker("VerifyWorkerLog.txt"); 
     public static void Equals<T>(T exp, Func<T> act, bool ignoreCase = false, string? message = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
     {
         TimeSpan maxTime = maxInterval ?? TimeSpan.Zero;

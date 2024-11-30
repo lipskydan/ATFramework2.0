@@ -44,7 +44,7 @@ public class LogWorker
         };
 
         _logEntries.Add(entry);
-        Console.WriteLine($"Log added: {entry.Timestamp} - {entry.Level} - {entry.Message}"); // Debug output
+        Console.WriteLine($"[Log] {entry.Timestamp} - {entry.Level} - {entry.Message}"); // Debug output
     }
 
     public List<LogEntry> GetLogsByLevel(LogLevel level)

@@ -78,10 +78,9 @@ public class VerifyWorkerVerification
     {
         VerifyWorker.Multiple(
             () => VerifyWorker.Equals(5, () => 5), // Passes
-            //() => VerifyWorker.Equals(10, () => 12), // Fails
-            //() => VerifyWorker.Equals("expected", () => "actual"), // Fails
+            () => VerifyWorker.Equals(10, () => 12), // Fails
+            () => VerifyWorker.Equals("expected", () => "actual"), // Fails
             () => VerifyWorker.Contains("test", () => "unit testing") // Passes
-            
             );
     }
 
