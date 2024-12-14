@@ -13,7 +13,7 @@ public class Element
     public void Click()
     {
         webElementCore.ScrollToElement();
-       webElementCore.PerformActionWithHighlighting(() => webElementCore.Click());
+        webElementCore.PerformActionWithHighlighting(() => webElementCore.Click());
     }
 
     public void Clear()
