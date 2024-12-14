@@ -65,4 +65,16 @@ public static class WebElementExtension
         window.scrollTo(0, middle);
         ", element);
     }
+
+    public static void MoveMouseToElementCenter(this IWebElement element)
+    {
+        var location = element.Location;
+        var size = element.Size;
+
+        int centerX = location.X + size.Width / 2;
+        int centerY = location.Y + size.Height / 2;
+
+        Actions actions = new Actions(GetDriverFromElement(element));
+        actions.MoveByOffset(centerX, centerY).Perform();
+    }
 }

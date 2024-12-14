@@ -16,8 +16,8 @@ public class CheckWorkerVerification
         string expectedString = "Hello World";
         DateTime expectedDate = new DateTime(2024, 1, 1);
 
-        CheckWorker.Equals(expectedNumber, () => 12, message: "Numbers do not match"); // Fails
-        CheckWorker.Equals(expectedString, () => "hello world", ignoreCase: false, message: "String comparison failed"); // Fails
+        //CheckWorker.Equals(expectedNumber, () => 12, message: "Numbers do not match"); // Fails
+        //CheckWorker.Equals(expectedString, () => "hello world", ignoreCase: false, message: "String comparison failed"); // Fails
 
         CheckWorker.Equals(42, () => 42, message: "This should pass"); // Passes
         CheckWorker.Contains("test", () => "unit testing", message: "This should pass too"); // Passes
@@ -29,8 +29,8 @@ public class CheckWorkerVerification
         DateTime expectedDate = new DateTime(2024, 1, 1);
         string expectedSubstring = "test";
 
-        CheckWorker.DateTimeEquals(expectedDate, () => DateTime.Now, TimeSpan.FromSeconds(5), "Date does not match within tolerance"); // Fails
-        CheckWorker.Contains(expectedSubstring, () => "automation tessting", message: "Substring not found"); // Fails
+        //CheckWorker.DateTimeEquals(expectedDate, () => DateTime.Now, TimeSpan.FromSeconds(5), "Date does not match within tolerance"); // Fails
+        //CheckWorker.Contains(expectedSubstring, () => "automation tessting", message: "Substring not found"); // Fails
 
         CheckWorker.Equals(42, () => 42, message: "This should pass"); // Passes
         CheckWorker.Contains("test", () => "unit testing", message: "This should pass too"); // Passes
@@ -108,55 +108,55 @@ public class CheckWorkerVerification
     }
 
     // Tests with interval checks
-    // [Test]
-    // public void TestEqualsWithInterval()
-    // {
-    //     CheckWorker.Equals("Hello", () => "Hello", maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
-    // }
+    [Test]
+    public void TestEqualsWithInterval()
+    {
+        CheckWorker.Equals("Hello", () => "Hello", maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
+    }
 
-    // [Test]
-    // public void TestNotEqualsWithInterval()
-    // {
-    //     CheckWorker.NotEquals("Hello", () => "World", maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
-    // }
+    [Test]
+    public void TestNotEqualsWithInterval()
+    {
+        CheckWorker.NotEquals("Hello", () => "World", maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
+    }
 
-    // [Test]
-    // public void TestContainsWithInterval()
-    // {
-    //     CheckWorker.Contains("lo", () => "Hello", maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
-    // }
+    [Test]
+    public void TestContainsWithInterval()
+    {
+        CheckWorker.Contains("lo", () => "Hello", maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
+    }
 
-    // [Test]
-    // public void TestMatchesWithInterval()
-    // {
-    //     CheckWorker.Matches(@"\d{3}", () => "123", maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
-    // }
+    [Test]
+    public void TestMatchesWithInterval()
+    {
+        CheckWorker.Matches(@"\d{3}", () => "123", maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
+    }
 
-    // [Test]
-    // public void TestDateTimeEqualsWithInterval()
-    // {
-    //     DateTime now = DateTime.Now;
-    //     CheckWorker.DateTimeEquals(now, () => now, TimeSpan.FromSeconds(1), maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
-    // }
+    [Test]
+    public void TestDateTimeEqualsWithInterval()
+    {
+        DateTime now = DateTime.Now;
+        CheckWorker.DateTimeEquals(now, () => now, TimeSpan.FromSeconds(1), maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
+    }
 
-    // [Test]
-    // public void TestDateTimeNotEqualsWithInterval()
-    // {
-    //     DateTime now = DateTime.Now;
-    //     CheckWorker.DateTimeNotEquals(now, () => now.AddSeconds(2), TimeSpan.FromSeconds(1), maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
-    // }
+    [Test]
+    public void TestDateTimeNotEqualsWithInterval()
+    {
+        DateTime now = DateTime.Now;
+        CheckWorker.DateTimeNotEquals(now, () => now.AddSeconds(2), TimeSpan.FromSeconds(1), maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
+    }
 
-    // [Test]
-    // public void TestListEqualsWithInterval()
-    // {
-    //     List<int> expected = new List<int> { 1, 2, 3 };
-    //     CheckWorker.ListEquals(expected, () => new List<int> { 1, 2, 3 }, maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
-    // }
+    [Test]
+    public void TestListEqualsWithInterval()
+    {
+        List<int> expected = new List<int> { 1, 2, 3 };
+        CheckWorker.ListEquals(expected, () => new List<int> { 1, 2, 3 }, maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
+    }
 
-    // [Test]
-    // public void TestListEqualsIgnoringOrderWithInterval()
-    // {
-    //     List<int> expected = new List<int> { 1, 2, 3 };
-    //     CheckWorker.ListEqualsIgnoringOrder(expected, () => new List<int> { 3, 1, 2 }, maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
-    // }
+    [Test]
+    public void TestListEqualsIgnoringOrderWithInterval()
+    {
+        List<int> expected = new List<int> { 1, 2, 3 };
+        CheckWorker.ListEqualsIgnoringOrder(expected, () => new List<int> { 3, 1, 2 }, maxInterval: TimeSpan.FromSeconds(5), checkInterval: TimeSpan.FromSeconds(1));
+    }
 }

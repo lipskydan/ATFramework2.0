@@ -23,3 +23,6 @@ global using System;
 global using System.Net.Http;
 global using System.Text;
 global using System.Threading.Tasks;
+global using SeleniumExtras.WaitHelpers;
+global using ATFramework2._0.ElementHandle;
+global using OpenQA.Selenium.Interactions;

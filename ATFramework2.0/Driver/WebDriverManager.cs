@@ -20,6 +20,7 @@ public class WebDriverManager : IWebDriverManager, IDisposable
         Driver = _testSettings.Utilities.TestRunType == TestRunType.Local ? GetWebDriver() : GetRemoteWebDriver();
         WebDriverWait = new Lazy<WebDriverWait>(GetWaitDriver);
         ElementFinder = new ElementFinder(this);
+        Wait.Initialize(Driver);
     }
 
     private IWebDriver GetWebDriver()

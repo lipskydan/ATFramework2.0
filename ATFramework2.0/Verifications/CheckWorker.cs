@@ -1,188 +1,214 @@
-namespace ATFramework2._0.Verifications;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Threading;
 
-public class CheckWorker
+namespace ATFramework2._0.Verifications
 {
-    private static readonly List<string> _failures = new();
-    private static readonly LogWorker _logWorker = new LogWorker("CheckWorkerLog.txt");
-
-    private static T ExecuteWithRetry<T>(Func<T> action, Func<T, bool> condition, TimeSpan? maxInterval, TimeSpan? checkInterval)
+    public class CheckWorker
     {
-        TimeSpan maxTime = maxInterval ?? TimeSpan.Zero;
-        TimeSpan interval = checkInterval ?? TimeSpan.Zero;
-        T result = default;
+        private static readonly List<string> _failures = new List<string>();
+        private static readonly LogWorker _logWorker = new LogWorker("CheckWorkerLog.txt");
 
-        if (maxTime != TimeSpan.Zero && interval != TimeSpan.Zero)
+        private static T ExecuteWithRetry<T>(Func<T> action, Func<T, bool> condition, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
         {
+            TimeSpan maxTime = maxInterval ?? TimeSpan.FromSeconds(30);
+            TimeSpan interval = checkInterval ?? TimeSpan.FromSeconds(5);
             DateTime endTime = DateTime.Now.Add(maxTime);
+            T result;
+
             while (DateTime.Now < endTime)
             {
                 result = action();
                 if (condition(result))
                 {
-                    break;
+                    return result;
                 }
                 Thread.Sleep(interval);
             }
-        }
-        else
-        {
-            result = action();
+
+            return action(); // Last attempt outside the loop
         }
 
-        return result;
-    }
+        public static void Equals<T>(T exp, Func<T> act, bool ignoreCase = false, string? message = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
+        {
+            try
+            {
+                var actualValue = ExecuteWithRetry(act, actual => ignoreCase && typeof(T) == typeof(string)
+                    ? string.Equals(exp as string, actual as string, StringComparison.OrdinalIgnoreCase)
+                    : EqualityComparer<T>.Default.Equals(exp, actual), maxInterval, checkInterval);
 
-    public static void Equals<T>(T exp, Func<T> act, bool ignoreCase = false, string? message = null)
-    {
-        try
-        {
-            var actualValue = act();
-            string finalMessage = message ?? $"Expected: {exp}, Actual: {actualValue}";
-            if (ignoreCase && typeof(T) == typeof(string))
-            {
-                Assert.That(actualValue as string, Is.EqualTo(exp as string).IgnoreCase, finalMessage);
-            }
-            else
-            {
-                Assert.That(actualValue, Is.EqualTo(exp), finalMessage);
-            }
-        }
-        catch (AssertionException ex)
-        {
-            _failures.Add(ex.Message);
-            _logWorker.Log(ex.Message, LogLevel.Error, context: "CheckWorker", feature: "Equals");
-        }
-    }
+                string finalMessage = message ?? $"Expected: {exp}, Actual: {actualValue}";
+                if (ignoreCase && typeof(T) == typeof(string))
+                {
+                    Assert.That(actualValue as string, Is.EqualTo(exp as string).IgnoreCase, finalMessage);
+                }
+                else
+                {
+                    Assert.That(actualValue, Is.EqualTo(exp), finalMessage);
+                }
 
-    public static void NotEquals<T>(T exp, Func<T> act, bool ignoreCase = false, string? message = null)
-    {
-        try
-        {
-            var actualValue = act();
-            string finalMessage = message ?? $"Expected value to not be: {exp}, Actual: {actualValue}";
-            if (ignoreCase && typeof(T) == typeof(string))
-            {
-                Assert.That(actualValue as string, Is.Not.EqualTo(exp as string).IgnoreCase, finalMessage);
+                _logWorker.Log($"Verification passed: {finalMessage}", LogLevel.Info, "VerifyWorker", "Equals");
             }
-            else
+            catch (AssertionException ex)
             {
-                Assert.That(actualValue, Is.Not.EqualTo(exp), finalMessage);
+                _logWorker.Log($"Verification failed: {ex.Message}", LogLevel.Error, "VerifyWorker", "Equals");
+                throw;
             }
         }
-        catch (AssertionException ex)
-        {
-            _failures.Add(ex.Message);
-            _logWorker.Log(ex.Message, LogLevel.Error, context: "CheckWorker", feature: "NotEquals");
-        }
-    }
 
-    public static void Contains(string substring, Func<string> act, bool ignoreCase = false, string? message = null)
-    {
-        try
+        public static void NotEquals<T>(T exp, Func<T> act, bool ignoreCase = false, string? message = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
         {
-            var actualValue = act();
-            string finalMessage = message ?? $"Expected: {actualValue} to contain: {substring}";
-            if (ignoreCase)
+            try
             {
-                Assert.That(actualValue, Does.Contain(substring).IgnoreCase, finalMessage);
+                var actualValue = ExecuteWithRetry(act, actual => !(ignoreCase && typeof(T) == typeof(string)
+                    ? string.Equals(exp as string, actual as string, StringComparison.OrdinalIgnoreCase)
+                    : EqualityComparer<T>.Default.Equals(exp, actual)), maxInterval, checkInterval);
+
+                string finalMessage = message ?? $"Expected value not to be: {exp}, Actual: {actualValue}";
+                if (ignoreCase && typeof(T) == typeof(string))
+                {
+                    Assert.That(actualValue as string, Is.Not.EqualTo(exp as string).IgnoreCase, finalMessage);
+                }
+                else
+                {
+                    Assert.That(actualValue, Is.Not.EqualTo(exp), finalMessage);
+                }
+
+                _logWorker.Log($"Verification passed: {finalMessage}", LogLevel.Info, "VerifyWorker", "NotEquals");
             }
-            else
+            catch (AssertionException ex)
             {
-                Assert.That(actualValue, Does.Contain(substring), finalMessage);
+                _logWorker.Log($"Verification failed: {ex.Message}", LogLevel.Error, "VerifyWorker", "NotEquals");
+                throw;
             }
         }
-        catch (AssertionException ex)
-        {
-            _failures.Add(ex.Message);
-            _logWorker.Log(ex.Message, LogLevel.Error, context: "CheckWorker", feature: "Contains");
-        }
-    }
 
-    public static void Matches(string pattern, Func<string> act, string? message = null)
-    {
-        try
+        public static void Contains(string substring, Func<string> act, bool ignoreCase = false, string? message = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
         {
-            var actualValue = act();
-            string finalMessage = message ?? $"Expected: {actualValue} to match pattern: {pattern}";
-            Assert.That(actualValue, Does.Match(pattern), finalMessage);
-        }
-        catch (AssertionException ex)
-        {
-            _failures.Add(ex.Message);
-            _logWorker.Log(ex.Message, LogLevel.Error, context: "CheckWorker", feature: "Matches");
-        }
-    }
+            try
+            {
+                var actualValue = ExecuteWithRetry(act, actual => ignoreCase
+                    ? actual.IndexOf(substring, StringComparison.OrdinalIgnoreCase) >= 0
+                    : actual.Contains(substring), maxInterval, checkInterval);
 
-    public static void DateTimeEquals(DateTime exp, Func<DateTime> act, TimeSpan tolerance, string? message = null)
-    {
-        try
-        {
-            var actualValue = act();
-            string finalMessage = message ?? $"Expected: {exp} ± {tolerance}, Actual: {actualValue}";
-            Assert.That(actualValue, Is.EqualTo(exp).Within(tolerance), finalMessage);
-        }
-        catch (AssertionException ex)
-        {
-            _failures.Add(ex.Message);
-            _logWorker.Log(ex.Message, LogLevel.Error, context: "CheckWorker", feature: "DateTimeEquals");
-        }
-    }
+                string finalMessage = message ?? $"Expected: {actualValue} to contain: {substring}";
+                if (ignoreCase)
+                {
+                    Assert.That(actualValue, Does.Contain(substring).IgnoreCase, finalMessage);
+                }
+                else
+                {
+                    Assert.That(actualValue, Does.Contain(substring), finalMessage);
+                }
 
-    public static void DateTimeNotEquals(DateTime exp, Func<DateTime> act, TimeSpan tolerance, string? message = null)
-    {
-        try
-        {
-            var actualValue = act();
-            string finalMessage = message ?? $"Expected: {exp} ± {tolerance} NOT to match Actual: {actualValue}";
-            Assert.That(actualValue, Is.Not.EqualTo(exp).Within(tolerance), finalMessage);
+                _logWorker.Log($"Verification passed: {finalMessage}", LogLevel.Info, "VerifyWorker", "Contains");
+            }
+            catch (AssertionException ex)
+            {
+                _logWorker.Log($"Verification failed: {ex.Message}", LogLevel.Error, "VerifyWorker", "Contains");
+                throw;
+            }
         }
-        catch (AssertionException ex)
-        {
-            _failures.Add(ex.Message);
-            _logWorker.Log(ex.Message, LogLevel.Error, context: "CheckWorker", feature: "DateTimeNotEquals");
-        }
-    }
 
+        public static void Matches(string pattern, Func<string> act, string? message = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
+        {
+            try
+            {
+                var actualValue = ExecuteWithRetry(act, actual => Regex.IsMatch(actual, pattern), maxInterval, checkInterval);
 
-    public static void ListEquals<T>(IEnumerable<T> exp, Func<IEnumerable<T>> act, string? message = null)
-    {
-        try
-        {
-            var actualValue = act();
-            string finalMessage = message ?? $"Expected: [{string.Join(", ", exp)}], Actual: [{string.Join(", ", actualValue)}]";
-            Assert.That(actualValue, Is.EqualTo(exp), finalMessage);
-        }
-        catch (AssertionException ex)
-        {
-            _failures.Add(ex.Message);
-            _logWorker.Log(ex.Message, LogLevel.Error, context: "CheckWorker", feature: "ListEquals");
-        }
-    }
+                string finalMessage = message ?? $"Expected: {actualValue} to match pattern: {pattern}";
+                Assert.That(actualValue, Does.Match(pattern), finalMessage);
 
-    public static void ListEqualsIgnoringOrder<T>(IEnumerable<T> exp, Func<IEnumerable<T>> act, string? message = null)
-    {
-        try
-        {
-            var actualValue = act();
-            var expList = exp.OrderBy(x => x).ToList();
-            var actualList = actualValue.OrderBy(x => x).ToList();
-            string finalMessage = message ?? $"Expected (ignoring order): [{string.Join(", ", expList)}], Actual: [{string.Join(", ", actualList)}]";
-            Assert.That(actualList, Is.EqualTo(expList), finalMessage);
+                _logWorker.Log($"Verification passed: {finalMessage}", LogLevel.Info, "VerifyWorker", "Matches");
+            }
+            catch (AssertionException ex)
+            {
+                _logWorker.Log($"Verification failed: {ex.Message}", LogLevel.Error, "VerifyWorker", "Matches");
+                throw;
+            }
         }
-        catch (AssertionException ex)
-        {
-            _failures.Add(ex.Message);
-            _logWorker.Log(ex.Message, LogLevel.Error, context: "CheckWorker", feature: "ListEqualsIgnoringOrder");
-        }
-    }
 
-    public static void FinalizeChecks()
-    {
-        if (_failures.Any())
+        public static void DateTimeEquals(DateTime expected, Func<DateTime> act, TimeSpan tolerance, string? message = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
         {
-            var combinedMessage = string.Join(Environment.NewLine, _failures.Select((msg, index) => $"{index + 1}. {msg}"));
-            _failures.Clear();
-            throw new AssertionException($"The following checks failed:{Environment.NewLine}{combinedMessage}");
+            try
+            {
+                var actualValue = ExecuteWithRetry(act, actual => (actual - expected).Duration() <= tolerance, maxInterval, checkInterval);
+
+                string finalMessage = message ?? $"Expected: {expected} ± {tolerance.TotalSeconds} seconds, Actual: {actualValue}";
+                Assert.That(actualValue, Is.EqualTo(expected).Within(tolerance), finalMessage);
+
+                _logWorker.Log($"Verification passed: {finalMessage}", LogLevel.Info, "VerifyWorker", "DateTimeEquals");
+            }
+            catch (AssertionException ex)
+            {
+                _logWorker.Log($"Verification failed: {ex.Message}", LogLevel.Error, "VerifyWorker", "DateTimeEquals");
+                throw;
+            }
+        }
+
+        public static void DateTimeNotEquals(DateTime expected, Func<DateTime> act, TimeSpan tolerance, string? message = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
+        {
+            try
+            {
+                var actualValue = ExecuteWithRetry(act, actual => (actual - expected).Duration() > tolerance, maxInterval, checkInterval);
+
+                string finalMessage = message ?? $"Expected: {expected} ± {tolerance.TotalSeconds} seconds NOT to match, Actual: {actualValue}";
+                Assert.That(actualValue, Is.Not.EqualTo(expected).Within(tolerance), finalMessage);
+
+                _logWorker.Log($"Verification passed: {finalMessage}", LogLevel.Info, "VerifyWorker", "DateTimeNotEquals");
+            }
+            catch (AssertionException ex)
+            {
+                _logWorker.Log($"Verification failed: {ex.Message}", LogLevel.Error, "VerifyWorker", "DateTimeNotEquals");
+                throw;
+            }
+        }
+
+        public static void ListEquals<T>(IEnumerable<T> expected, Func<IEnumerable<T>> act, string? message = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
+        {
+            try
+            {
+                var actualValue = ExecuteWithRetry(act, actual => Enumerable.SequenceEqual(expected, actual), maxInterval, checkInterval);
+
+                string finalMessage = message ?? $"Expected: [{string.Join(", ", expected)}], Actual: [{string.Join(", ", actualValue)}]";
+                Assert.That(actualValue, Is.EqualTo(expected), finalMessage);
+
+                _logWorker.Log($"Verification passed: {finalMessage}", LogLevel.Info, "VerifyWorker", "ListEquals");
+            }
+            catch (AssertionException ex)
+            {
+                _logWorker.Log($"Verification failed: {ex.Message}", LogLevel.Error, "VerifyWorker", "ListEquals");
+                throw;
+            }
+        }
+
+        public static void ListEqualsIgnoringOrder<T>(IEnumerable<T> expected, Func<IEnumerable<T>> act, string? message = null, TimeSpan? maxInterval = null, TimeSpan? checkInterval = null)
+        {
+            try
+            {
+                var actualValue = ExecuteWithRetry(act, actual => new HashSet<T>(expected).SetEquals(actual), maxInterval, checkInterval);
+
+                string finalMessage = message ?? $"Expected (ignoring order): [{string.Join(", ", expected.OrderBy(x => x))}], Actual: [{string.Join(", ", actualValue.OrderBy(x => x))}]";
+                Assert.That(actualValue.OrderBy(x => x), Is.EqualTo(expected.OrderBy(x => x)), finalMessage);
+
+                _logWorker.Log($"Verification passed: {finalMessage}", LogLevel.Info, "VerifyWorker", "ListEqualsIgnoringOrder");
+            }
+            catch (AssertionException ex)
+            {
+                _logWorker.Log($"Verification failed: {ex.Message}", LogLevel.Error, "VerifyWorker", "ListEqualsIgnoringOrder");
+                throw;
+            }
+        }
+
+        public static void FinalizeChecks()
+        {
+            if (_failures.Any())
+            {
+                var combinedMessage = string.Join(Environment.NewLine, _failures.Select((msg, index) => $"{index + 1}. {msg}"));
+                _failures.Clear();
+                throw new AssertionException($"The following checks failed:{Environment.NewLine}{combinedMessage}");
+            }
         }
     }
 }
