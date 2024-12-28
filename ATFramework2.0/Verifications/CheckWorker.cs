@@ -11,5 +11,15 @@ public class CheckWorker
         _logWorker.Log($"Verification failed: {message}", LogLevel.Error, "CheckWorker", "AddFailure");
     }
 
-    
+    public static void FinalizeChecks()
+    {
+        if (_failures.Count != 0)
+        {
+            var combinedMessage = string.Join(Environment.NewLine, _failures.Select((msg, index) => $"{index + 1}. {msg}"));
+            _failures.Clear();
+            throw new AssertionException($"The following checks failed:{Environment.NewLine}{combinedMessage}");
+        }
+    }
+
+
 }
