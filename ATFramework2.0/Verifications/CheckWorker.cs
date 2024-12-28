@@ -20,6 +20,4 @@ public class CheckWorker
             throw new AssertionException($"The following checks failed:{Environment.NewLine}{combinedMessage}");
         }
     }
-
-
 }
