@@ -10,7 +10,7 @@ public static class VerifyWorker
         try
         {
             Assert.That(actual, Is.EqualTo(expected), message ?? $"Expected: {expected}, Actual: {actual}");
-            _logWorker.Log($"Verification passed: {message ?? $"Expected: {expected}, Actual: {actual}"}", LogLevel.Info, "VerifyWorker", "Equals");
+            _logWorker.Log($"Verification passed: {message ?? $"Expected: {expected}, Actual: {actual}"}", LogLevel.Info, "VerifyWorker", "Equal");
         }
         catch (AssertionException ex)
         {
@@ -18,7 +18,6 @@ public static class VerifyWorker
             throw;
         }
     }
-
     public static void NotEqual<T>(T expected, T actual, string? message = null)
     {
         try
@@ -32,7 +31,6 @@ public static class VerifyWorker
             throw;
         }
     }
-
     public static void True(bool condition, string? message = null)
     {
         try
@@ -46,7 +44,6 @@ public static class VerifyWorker
             throw;
         }
     }
-
     public static void False(bool condition, string? message = null)
     {
         try
@@ -60,7 +57,6 @@ public static class VerifyWorker
             throw;
         }
     }
-
     public static void Null(object obj, string? message = null)
     {
         try
@@ -74,7 +70,6 @@ public static class VerifyWorker
             throw;
         }
     }
-
     public static void NotNull(object obj, string? message = null)
     {
         try
@@ -88,7 +83,6 @@ public static class VerifyWorker
             throw;
         }
     }
-
     public static void Fail(string? message = null)
     {
         try
@@ -118,7 +112,6 @@ public static class VerifyWorker
             throw;
         }
     }
-
     public static void CollectionsEqual<T>(IEnumerable<T> expected, IEnumerable<T> actual, string? message = null)
     {
         try
@@ -132,7 +125,6 @@ public static class VerifyWorker
             throw;
         }
     }
-
     public static void CollectionsEquivalent<T>(IEnumerable<T> expected, IEnumerable<T> actual, string? message = null)
     {
         try
@@ -169,80 +161,76 @@ public static class VerifyWorker
             throw;
         }
     }
-
     public static void StringContains(string actual, string substring, bool ignoreCase = false, string? message = null)
     {
         try
         {
             if (ignoreCase)
             {
-                Assert.That(actual.ToLower(), Does.Contain(substring.ToLower()), message);
+                Assert.That(actual.ToLower(), Does.Contain(substring.ToLower()), message ?? $"Expected substring: {substring}, Actual: {actual}");
             }
             else
             {
                 Assert.That(actual, Does.Contain(substring), message);
             }
-            _logWorker.Log($"Assertion passed: StringContains - Actual: {actual}, Substring: {substring}, IgnoreCase: {ignoreCase}, Message: {message}", LogLevel.Info, "Verification", "StringContains");
+            _logWorker.Log($"Verification passed: StringContains - Actual: {actual}, Substring: {substring}, IgnoreCase: {ignoreCase}, Message: {message}", LogLevel.Info, "VerifyWorker", "StringContains");
         }
         catch (AssertionException ex)
         {
-            _logWorker.Log($"Assertion failed: StringContains - {ex.Message}", LogLevel.Error, "Verification", "StringContains");
+            _logWorker.Log($"Verification failed: StringContains - {ex.Message}", LogLevel.Error, "VerifyWorker", "StringContains");
             throw;
         }
     }
-
     public static void StringStartsWith(string actual, string prefix, bool ignoreCase = false, string? message = null)
     {
         try
         {
             if (ignoreCase)
             {
-                Assert.That(actual.ToLower(), Does.StartWith(prefix.ToLower()), message);
+                Assert.That(actual.ToLower(), Does.StartWith(prefix.ToLower()), message ?? $"Expected prefix: {prefix}, Actual: {actual}");
             }
             else
             {
-                Assert.That(actual, Does.StartWith(prefix), message);
+                Assert.That(actual, Does.StartWith(prefix), message ?? $"Expected prefix: {prefix}, Actual: {actual}");
             }
-            _logWorker.Log($"Assertion passed: StringStartsWith - Actual: {actual}, Prefix: {prefix}, IgnoreCase: {ignoreCase}, Message: {message}", LogLevel.Info, "Verification", "StringStartsWith");
+            _logWorker.Log($"Verification passed: StringStartsWith - Actual: {actual}, Prefix: {prefix}, IgnoreCase: {ignoreCase}, Message: {message}", LogLevel.Info, "VerifyWorker", "StringStartsWith");
         }
         catch (AssertionException ex)
         {
-            _logWorker.Log($"Assertion failed: StringStartsWith - {ex.Message}", LogLevel.Error, "Verification", "StringStartsWith");
+            _logWorker.Log($"Verification failed: StringStartsWith - {ex.Message}", LogLevel.Error, "VerifyWorker", "StringStartsWith");
             throw;
         }
     }
-
     public static void StringEndsWith(string actual, string suffix, bool ignoreCase = false, string? message = null)
     {
         try
         {
             if (ignoreCase)
             {
-                Assert.That(actual.ToLower(), Does.EndWith(suffix.ToLower()), message);
+                Assert.That(actual.ToLower(), Does.EndWith(suffix.ToLower()), message ?? $"Expected suffix: {suffix}, Actual: {actual}");
             }
             else
             {
-                Assert.That(actual, Does.EndWith(suffix), message);
+                Assert.That(actual, Does.EndWith(suffix), message ?? $"Expected suffix: {suffix}, Actual: {actual}");
             }
-            _logWorker.Log($"Assertion passed: StringEndsWith - Actual: {actual}, Suffix: {suffix}, IgnoreCase: {ignoreCase}, Message: {message}", LogLevel.Info, "Verification", "StringEndsWith");
+            _logWorker.Log($"Verification passed: StringEndsWith - Actual: {actual}, Suffix: {suffix}, IgnoreCase: {ignoreCase}, Message: {message}", LogLevel.Info, "VerifyWorker", "StringEndsWith");
         }
         catch (AssertionException ex)
         {
-            _logWorker.Log($"Assertion failed: StringEndsWith - {ex.Message}", LogLevel.Error, "Verification", "StringEndsWith");
+            _logWorker.Log($"Verification failed: StringEndsWith - {ex.Message}", LogLevel.Error, "VerifyWorker", "StringEndsWith");
             throw;
         }
     }
-
     public static void StringMatches(string actual, string pattern, string? message = null)
     {
         try
         {
-            Assert.That(actual, Does.Match(pattern), message);
-            _logWorker.Log($"Assertion passed: StringMatches - Actual: {actual}, Pattern: {pattern}, Message: {message}", LogLevel.Info, "Verification", "StringMatches");
+            Assert.That(actual, Does.Match(pattern), message ?? $"Expected pattern: {pattern}, Actual: {actual}");
+            _logWorker.Log($"Verification passed: StringMatches - Actual: {actual}, Pattern: {pattern}, Message: {message}", LogLevel.Info, "VerifyWorker", "StringMatches");
         }
         catch (AssertionException ex)
         {
-            _logWorker.Log($"Assertion failed: StringMatches - {ex.Message}", LogLevel.Error, "Verification", "StringMatches");
+            _logWorker.Log($"Verification failed: StringMatches - {ex.Message}", LogLevel.Error, "VerifyWorker", "StringMatches");
             throw;
         }
     }
@@ -253,68 +241,64 @@ public static class VerifyWorker
     {
         try
         {
-            Assert.That(actual, Is.EqualTo(expected).Within(tolerance), message);
-            _logWorker.Log($"Assertion passed: DateTimeEqual - Expected: {expected}, Actual: {actual}, Tolerance: {tolerance}, Message: {message}", LogLevel.Info, "Verification", "DateTimeEqual");
+            Assert.That(actual, Is.EqualTo(expected).Within(tolerance), message ?? $"Expected: {expected}, Actual: {actual}");
+            _logWorker.Log($"Verification passed: DateTimeEqual - Expected: {expected}, Actual: {actual}, Tolerance: {tolerance}, Message: {message}", LogLevel.Info, "VerifyWorker", "DateTimeEqual");
         }
         catch (AssertionException ex)
         {
-            _logWorker.Log($"Assertion failed: DateTimeEqual - {ex.Message}", LogLevel.Error, "Verification", "DateTimeEqual");
+            _logWorker.Log($"Verification failed: DateTimeEqual - {ex.Message}", LogLevel.Error, "VerifyWorker", "DateTimeEqual");
             throw;
         }
     }
-
     public static void DateTimeNotEqual(DateTime expected, DateTime actual, TimeSpan tolerance, string? message = null)
     {
         try
         {
-            Assert.That(actual, Is.Not.EqualTo(expected).Within(tolerance), message);
-            _logWorker.Log($"Assertion passed: DateTimeNotEqual - Expected: {expected}, Actual: {actual}, Tolerance: {tolerance}, Message: {message}", LogLevel.Info, "Verification", "DateTimeNotEqual");
+            Assert.That(actual, Is.Not.EqualTo(expected).Within(tolerance), message ?? $"Expected: {expected}, Actual: {actual}");
+            _logWorker.Log($"Verification passed: DateTimeNotEqual - Expected: {expected}, Actual: {actual}, Tolerance: {tolerance}, Message: {message}", LogLevel.Info, "VerifyWorker", "DateTimeNotEqual");
         }
         catch (AssertionException ex)
         {
-            _logWorker.Log($"Assertion failed: DateTimeNotEqual - {ex.Message}", LogLevel.Error, "Verification", "DateTimeNotEqual");
+            _logWorker.Log($"Verification failed: DateTimeNotEqual - {ex.Message}", LogLevel.Error, "VerifyWorker", "DateTimeNotEqual");
             throw;
         }
     }
-
     public static void DateTimeInRange(DateTime actual, DateTime start, DateTime end, string? message = null)
     {
         try
         {
-            Assert.That(actual, Is.InRange(start, end), message);
-            _logWorker.Log($"Assertion passed: DateTimeInRange - Actual: {actual}, Start: {start}, End: {end}, Message: {message}", LogLevel.Info, "Verification", "DateTimeInRange");
+            Assert.That(actual, Is.InRange(start, end), message ?? $"Expected start: {start}, Expected end: {end},  Actual: {actual}");
+            _logWorker.Log($"Verification passed: DateTimeInRange - Actual: {actual}, Start: {start}, End: {end}, Message: {message}", LogLevel.Info, "VerifyWorker", "DateTimeInRange");
         }
         catch (AssertionException ex)
         {
-            _logWorker.Log($"Assertion failed: DateTimeInRange - {ex.Message}", LogLevel.Error, "Verification", "DateTimeInRange");
+            _logWorker.Log($"Verification failed: DateTimeInRange - {ex.Message}", LogLevel.Error, "VerifyWorker", "DateTimeInRange");
             throw;
         }
     }
-
     public static void DateTimeBefore(DateTime actual, DateTime reference, string? message = null)
     {
         try
         {
-            Assert.That(actual, Is.LessThan(reference), message);
-            _logWorker.Log($"Assertion passed: DateTimeBefore - Actual: {actual}, Reference: {reference}, Message: {message}", LogLevel.Info, "Verification", "DateTimeBefore");
+            Assert.That(actual, Is.LessThan(reference), message ?? $"Expected reference: {reference}, Actual: {actual}");
+            _logWorker.Log($"Verification passed: DateTimeBefore - Actual: {actual}, Reference: {reference}, Message: {message}", LogLevel.Info, "VerifyWorker", "DateTimeBefore");
         }
         catch (AssertionException ex)
         {
-            _logWorker.Log($"Assertion failed: DateTimeBefore - {ex.Message}", LogLevel.Error, "Verification", "DateTimeBefore");
+            _logWorker.Log($"Verification failed: DateTimeBefore - {ex.Message}", LogLevel.Error, "VerifyWorker", "DateTimeBefore");
             throw;
         }
     }
-
     public static void DateTimeAfter(DateTime actual, DateTime reference, string? message = null)
     {
         try
         {
-            Assert.That(actual, Is.GreaterThan(reference), message);
-            _logWorker.Log($"Assertion passed: DateTimeAfter - Actual: {actual}, Reference: {reference}, Message: {message}", LogLevel.Info, "Verification", "DateTimeAfter");
+            Assert.That(actual, Is.GreaterThan(reference), message ?? $"Expected reference: {reference}, Actual: {actual}");
+            _logWorker.Log($"Verification passed: DateTimeAfter - Actual: {actual}, Reference: {reference}, Message: {message}", LogLevel.Info, "VerifyWorker", "DateTimeAfter");
         }
         catch (AssertionException ex)
         {
-            _logWorker.Log($"Assertion failed: DateTimeAfter - {ex.Message}", LogLevel.Error, "Verification", "DateTimeAfter");
+            _logWorker.Log($"Verification failed: DateTimeAfter - {ex.Message}", LogLevel.Error, "VerifyWorker", "DateTimeAfter");
             throw;
         }
     }
@@ -334,16 +318,16 @@ public static class VerifyWorker
                     }
                     catch (AssertionException ex)
                     {
-                        _logWorker.Log($"Assertion failed in Multiple: {ex.Message}", LogLevel.Error, "Verification", "Multiple");
+                        _logWorker.Log($"Verification failed in Multiple: {ex.Message}", LogLevel.Error, "VerifyWorker", "Multiple");
                         throw;
                     }
                 }
             });
-            _logWorker.Log("All assertions in Multiple passed successfully.", LogLevel.Info, "Verification", "Multiple");
+            _logWorker.Log("All verifications in Multiple passed successfully.", LogLevel.Info, "VerifyWorker", "Multiple");
         }
         catch (AssertionException ex)
         {
-            _logWorker.Log($"One or more assertions in Multiple failed: {ex.Message}", LogLevel.Error, "Verification", "Multiple");
+            _logWorker.Log($"One or more verifications in Multiple failed: {ex.Message}", LogLevel.Error, "VerifyWorker", "Multiple");
             throw;
         }
     }
