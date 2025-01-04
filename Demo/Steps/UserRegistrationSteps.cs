@@ -155,9 +155,9 @@ public class UserRegistrationSteps
         try
         {
             Log($"Verifying success message: '{expText}'.");
-            VerifyWorker.Equals(
-                exp: expText,
-                act: () => _successRegistrationPage.GetSuccessMsg(),
+            VerifyWorker.StringsEqual(
+                expected: expText,
+                actual: _successRegistrationPage.GetSuccessMsg(),
                 message: $"Current message should be '{expText}'"
             );
         }
@@ -174,9 +174,9 @@ public class UserRegistrationSteps
         try
         {
             Log($"Verifying fail message: '{expText}' under the '{fieldName}' field.", LogLevel.Info);
-            VerifyWorker.Equals(
-                exp: expText,
-                act: () => _registrationPage.GetTxtErrorMsgField(fieldName)
+            VerifyWorker.StringsEqual(
+                expected: expText,
+                actual: _registrationPage.GetTxtErrorMsgField(fieldName)
             );
         }
         catch (Exception ex)

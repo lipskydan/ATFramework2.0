@@ -303,32 +303,4 @@ public static class VerifyWorker
         }
     }
     #endregion
-
-    public static void Multiple(params Action[] assertions)
-    {
-        try
-        {
-            Assert.Multiple(() =>
-            {
-                foreach (var assertion in assertions)
-                {
-                    try
-                    {
-                        assertion();
-                    }
-                    catch (AssertionException ex)
-                    {
-                        _logWorker.Log($"Verification failed in Multiple: {ex.Message}", LogLevel.Error, "VerifyWorker", "Multiple");
-                        throw;
-                    }
-                }
-            });
-            _logWorker.Log("All verifications in Multiple passed successfully.", LogLevel.Info, "VerifyWorker", "Multiple");
-        }
-        catch (AssertionException ex)
-        {
-            _logWorker.Log($"One or more verifications in Multiple failed: {ex.Message}", LogLevel.Error, "VerifyWorker", "Multiple");
-            throw;
-        }
-    }
 }
