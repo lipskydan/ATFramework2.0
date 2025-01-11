@@ -148,17 +148,17 @@ public static class VerifyWorker
         {
             if (ignoreCase)
             {
-                Assert.That(actual.ToLower(), Is.EqualTo(expected.ToLower()), message ?? $"Expected: {expected}, Actual: {actual}");
+                Assert.That(actual.ToLower(), Is.EqualTo(expected.ToLower()));
             }
             else
             {
-                Assert.That(actual, Is.EqualTo(expected), message ?? $"Expected: {expected}, Actual: {actual}");
+                Assert.That(actual, Is.EqualTo(expected));
             }
             logWorker.Log($"Verification passed : StringsEqual - Actual: {actual}, Expected: {expected}, IgnoreCase: {ignoreCase}, Message: {message}", LogLevel.Info, "VerifyWorker", "StringsEqual");
         }
-        catch (AssertionException ex)
+        catch
         {
-            logWorker.Log($"Verification failure : StringsEqual - {ex.Message}", LogLevel.Error, "VerifyWorker", "StringsEqual");
+            logWorker.Log($"Verification failure : StringsEqual - Actual: {actual}, Expected: {expected}, IgnoreCase: {ignoreCase}, Message: {message}", LogLevel.Error, "VerifyWorker", "StringsEqual");
             throw;
         }
     }

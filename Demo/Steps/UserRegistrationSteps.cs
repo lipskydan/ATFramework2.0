@@ -156,7 +156,7 @@ public class UserRegistrationSteps
             logWorker:  _webDriver.LogWorker,
             expected: expText,
             actual: _successRegistrationPage.GetSuccessMsg(),
-            message: $"Current message should be '{expText}'"
+            message: $"Success message should be displayed"
             );
     }
 
