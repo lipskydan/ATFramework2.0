@@ -152,37 +152,21 @@ public class UserRegistrationSteps
     [Then(@"Success message ""(.*)"" is displayed")]
     public void ThenSuccessMessageIsDisplayed(string expText)
     {
-        try
-        {
-            Log($"Verifying success message: '{expText}'.");
-            VerifyWorker.StringsEqual(
-                expected: expText,
-                actual: _successRegistrationPage.GetSuccessMsg(),
-                message: $"Current message should be '{expText}'"
+        VerifyWorker.StringsEqual(
+            logWorker:  _webDriver.LogWorker,
+            expected: expText,
+            actual: _successRegistrationPage.GetSuccessMsg(),
+            message: $"Current message should be '{expText}'"
             );
-        }
-        catch (Exception ex)
-        {
-            LogException(ex, $"Verifying success message '{expText}'");
-            throw;
-        }
     }
 
     [Then(@"Fail message ""(.*)"" under the field ""(.*)"" is displayed")]
     public void ThenFailMessageIsDisplayed(string expText, string fieldName)
     {
-        try
-        {
-            Log($"Verifying fail message: '{expText}' under the '{fieldName}' field.", LogLevel.Info);
-            VerifyWorker.StringsEqual(
-                expected: expText,
-                actual: _registrationPage.GetTxtErrorMsgField(fieldName)
+        VerifyWorker.StringsEqual(
+            logWorker:  _webDriver.LogWorker,
+            expected: expText,
+            actual: _registrationPage.GetTxtErrorMsgField(fieldName)
             );
-        }
-        catch (Exception ex)
-        {
-            LogException(ex, $"Verifying fail message '{expText}' under field '{fieldName}'");
-            throw;
-        }
     }
 }

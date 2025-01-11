@@ -2,46 +2,46 @@
 
 public class HtmlReportGenerator
 {
-        private static HtmlReportGenerator _instance;
-        private static readonly object _lock = new object();
+    private static HtmlReportGenerator _instance;
+    private static readonly object _lock = new object();
 
-        private readonly TestSettings _testSettings;
-        private StringBuilder _reportContent;
-        private Dictionary<string, StringBuilder> _scenarioReports;
-        private int _scenarioCounter = 0;
+    private readonly TestSettings _testSettings;
+    private StringBuilder _reportContent;
+    private Dictionary<string, StringBuilder> _scenarioReports;
+    private int _scenarioCounter = 0;
 
-        public HtmlReportGenerator(TestSettings testSettings)
+    public HtmlReportGenerator(TestSettings testSettings)
+    {
+        _testSettings = testSettings;
+        _scenarioReports = new Dictionary<string, StringBuilder>();
+
+        if (_testSettings.Report.ToGenerate)
         {
-            _testSettings = testSettings;
-            _scenarioReports = new Dictionary<string, StringBuilder>();
-
-            if (_testSettings.Report.ToGenerate)
-            {
-                InitializeReport();
-            }
+            InitializeReport();
         }
+    }
 
-        public static HtmlReportGenerator Instance(TestSettings testSettings)
+    public static HtmlReportGenerator Instance(TestSettings testSettings)
+    {
+        lock (_lock)
         {
-            lock (_lock)
+            if (_instance == null)
             {
-                if (_instance == null)
-                {
-                    _instance = new HtmlReportGenerator(testSettings);
-                }
-                return _instance;
+                _instance = new HtmlReportGenerator(testSettings);
             }
+            return _instance;
         }
+    }
 
-        private void InitializeReport()
-        {
-            _reportContent = new StringBuilder();
-            _reportContent.AppendLine("<html>");
-            _reportContent.AppendLine("<head>");
-            _reportContent.AppendLine("<title>Test Report</title>");
-            _reportContent.AppendLine("<style>");
+    private void InitializeReport()
+    {
+        _reportContent = new StringBuilder();
+        _reportContent.AppendLine("<html>");
+        _reportContent.AppendLine("<head>");
+        _reportContent.AppendLine("<title>Test Report</title>");
+        _reportContent.AppendLine("<style>");
 
-            _reportContent.AppendLine(@"
+        _reportContent.AppendLine(@"
                 body {
                     font-family: Arial, sans-serif;
                     background-color: #f4f4f4;
@@ -101,10 +101,10 @@ public class HtmlReportGenerator
                 }
             ");
 
-            _reportContent.AppendLine("</style>");
-            _reportContent.AppendLine("<script>");
+        _reportContent.AppendLine("</style>");
+        _reportContent.AppendLine("<script>");
 
-            _reportContent.AppendLine(@"
+        _reportContent.AppendLine(@"
                 document.addEventListener('DOMContentLoaded', function() {
                     const coll = document.getElementsByClassName('collapsible');
                     for (let i = 0; i < coll.length; i++) {
@@ -121,58 +121,69 @@ public class HtmlReportGenerator
                 });
             ");
 
-            _reportContent.AppendLine("</script>");
-            _reportContent.AppendLine("</head>");
-            _reportContent.AppendLine("<body>");
-            _reportContent.AppendLine("<h1>Automation Test Execution Report [ATFramework2.0]</h1>");
-        }
+        _reportContent.AppendLine("</script>");
+        _reportContent.AppendLine("</head>");
+        _reportContent.AppendLine("<body>");
+        _reportContent.AppendLine("<h1>Automation Test Execution Report [ATFramework2.0]</h1>");
+    }
 
-        public void StartScenario(string featureName, string scenarioName)
+    public void StartScenario(string featureName, string scenarioName)
+    {
+        if (_testSettings.Report.ToGenerate && !_scenarioReports.ContainsKey(scenarioName))
         {
-            if (_testSettings.Report.ToGenerate && !_scenarioReports.ContainsKey(scenarioName))
-            {
-                var scenarioContent = new StringBuilder();
+            var scenarioContent = new StringBuilder();
 
-                string scenarioId = $"scenario{_scenarioCounter++}";
-                scenarioContent.AppendLine($"<button class='collapsible'>{featureName}: {scenarioName}</button>");
-                scenarioContent.AppendLine($"<div class='content' id='{scenarioId}'>");
-                scenarioContent.AppendLine("<table>");
-                scenarioContent.AppendLine("<tr><th>Step</th><th>Status</th><th>Timestamp</th></tr>");
+            string scenarioId = $"scenario{_scenarioCounter++}";
+            scenarioContent.AppendLine($"<button class='collapsible'>{featureName}: {scenarioName}</button>");
+            scenarioContent.AppendLine($"<div class='content' id='{scenarioId}'>");
+            scenarioContent.AppendLine("<table>");
+            scenarioContent.AppendLine("<tr><th>Step</th><th>Status</th><th>Timestamp</th></tr>");
 
-                _scenarioReports[scenarioName] = scenarioContent;
-            }
-        }
-
-        public void AddStepResult(string scenarioName, string stepName, string status)
-        {
-            if (_testSettings.Report.ToGenerate && _scenarioReports.ContainsKey(scenarioName))
-            {
-                var statusClass = status == "Passed" ? "status-pass" : "status-fail";
-                _scenarioReports[scenarioName].AppendLine(
-                    $"<tr><td>{stepName}</td><td class='{statusClass}'>{status}</td><td class='timestamp'>{DateTime.Now}</td></tr>");
-            }
-        }
-
-        public void EndScenario(string scenarioName)
-        {
-            if (_testSettings.Report.ToGenerate && _scenarioReports.ContainsKey(scenarioName))
-            {
-                _scenarioReports[scenarioName].AppendLine("</table>");
-                _scenarioReports[scenarioName].AppendLine("</div>");
-            }
-        }
-
-        public void FinalizeReport()
-        {
-            if (_testSettings.Report.ToGenerate)
-            {
-                foreach (var scenario in _scenarioReports.Values)
-                {
-                    _reportContent.Append(scenario.ToString());
-                }
-                _reportContent.AppendLine("</body></html>");
-
-                File.WriteAllText(_testSettings.Report.PathToSave + $"Report_{DateTime.Now:MM_dd_yyyy_HH_mm_ss}.html", _reportContent.ToString());
-            }
+            _scenarioReports[scenarioName] = scenarioContent;
         }
     }
+
+    public void AddStepResult(string scenarioName, string stepName, string status)
+    {
+        if (_testSettings.Report.ToGenerate && _scenarioReports.ContainsKey(scenarioName))
+        {
+            var statusClass = status == "Passed" ? "status-pass" : "status-fail";
+            _scenarioReports[scenarioName].AppendLine(
+                $"<tr><td>{stepName}</td><td class='{statusClass}'>{status}</td><td class='timestamp'>{DateTime.Now}</td></tr>");
+        }
+    }
+
+    public void AddLogAnalysisResults(List<string> logText, List<string> analysisResults)
+    {
+        _reportContent.AppendLine("<h2>Log Analysis Results</h2>");
+        _reportContent.AppendLine("<pre>");
+        for (int i = 0; i < logText.Count && i < analysisResults.Count; i++)
+        {
+            _reportContent.AppendLine($"[logText]: {logText[i]} | [analysisResult]: {analysisResults[i]}");
+        }
+        _reportContent.AppendLine("</pre>");
+    }
+
+    public void EndScenario(string scenarioName)
+    {
+        if (_testSettings.Report.ToGenerate && _scenarioReports.ContainsKey(scenarioName))
+        {
+            _scenarioReports[scenarioName].AppendLine("</table>");
+            _scenarioReports[scenarioName].AppendLine("</div>");
+        }
+    }
+
+    public void FinalizeReport()
+    {
+        if (_testSettings.Report.ToGenerate)
+        {
+            foreach (var scenario in _scenarioReports.Values)
+            {
+                _reportContent.Append(scenario.ToString());
+            }
+            _reportContent.AppendLine("</body></html>");
+
+            File.WriteAllText(_testSettings.Report.PathToSave + $"Report_{DateTime.Now:MM_dd_yyyy_HH_mm_ss}.html", _reportContent.ToString());
+        }
+    }
+}

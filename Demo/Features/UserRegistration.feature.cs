@@ -399,6 +399,45 @@ this.ScenarioInitialize(scenarioInfo);
             }
             await this.ScenarioCleanupAsync();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("[FailDemo] Try to find not displayed Success message")]
+        public async System.Threading.Tasks.Task FailDemoTryToFindNotDisplayedSuccessMessage()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("[FailDemo] Try to find not displayed Success message", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 79
+ this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 80
+ await testRunner.GivenAsync("Navigate to the start page of the app", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 81
+ await testRunner.AndAsync("Open \"Sign In\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 82
+ await testRunner.AndAsync("Click on the button \"New Registration\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 83
+ await testRunner.AndAsync("Select Salutation \"Mr\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 84
+ await testRunner.WhenAsync("Click on the button \"Submit\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 85
+ await testRunner.ThenAsync("Success message \"User Registered Successfully !!!\" is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
     }
 }
 #pragma warning restore

@@ -1,3 +1,5 @@
+using ATFramework2._0.Utilities.Logs;
+
 namespace DemoUI.Hooks;
 
 [Binding]
@@ -59,6 +61,19 @@ public class HooksInitialization
     public static void AfterTestRun()
     {
         var testSettings = ConfigReader.ReadConfig();
-        HtmlReportGenerator.Instance(testSettings).FinalizeReport();
+
+        var services = DiSetupBase.CreateBaseServices(out _);
+        var serviceProvider = services.BuildServiceProvider();
+        var logWorker = serviceProvider.GetService<IWebDriverManager>().LogWorker;
+
+        var logs = logWorker.GetAllLogs();
+        var analyzer = new DynamicLogAnalyzer(logs);
+        var analysisResults = analyzer.AnalyzeLogs();
+
+        var rawLogs = logs.Select(log => $"{log.Timestamp} [{log.Level}] {log.Message}").ToList();
+
+        var reportGenerator = HtmlReportGenerator.Instance(testSettings);
+        reportGenerator.AddLogAnalysisResults(rawLogs, analysisResults);
+        reportGenerator.FinalizeReport();
     }
 }

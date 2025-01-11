@@ -47,6 +47,11 @@ public class LogWorker
         Console.WriteLine($"[Log] {entry.Timestamp} - {entry.Level} - {entry.Message}"); // Debug output
     }
 
+    public List<LogEntry> GetAllLogs()
+    {
+        return _logEntries;
+    }
+
     public List<LogEntry> GetLogsByLevel(LogLevel level)
     {
         return _logEntries.Where(log => log.Level == level).ToList();
@@ -75,10 +80,10 @@ public class LogWorker
             {
                 if (entry.Feature != lastFeature || entry.Context != lastScenario)
                 {
-                    // if (!string.IsNullOrEmpty(lastFeature))
-                    // {
-                    //     writer.WriteLine("");
-                    // }
+                    if (!string.IsNullOrEmpty(lastFeature))
+                    {
+                        writer.WriteLine("##########################");
+                    }
 
                     lastFeature = entry.Feature;
                     lastScenario = entry.Context;
@@ -87,10 +92,10 @@ public class LogWorker
                 writer.WriteLine($"{entry.Timestamp}|{entry.Level}|{entry.Context}|{entry.Feature}|{entry.Message}");
             }
 
-            // if (_logEntries.Any())
-            // {
-            //     writer.WriteLine("");
-            // }
+            if (_logEntries.Any())
+            {
+                writer.WriteLine("##########################");
+            }
         }
 
         _logEntries.Clear();

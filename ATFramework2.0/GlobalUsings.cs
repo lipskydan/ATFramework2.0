@@ -26,3 +26,4 @@ global using System.Threading.Tasks;
 global using SeleniumExtras.WaitHelpers;
 global using ATFramework2._0.ElementHandle;
 global using OpenQA.Selenium.Interactions;
+global using ATFramework2._0.Utilities.Logs;
