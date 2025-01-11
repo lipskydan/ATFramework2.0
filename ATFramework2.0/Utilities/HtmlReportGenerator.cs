@@ -48,7 +48,7 @@
                 .content { padding: 0 15px; display: none; overflow: hidden; background-color: #f9f9f9; }
                 table { width: 100%; border-collapse: collapse; margin: 15px 0; }
                 th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-                th { background-color: #4CAF50; color: white; }
+                th { background-color:#4CAF50; color: white; }
                 tr:nth-child(even) { background-color: #f2f2f2; }
                 .status-pass { color: green; font-weight: bold; }
                 .status-fail { color: red; font-weight: bold; }
@@ -119,8 +119,9 @@
                 // Check if a fail marker is present
                 if (scenarioContent.ToString().Contains("<!-- fail_marker -->"))
                 {
-                    string scenarioId = $"scenario{_scenarioCounter - 1}";
-                    _reportContent.Replace($"id='{scenarioId}'>", $"id='{scenarioId}' class='collapsible red'>");
+                    //_reportContent.Replace($"class='collapsible'", $"class='collapsible-red'");
+                    var updatedContent = scenarioContent.ToString().Replace("class='collapsible'", "class='collapsible red'");
+                    _scenarioReports[scenarioName] = new StringBuilder(updatedContent);
                 }
             }
         }
