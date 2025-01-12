@@ -40,7 +40,6 @@
             _reportContent.AppendLine("<head>");
             _reportContent.AppendLine("<title>Test Report</title>");
             _reportContent.AppendLine("<style>");
-
             _reportContent.AppendLine(@"body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
                 h1 { text-align: center; color: #333; }
                 .collapsible { background-color: #4CAF50; color: white; cursor: pointer; padding: 10px; width: 100%; text-align: left; border: none; outline: none; font-size: 18px; margin-bottom: 5px; }
@@ -53,7 +52,6 @@
                 .status-pass { color: green; font-weight: bold; }
                 .status-fail { color: red; font-weight: bold; }
                 .timestamp { color: #888; font-style: italic; }");
-
             _reportContent.AppendLine("</style>");
             _reportContent.AppendLine("<script>");
             _reportContent.AppendLine(@"document.addEventListener('DOMContentLoaded', function() {
@@ -119,7 +117,6 @@
                 // Check if a fail marker is present
                 if (scenarioContent.ToString().Contains("<!-- fail_marker -->"))
                 {
-                    //_reportContent.Replace($"class='collapsible'", $"class='collapsible-red'");
                     var updatedContent = scenarioContent.ToString().Replace("class='collapsible'", "class='collapsible red'");
                     _scenarioReports[scenarioName] = new StringBuilder(updatedContent);
                 }
@@ -140,16 +137,16 @@
             }
         }
 
-        
-    public void AddLogAnalysisResults(List<string> logText, List<string> analysisResults)
-    {
-        _reportContent.AppendLine("<h2>Log Analysis Results</h2>");
-        _reportContent.AppendLine("<pre>");
-        for (int i = 0; i < logText.Count && i < analysisResults.Count; i++)
+
+        public void AddLogAnalysisResults(List<string> logText, List<string> analysisResults)
         {
-            _reportContent.AppendLine($"[logText]: {logText[i]} | [analysisResult]: {analysisResults[i]}");
+            _reportContent.AppendLine("<h2>Log Analysis Results</h2>");
+            _reportContent.AppendLine("<pre>");
+            for (int i = 0; i < logText.Count && i < analysisResults.Count; i++)
+            {
+                _reportContent.AppendLine($"[logText]: {logText[i]} | [analysisResult]: {analysisResults[i]}");
+            }
+            _reportContent.AppendLine("</pre>");
         }
-        _reportContent.AppendLine("</pre>");
-    }
     }
 }

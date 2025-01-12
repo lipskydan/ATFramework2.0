@@ -166,7 +166,8 @@ public class UserRegistrationSteps
         VerifyWorker.StringsEqual(
             logWorker:  _webDriver.LogWorker,
             expected: expText,
-            actual: _registrationPage.GetTxtErrorMsgField(fieldName)
+            actual: _registrationPage.GetTxtErrorMsgField(fieldName),
+            message: $"Fail message should be displayed"
             );
     }
 }

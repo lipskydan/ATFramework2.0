@@ -17,9 +17,9 @@ public class DynamicLogAnalyzer
     /// Конструктор класу.
     /// </summary>
     /// <param name="logs">Список логів для аналізу.</param>
-    public DynamicLogAnalyzer(List<LogEntry> logs)
+    public DynamicLogAnalyzer(List<LogEntry>? logs)
     {
-        _logs = logs;
+        _logs = logs ?? [];
     }
 
     /// <summary>
