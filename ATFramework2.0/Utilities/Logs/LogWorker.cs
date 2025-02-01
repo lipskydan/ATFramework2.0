@@ -19,7 +19,7 @@ public class LogEntry
 
 public class LogWorker
 {
-    private readonly List<LogEntry> _logEntries = new List<LogEntry>();
+    public readonly List<LogEntry> _logEntries = new List<LogEntry>();
     private readonly string _logFilePath;
 
     public LogWorker(string logFilePath)
@@ -31,6 +31,7 @@ public class LogWorker
             LoadLogsFromFile();
         }
     }
+    
 
     public void Log(string message, LogLevel level, string context = "POM", string feature = null)
     {
@@ -57,6 +58,12 @@ public class LogWorker
         return _logEntries.Where(log => log.Level == level).ToList();
     }
 
+    public List<LogEntry> GetLogsByLevels(IEnumerable<LogLevel> levels)
+{
+    return _logEntries.Where(log => levels.Contains(log.Level)).ToList();
+}
+
+
     public List<LogEntry> GetLogsByContext(string context)
     {
         return _logEntries.Where(log => log.Context.Equals(context, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -71,6 +78,21 @@ public class LogWorker
 
     public void SaveLogsToFile()
     {
+        HashSet<DateTime> existingTimestamps = new HashSet<DateTime>();
+
+    if (File.Exists(_logFilePath))
+    {
+        var lines = File.ReadAllLines(_logFilePath);
+        foreach (var line in lines)
+        {
+            var parts = line.Split('|');
+            if (parts.Length > 0 && DateTime.TryParse(parts[0], out var timestamp))
+            {
+                existingTimestamps.Add(timestamp);
+            }
+        }
+    }
+
         using (var writer = new StreamWriter(_logFilePath, append: true))
         {
             string lastFeature = string.Empty;
@@ -78,6 +100,11 @@ public class LogWorker
 
             foreach (var entry in _logEntries)
             {
+                if (existingTimestamps.Contains(entry.Timestamp))
+            {
+                continue;
+            }
+
                 if (entry.Feature != lastFeature || entry.Context != lastScenario)
                 {
                     if (!string.IsNullOrEmpty(lastFeature))
@@ -90,6 +117,7 @@ public class LogWorker
                 }
 
                 writer.WriteLine($"{entry.Timestamp}|{entry.Level}|{entry.Context}|{entry.Feature}|{entry.Message}");
+                existingTimestamps.Add(entry.Timestamp);
             }
 
             if (_logEntries.Any())

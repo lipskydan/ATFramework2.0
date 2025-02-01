@@ -145,6 +145,7 @@
 
             for (int i = 0; i < logMessages.Count && i < analysisResults.Count; i++)
             {
+                //if (_reportContent.ToString().Contains(logMessages[i])) continue;
                 _reportContent.AppendLine($"<tr><td>{logMessages[i]}</td><td>{analysisResults[i]}</td></tr>");
             }
 

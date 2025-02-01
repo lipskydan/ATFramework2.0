@@ -76,8 +76,10 @@ public class WebDriverManager : IWebDriverManager, IDisposable
     }
 
     public void Dispose()
-    {
-        Driver.Quit();
-        LogWorker.SaveLogsToFile();
-    }
+{
+    Driver.Quit();
+    LogWorker.SaveLogsToFile();
+    //LogWorker._logEntries.Clear();
+}
+
 }

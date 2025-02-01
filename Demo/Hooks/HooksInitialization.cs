@@ -62,18 +62,18 @@ public class HooksInitialization
     {
         var testSettings = ConfigReader.ReadConfig();
 
-        var services = DiSetupBase.CreateBaseServices(out _);
-        var serviceProvider = services.BuildServiceProvider();
-        var logWorker = serviceProvider.GetService<IWebDriverManager>().LogWorker;
-
-        var logs = logWorker.GetAllLogs();
-        var analyzer = new DynamicLogAnalyzer(logs);
-        var analysisResults = analyzer.AnalyzeLogs();
+        // var services = DiSetupBase.CreateBaseServices(out _);
+        // var serviceProvider = services.BuildServiceProvider();
+        // var logWorker = serviceProvider.GetService<IWebDriverManager>().LogWorker;
+        // var logs = logWorker.GetAllLogs();
+        // //var logs = logWorker.GetLogsByLevels(new List<LogLevel> { LogLevel.Warning, LogLevel.Error, LogLevel.Critical });
+        // var analyzer = new DynamicLogAnalyzer(logs);
+        // var analysisResults = analyzer.AnalyzeLogs();
 
         var reportGenerator = HtmlReportGenerator.Instance(testSettings);
-        reportGenerator.AddLogAnalysisResults(
-            logs.Select(log => log.Message).ToList(), 
-            analysisResults);
+        // reportGenerator.AddLogAnalysisResults(
+        //     logs.Select(log => log.Message).ToList(), 
+        //     analysisResults);
 
         reportGenerator.FinalizeReport();
     }
