@@ -96,7 +96,7 @@
             {
                 var statusClass = status == "Passed" ? "status-pass" : "status-fail";
                 var scenarioContent = _scenarioReports[scenarioName];
-                scenarioContent.AppendLine($"<tr><td>{stepName}</td><td class='{statusClass}'>{status}</td><td class='timestamp'>{DateTime.Now}</td></tr>");
+                scenarioContent.AppendLine($"<tr><td>{stepName}</td><td class='{statusClass}'>{status}</td><td class='timestamp'>{DateTime.Now}</td><td>TODO</td></tr>");
 
                 // Add a marker if any step fails
                 if (status != "Passed")
@@ -137,16 +137,18 @@
             }
         }
 
-
-        public void AddLogAnalysisResults(List<string> logText, List<string> analysisResults)
+        public void AddLogAnalysisResults(List<string> logMessages, List<string> analysisResults)
         {
             _reportContent.AppendLine("<h2>Log Analysis Results</h2>");
-            _reportContent.AppendLine("<pre>");
-            for (int i = 0; i < logText.Count && i < analysisResults.Count; i++)
+            _reportContent.AppendLine("<table>");
+            _reportContent.AppendLine("<tr><th>Log Message</th><th>Analysis Result</th></tr>");
+
+            for (int i = 0; i < logMessages.Count && i < analysisResults.Count; i++)
             {
-                _reportContent.AppendLine($"[logText]: {logText[i]} | [analysisResult]: {analysisResults[i]}");
+                _reportContent.AppendLine($"<tr><td>{logMessages[i]}</td><td>{analysisResults[i]}</td></tr>");
             }
-            _reportContent.AppendLine("</pre>");
+
+            _reportContent.AppendLine("</table>");
         }
     }
 }

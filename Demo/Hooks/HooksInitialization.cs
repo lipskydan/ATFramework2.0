@@ -70,10 +70,11 @@ public class HooksInitialization
         var analyzer = new DynamicLogAnalyzer(logs);
         var analysisResults = analyzer.AnalyzeLogs();
 
-        var rawLogs = logs.Select(log => $"{log.Timestamp} [{log.Level}] {log.Message}").ToList();
-
         var reportGenerator = HtmlReportGenerator.Instance(testSettings);
-        reportGenerator.AddLogAnalysisResults(rawLogs, analysisResults);
+        reportGenerator.AddLogAnalysisResults(
+            logs.Select(log => log.Message).ToList(), 
+            analysisResults);
+
         reportGenerator.FinalizeReport();
     }
 }
