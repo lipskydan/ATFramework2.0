@@ -79,7 +79,6 @@ public class WebDriverManager : IWebDriverManager, IDisposable
 {
     Driver.Quit();
     LogWorker.SaveLogsToFile();
-    //LogWorker._logEntries.Clear();
 }
 
 }

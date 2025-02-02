@@ -47,7 +47,7 @@
                 .content { padding: 0 15px; display: none; overflow: hidden; background-color: #f9f9f9; }
                 table { width: 100%; border-collapse: collapse; margin: 15px 0; }
                 th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-                th { background-color:#4CAF50; color: white; }
+                th { background-color:#858585; color: white; }
                 tr:nth-child(even) { background-color: #f2f2f2; }
                 .status-pass { color: green; font-weight: bold; }
                 .status-fail { color: red; font-weight: bold; }
