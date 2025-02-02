@@ -7,7 +7,7 @@ public class VerifyWorkerVerification
     [Test]
     public void TestEqual_ShouldPass_WithEqualValues()
     {
-        Assert.DoesNotThrow(() => VerifyWorker.Equal(5, 5, "Values should be equal"));
+        Assert.DoesNotThrow(() => VerifyWorker.Equal(5, 3, "Values should be equal"));
     }
     [Test]
     public void TestNotEqual_ShouldPass_WithUnequalValues()

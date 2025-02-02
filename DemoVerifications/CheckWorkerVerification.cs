@@ -3,14 +3,14 @@ namespace DemoVerifications;
 [TestFixture]
 public class CheckWorkerVerification
 {
-    [TearDown]
+    [OneTimeTearDown]
     public void SumUpAfterEachTest() => CheckWorker.FinalizeChecks();
 
     #region General Assertions
     [Test]
     public void TestEqual_ShouldPass_WithEqualValues()
     {
-        CheckWorker.Equal(5, 5, "Values should be equal");
+        CheckWorker.Equal(5, 4, "Values should be equal");
     }
     [Test]
     public void TestNotEqual_ShouldPass_WithUnequalValues()
@@ -20,7 +20,7 @@ public class CheckWorkerVerification
     [Test]
     public void TestTrue_ShouldPass_WhenTrue()
     {
-        CheckWorker.True(true, "Condition should be true");
+        CheckWorker.True(false, "Condition should be true");
     }
     [Test]
     public void TestFalse_ShouldPass_WhenFalse()
