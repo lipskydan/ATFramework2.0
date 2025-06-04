@@ -1,10 +1,13 @@
 ﻿using ATFramework2._0.Demo;
 
-class Program
+class LipsiVsMInet
 {
     static void Main(string[] args)
     {
-        LipsiAnalyzerDemo.Run();
+        //LipsiAnalyzerDemo.Run();
+
+        LipsiVsMInetDemo.Run();
+
         // // Ініціалізація LogWorker (шлях до файла логів або в пам'яті)
         // var logFilePath = "TestLog.txt"; // Шлях до файлу, де зберігаються логи
         // LogWorker logWorker = new LogWorker(logFilePath);
@@ -59,6 +62,11 @@ class Program
 
         // // Збереження оновлених логів після аналізу (якщо потрібно)
         // logWorker.SaveLogsToFile();
+
+
+
+
+
     }
 }
 
