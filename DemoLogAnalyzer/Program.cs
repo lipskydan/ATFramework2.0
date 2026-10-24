@@ -6,7 +6,9 @@ class LipsiVsMInet
     {
         //LipsiAnalyzerDemo.Run();
 
-        LipsiVsMInetDemo.Run();
+        //LipsiVsMInetDemo.Run();
+
+        InterpolationAnalyzerDemo.Run();
 
         // // Ініціалізація LogWorker (шлях до файла логів або в пам'яті)
         // var logFilePath = "TestLog.txt"; // Шлях до файлу, де зберігаються логи
