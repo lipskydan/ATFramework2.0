@@ -96,6 +96,7 @@ public class InterpolationLogAnalyzer
     public InterpolationLogAnalyzer(List<LogEntry>? logs, InterpolationLogAnalyzerOptions? options = null)
     {
         _logs = logs ?? [];
+        LogMetricsExtractor.Fill(_logs);
         _options = options ?? new InterpolationLogAnalyzerOptions();
         _normalizer = _options.Normalizer ?? DefaultNormalizer;
 
@@ -123,13 +124,8 @@ public class InterpolationLogAnalyzer
     /// </summary>
     public List<InterpolationLogResult> AnalyzeDetailed()
     {
-        return _logs
-            .Select((log, i) =>
-            {
-                var metrics = LogMetricsExtractor.GetOrExtract(log, _logs.Take(i));
-                return Evaluate(metrics, log);
-            })
-            .ToList();
+        LogMetricsExtractor.Fill(_logs);
+        return _logs.Select(log => Evaluate(log.Metrics, log)).ToList();
     }
 
     /// <summary>Обчислює показник критичності для довільного вектора метрик.</summary>

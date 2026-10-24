@@ -60,7 +60,7 @@ public static class InterpolationAnalyzerDemo
         logWorker.Log("Validation failed: Expected 'Welcome' but was 'Error'", LogLevel.Error, "Login", "Auth");
         logWorker.Log("WebDriverTimeoutException after 30 s, retry 3", LogLevel.Error, "Login", "Auth");
         logWorker.Log("Unhandled exception: NullReference", LogLevel.Critical, "Login", "Auth");
-        logWorker.Log("Element click", LogLevel.Info, "Profile", "UI", LogMetrics.FromVector([0, 0, 0.5, 0, 0, 0, 0]));
+        logWorker.Log("Element clicked after 500 ms", LogLevel.Info, "Profile", "UI");
         logWorker.SaveLogsToFile();
 
         var logs = new LogWorker(path).GetAllLogs();

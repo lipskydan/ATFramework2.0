@@ -19,11 +19,21 @@ public class LogEntry
     public string Feature { get; set; } = "N/A";
     public string Context { get; set; } = "General";
 
+    private LogMetrics? _metrics;
+
     /// <summary>
-    /// 7 числових метрик події (див. <see cref="LogMetrics"/>).
-    /// Може бути null для логів, створених вручну, — тоді аналізатори виділяють метрики з повідомлення.
+    /// 7 числових метрик події (див. <see cref="LogMetrics"/>), що заповнюються автоматично з логу.
+    /// LogWorker та аналізатори заповнюють їх з урахуванням історії логів (x₇);
+    /// до цього метрики обчислюються лише з повідомлення та рівня цього логу.
     /// </summary>
-    public LogMetrics? Metrics { get; set; }
+    public LogMetrics Metrics
+    {
+        get => _metrics ?? LogMetricsExtractor.Extract(Message, Level);
+        internal set => _metrics = value;
+    }
+
+    /// <summary>Чи заповнені метрики з урахуванням історії логів.</summary>
+    internal bool HasFilledMetrics => _metrics != null;
 }
 
 public class LogWorker
@@ -44,27 +54,21 @@ public class LogWorker
     }
 
     /// <summary>
-    /// Додає лог. Якщо <paramref name="metrics"/> не передано, 7 метрик виділяються автоматично
-    /// з повідомлення, рівня та історії помилок у контексті.
+    /// Додає лог. 7 метрик заповнюються автоматично з повідомлення, рівня та історії помилок у контексті.
     /// </summary>
-    public void Log(string message, LogLevel level, string context = "POM", string? feature = null, LogMetrics? metrics = null)
+    public void Log(string message, LogLevel level, string context = "POM", string? feature = null)
     {
-        var timestamp = DateTime.Now;
-
         var entry = new LogEntry
         {
-            Timestamp = timestamp,
+            Timestamp = DateTime.Now,
             Message = message,
             Level = level,
             Feature = feature ?? "N/A",
-            Context = context,
-            Metrics = metrics ?? LogMetricsExtractor.Extract(
-                message,
-                level,
-                LogMetricsExtractor.CountRecentContextErrors(_logEntries, context, timestamp))
+            Context = context
         };
 
         _logEntries.Add(entry);
+        LogMetricsExtractor.Fill(_logEntries);
         Console.WriteLine($"[Log] {entry.Timestamp} - {entry.Level} - {entry.Message}"); // Debug output
     }
 
@@ -100,9 +104,8 @@ public class LogWorker
     /// </summary>
     public List<double[]> GetMetricVectors()
     {
-        return _logEntries
-            .Select((log, i) => LogMetricsExtractor.GetOrExtract(log, _logEntries.Take(i)).ToVector())
-            .ToList();
+        LogMetricsExtractor.Fill(_logEntries);
+        return _logEntries.Select(log => log.Metrics.ToVector()).ToList();
     }
 
     /// <summary>
@@ -125,6 +128,8 @@ public class LogWorker
                 }
             }
         }
+
+        LogMetricsExtractor.Fill(_logEntries);
 
         using (var writer = new StreamWriter(_logFilePath, append: true))
         {
@@ -150,9 +155,8 @@ public class LogWorker
                     lastScenario = entry.Context;
                 }
 
-                var metrics = LogMetricsExtractor.GetOrExtract(entry, _logEntries.Take(i));
                 writer.WriteLine(
-                    $"{entry.Timestamp.ToString("o", CultureInfo.InvariantCulture)}|{entry.Level}|{entry.Context}|{entry.Feature}|{metrics.Serialize()}|{entry.Message}");
+                    $"{entry.Timestamp.ToString("o", CultureInfo.InvariantCulture)}|{entry.Level}|{entry.Context}|{entry.Feature}|{entry.Metrics.Serialize()}|{entry.Message}");
                 existingTimestamps.Add(entry.Timestamp);
             }
 
@@ -179,20 +183,8 @@ public class LogWorker
             if (!TryParseTimestamp(parts[0], out var timestamp)) continue;
             if (!Enum.TryParse<LogLevel>(parts[1], out var level)) continue;
 
-            LogMetrics? metrics;
-            string message;
-            if (parts.Length >= 6 && LogMetrics.TryParse(parts[4], out metrics))
-            {
-                message = string.Join('|', parts.Skip(5));
-            }
-            else
-            {
-                message = string.Join('|', parts.Skip(4));
-                metrics = LogMetricsExtractor.Extract(
-                    message,
-                    level,
-                    LogMetricsExtractor.CountRecentContextErrors(_logEntries, parts[2], timestamp));
-            }
+            LogMetrics? storedMetrics = null;
+            bool hasStoredMetrics = parts.Length >= 6 && LogMetrics.TryParse(parts[4], out storedMetrics);
 
             var entry = new LogEntry
             {
@@ -200,12 +192,16 @@ public class LogWorker
                 Level = level,
                 Context = parts[2],
                 Feature = parts[3],
-                Message = message,
-                Metrics = metrics
+                Message = string.Join('|', parts.Skip(hasStoredMetrics ? 5 : 4))
             };
+
+            if (hasStoredMetrics) entry.Metrics = storedMetrics!;
 
             _logEntries.Add(entry);
         }
+
+        // Логи старого формату отримують метрики автоматично.
+        LogMetricsExtractor.Fill(_logEntries);
     }
 
     private static bool TryParseTimestamp(string text, out DateTime timestamp)

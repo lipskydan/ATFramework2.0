@@ -176,16 +176,19 @@ public static class LogMetricsExtractor
     }
 
     /// <summary>
-    /// Повертає метрики логу: збережені, якщо вони є, інакше виділені з повідомлення.
+    /// Автоматично заповнює <see cref="LogEntry.Metrics"/> для логів, у яких метрики ще не заповнені.
+    /// x₇ рахується за логами, що передують кожному логу у списку.
     /// </summary>
-    /// <param name="log">Лог, для якого потрібні метрики.</param>
-    /// <param name="previousLogs">Логи, що передують цьому (для обчислення x₇).</param>
-    public static LogMetrics GetOrExtract(LogEntry log, IEnumerable<LogEntry> previousLogs)
+    public static void Fill(IReadOnlyList<LogEntry> logs)
     {
-        if (log.Metrics != null) return log.Metrics;
+        for (int i = 0; i < logs.Count; i++)
+        {
+            var log = logs[i];
+            if (log.HasFilledMetrics) continue;
 
-        int recentErrors = CountRecentContextErrors(previousLogs, log.Context, log.Timestamp);
-        return Extract(log.Message, log.Level, recentErrors);
+            int recentErrors = CountRecentContextErrors(logs.Take(i), log.Context, log.Timestamp);
+            log.Metrics = Extract(log.Message, log.Level, recentErrors);
+        }
     }
 
     private static double ExtractWaitTimeSeconds(string message)

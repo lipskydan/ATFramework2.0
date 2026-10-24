@@ -231,8 +231,8 @@ public class LogMetricsVerifications
             Thread.Sleep(5);
             writer.Log("Timeout after 20 s, retry 2", LogLevel.Error, "LoginPage", "Auth");
             Thread.Sleep(5);
-            writer.Log("Custom", LogLevel.Info, "Home", "Nav", LogMetrics.FromVector([0, 0, 7, 0, 0, 0, 0]));
-            var expected = writer.GetAllLogs().Select(l => l.Metrics!.ToVector()).ToList();
+            writer.Log("Step took 7 s", LogLevel.Info, "Home", "Nav");
+            var expected = writer.GetAllLogs().Select(l => l.Metrics.ToVector()).ToList();
             writer.SaveLogsToFile();
 
             var reader = new LogWorker(path);
@@ -240,6 +240,7 @@ public class LogMetricsVerifications
 
             Assert.That(logs, Has.Count.EqualTo(3));
             Assert.That(expected[1], Is.EqualTo(new double[] { 1, 1, 20, 2, 0, 0, 1 }));
+            Assert.That(expected[2], Is.EqualTo(new double[] { 0, 0, 7, 0, 0, 0, 0 }));
             for (int i = 0; i < logs.Count; i++)
             {
                 Assert.That(logs[i].Metrics!.ToVector(), Is.EqualTo(expected[i]));
@@ -341,6 +342,22 @@ public class InterpolationLogAnalyzerVerifications
         Assert.That(results[2].Category, Is.EqualTo("Critical"));
         Assert.That(results.All(r => r.Score is >= 0 and <= 1), Is.True);
         Assert.That(results[2].Metrics.RecentContextErrors, Is.EqualTo(1), "previous Login error is counted");
+    }
+
+    [Test]
+    public void ManuallyCreatedLogs_GetMetricsFilledAutomatically()
+    {
+        var now = DateTime.Now;
+        var first = new LogEntry { Timestamp = now, Level = LogLevel.Error, Message = "Login failed", Context = "Login" };
+        var second = new LogEntry { Timestamp = now, Level = LogLevel.Error, Message = "TimeoutException after 30 s, retry 3", Context = "Login" };
+
+        // Без історії метрики виділяються з самого логу.
+        Assert.That(second.Metrics.ToVector(), Is.EqualTo(new double[] { 1, 1, 30, 3, 0, 0, 0 }));
+
+        _ = new InterpolationLogAnalyzer([first, second]);
+
+        // Аналізатор заповнює метрики в логах з урахуванням історії контексту.
+        Assert.That(second.Metrics.ToVector(), Is.EqualTo(new double[] { 1, 1, 30, 3, 0, 0, 1 }));
     }
 
     [Test]
