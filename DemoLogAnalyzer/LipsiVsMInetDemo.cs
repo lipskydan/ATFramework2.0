@@ -20,9 +20,9 @@ public class LogPrediction
 
 public class LipsiVsMInetDemo
 {
-    public static void Run()
+    public static Dictionary<LogEntry, string> CreateLabeledLogs()
     {
-        var labeledLogs = new Dictionary<LogEntry, string>
+        return new Dictionary<LogEntry, string>
         {
             { new LogEntry { Message = "Timeout while waiting for data", Level = LogLevel.Error, Context = "Login", Timestamp = DateTime.Now.AddMinutes(-1), Feature = "Auth" }, "Critical" },
             { new LogEntry { Message = "Retrying after slow response", Level = LogLevel.Warning, Context = "Dashboard", Timestamp = DateTime.Now.AddMinutes(-3), Feature = "UX" }, "High Priority" },
@@ -55,6 +55,11 @@ public class LipsiVsMInetDemo
             { new LogEntry { Message = "Retry limit exceeded", Level = LogLevel.Warning, Context = "API", Timestamp = DateTime.Now, Feature = "Retry" }, "High Priority" },
             { new LogEntry { Message = "SSL handshake failed", Level = LogLevel.Critical, Context = "Security", Timestamp = DateTime.Now, Feature = "SSL" }, "Critical" }
         };
+    }
+
+    public static void Run()
+    {
+        var labeledLogs = CreateLabeledLogs();
 
         var logs = labeledLogs.Keys.ToList();
         var expectedLabels = labeledLogs.Values.ToList();
